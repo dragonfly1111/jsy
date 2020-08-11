@@ -1,0 +1,228 @@
+{
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+
+
+
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/home/web_view",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/commodity/commodity",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+				
+			}
+		},
+		{
+			"path": "pages/commodity/search",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+				
+			}
+		},
+		{
+			"path": "pages/commodity/goods_details",
+			"style": {
+				"navigationBarTitleText": "三源"
+			}
+		},
+		{
+			"path": "pages/find/find",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/find/find_details",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/discount",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/order",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		
+		{
+			"path": "pages/my/order_sure",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/order_details",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		
+	
+		{
+			"path": "pages/my/address",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/order_refund",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/about",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/member",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/connection",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		
+		{
+			"path": "pages/commodity/collect",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		
+		{
+			"path": "pages/my/distribution",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/seting",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/edit_user",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/apply_distribution",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/address_list",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/message_list",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/check",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/my/check_no",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+		
+		
+		
+		
+
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		"borderStyle": "white",
+		"backgroundColor": "#F9F9F9",
+		"color": "#8F8F94",
+		"selectedColor": "#857827",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/com/home.png",
+				"selectedIconPath": "static/com/home_green.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/commodity/commodity",
+				"iconPath": "static/com/classify.png",
+				"selectedIconPath": "static/com/classify_green.png",
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/find/find",
+				"iconPath": "static/com/food.png",
+				"selectedIconPath": "./static/com/food_green.png",
+				"text": "食宜有道"
+			},
+			
+			{
+				"pagePath": "pages/cart/cart",
+				"iconPath": "static/com/cart.png",
+				"selectedIconPath": "./static/com/cart_green.png",
+				"text": "购物车"
+			},
+			
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/com/my.png",
+				"selectedIconPath": "static/com/my_green.png",
+				"text": "我"
+			}
+		]
+	}
+}

@@ -1,0 +1,202 @@
+	page{
+		background-color: #f9f9f9;
+		position: relative;
+	}
+	.refund_box{
+		width: 100%;
+	}
+	.refund_head{
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		.refund_bd{
+			background-image: linear-gradient(to right,#85792a,#af9c42);
+			height: 400rpx;
+			width: 100%;
+			position: fixed;
+			z-index: -1;
+			border-radius: 0 0 40% 40%;
+		}
+		.row_main{
+			width: calc(100% - 60rpx);
+			border-radius: 10rpx;
+			margin: 30rpx;
+			display: flex;
+			align-items: center;
+			background-color: #fff;
+			.left{
+				image{
+					width: 180rpx;
+					height: 180rpx;
+					margin: 20rpx;
+				}
+			}
+			.center{
+				display: flex;
+				flex-direction: column;
+				margin-left: 10rpx;
+				flex: 1;
+				.title{
+					color: #857825;
+					font-size: 32rpx;
+				}
+				.sub_title{
+					color: #666;
+					font-size: 26rpx;
+					margin: 10rpx 0;
+				}
+				.num{
+					color: #857825;
+				}
+				
+			}
+			.right{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-right: 20rpx;
+				min-width: 150rpx;
+				.title{
+					font-size: 24rpx;
+					color: #333;
+				}
+				.sub_title{
+					color: #F24544;
+					font-size: 32rpx;
+					font-weight: bold;
+				}
+			}
+		}
+		.refunf_msg{
+			width: calc(100% - 60rpx);
+			border-radius: 10rpx;
+			margin: 30rpx;
+			margin-top: 0;
+			display: flex;
+			align-items: center;
+			background-color: #fff;
+			flex-direction: column;
+			box-shadow: 0 5rpx 5rpx 5rpx #F0F0F0;
+			.fill_line{
+				width: calc(100% - 40rpx);
+				border-bottom: 1rpx solid #E0E0E0;
+				height: 2rpx;
+				margin: 0 20rpx;
+			}
+			.refund_row{
+				width: 100%;
+				padding: 20rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				
+				.title{
+					color: #333;
+				}
+				.sub_title{
+					color: #F24544;
+					margin-right: 10rpx;
+					font-weight: bold;
+				}
+				.selcet{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					.reason{
+						margin-right: 10rpx;
+						font-size: 28rpx;
+					}
+					image{
+						width: 25rpx;
+						height: 25rpx;
+					}
+				}
+			}
+			
+		}
+	}
+	.refund_explain{
+		width: 100%;
+		padding: 30rpx;
+		display: flex;
+		flex-direction: column;
+		.tittle{
+			font-size: 32rpx;
+		}
+		.sub_title{
+			font-size: 26rpx;
+			margin-top: 10rpx;
+			line-height: 44rpx;
+			color: #666;
+		}
+	}
+	.reason_list{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
+		.reason_bg{
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			opacity: 0.5;
+			z-index: 1;
+		}
+		.reason_row{
+			width: 100%;
+			height: 40%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background-color: #fff;
+			z-index: 9999999;
+		}
+		.reason_head{
+			width: 100%;
+			padding: 25rpx 15rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1rpx solid #ddd;
+			.title{
+				font-size: 30rpx;
+				font-weight: bold;
+			}
+			.sub_title{
+				font-size: 28rpx;
+			}
+		}
+		radio-group{
+			width: 100%;
+		}
+		.row{
+			width: 100%;
+			padding: 20rpx 30rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+	
+	
+	
+	.foot_btn{
+		width: 100%;
+		height: 80rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 50rpx;
+		text{
+			color: #fff;
+			background-color: #857825;
+			width: 380rpx;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 60rpx;
+		}
+	}
