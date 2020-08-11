@@ -1,8 +1,7 @@
 <template>
 	<view class="home_box" v-cloak>
-		<view class="search" :style="{paddingTop:headerTop,height:headHeight}">
-			<input type="text" v-model="searchKey" @confirm='toSearch()' />
-			<image src="../../static/home/msg.png" mode="" @click="to_message()"></image>
+		<view class="search" :style="{paddingTop:headerTop}">
+			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
 		<view class="swiper_head">
 			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true"
@@ -16,54 +15,61 @@
 		</view>
 
 		<view class="head_nav">
-			<view class="nav" v-for="(item,index) in headNav" :key = 'index' @click="toCommmodity(item.id)">
+			<view class="nav" v-for="(item,index) in headNav" v-if="index < 3" :key = 'index' @click="toCommmodity(item.id)">
 				<image :src="imgHttp+item.producttypeimg" mode=""></image>
 				<text>{{item.producttypename}}</text>
 			</view>
 		</view>
-		<swiper class="advertising" :autoplay="true" :interval="4000" :duration="1000" :circular="true" display-multiple-items='1.05' previous-margin='30rpx' next-margin="10rpx">
-			<swiper-item>
-				<image class="recommend" src="../../static/add1.png" mode=""></image>
-			</swiper-item>
-			<swiper-item>
-				<image class="recommend" src="../../static/add2.png" mode=""></image>
-			</swiper-item>
-			<swiper-item>
-				<image class="recommend" src="../../static/add3.png" mode=""></image>
-			</swiper-item>
-			<swiper-item>
-				<image class="recommend" src="../../static/add4.png" mode=""></image>
-			</swiper-item>
-		</swiper>
-		<image class="recommend2" src="../../static/ad3.png" mode=""></image>
-		<view class="title_type">
-			<text class="title">不时不食</text>
-			<view class="title_sub" @click="toCommmodity(moreType1)">
-				<text>更多</text>
-				<image src="../../static/home/arrow.png" mode=""></image>
+		
+		<view class="font-bar">
+			<image src="../../static/home/font-bar.png"></image>
+		</view>
+		
+		<view class="main-contaner">
+			<view class="advertising">
+				<view class="ad-item left">
+					<image src="../../static/home/spring-light.png"></image>
+				</view>
+				<view class="ad-item right">
+					<image src="../../static/home/summer-light.png"></image>
+				</view>
+				<view class="ad-item left">
+					<image src="../../static/home/autumn-light.png"></image>
+				</view>
+				<view class="ad-item right">
+					<image src="../../static/home/wind-light.png"></image>
+				</view>
+			</view>
+			<view class="title_type">
+				<text class="title">不时不食</text>
+				<view class="title_sub" @click="toCommmodity(moreType1)">
+					<image src="../../static/home/arrow.png" mode=""></image>
+				</view>
+			</view>
+			
+			<view class="goods_list">
+				<view class="goods" v-if="index <= 6" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
+					<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
+					<view class="goods_name">
+						<text class="title">{{item.name}}</text>
+						<image class="cart" src="../../static/home/cart.png" mode=""></image>
+					</view>
+
+					<view class="price_box">
+						<view class="price_left">
+							<text class="price">￥{{item.sellingprice}}</text>
+							<text class="unit">/{{item.unit}}</text>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
-		<view class="goods_list">
-			<view class="goods" v-if="index <= 5" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
-				<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
-				<view class="goods_name">
-					<text class="title">{{item.name}}</text>
-				<!-- 	<text class="unit">1kg</text> -->
-				</view>
-				<view class="sub_title">
-					<text>{{item.keyword.replace(",",' ')}}</text>
-				</view>
-				<view class="price_box">
-					<view class="price_left">
-						<text class="price">￥{{item.sellingprice}}</text>
-						<text class="unit">/{{item.unit}}</text>
-					</view>
-				<!-- 	<image class="cart" src="../../static/cart.png" mode=""></image> -->
-				</view>
-			</view>
-        </view>
+		
+	
 
-		<view class="title_type">
+		
+
+<!-- 		<view class="title_type">
 			<text class="title">热卖食材推荐</text>
 			<view class="title_sub" @click="toCommmodity('hot')">
 				<text>更多</text>
@@ -79,7 +85,6 @@
 							<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
 							<view class="goods_name">
 								<text class="title">{{item.name}}</text>
-								<!-- <text class="unit">1kg</text> -->
 							</view>
 							<view class="sub_title">
 								<text>{{item.keyword.replace(",",' ')}}</text>
@@ -89,13 +94,15 @@
 									<text class="price">￥{{item.sellingprice}}</text>
 									<text class="unit">/{{item.unit}}</text>
 								</view>
-								<!-- <image class="cart" src="../../static/cart.png" mode=""></image> -->
 							</view>
 						</view>
 					</view>
 				</swiper-item>
 			</swiper>
-		</view>
+		</view> -->
+		
+		 <!-- todo -->
+		
 		<!-- <view class="title_type">
 			<text class="title">折扣专区</text>
 			<view class="title_sub">
@@ -204,13 +211,7 @@
 			}
 		},
 		
-		methods:{
-			//跳转到信息
-			to_message(){
-				uni.navigateTo({
-					url:'../my/message_list'
-				})
-			},
+		methods:{		
 			//搜索跳转
 			toSearch(){
 				uni.navigateTo({
@@ -305,7 +306,7 @@
 			this.imgHttp = this.comHttp;
 		},
 		created() {
-			this.headerTop = this.StatusBar + 'px';
+			this.headerTop = this.StatusBar + 45 + 'px';
 			this.headHeight = this.CustomBar + 'px';
 		}
 	}
