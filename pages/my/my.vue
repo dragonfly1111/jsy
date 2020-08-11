@@ -8,18 +8,37 @@
 		<view class="my_head">
 			<image :src="userObj.avatar" mode=""></image>
 			<view class="user_msg">
-				<text class="user_name">{{decodeURIComponent(userObj.nickname)}}</text>
-				<text class="user_text">{{userObj.synopsis == null ? '' : userObj.synopsis }}</text>	
+				<text class="no_tip">点击显示微信头像</text>
+				<view>
+					<text class="grow_value">成长值0</text>
+				</view>
 			</view>
 		</view>
 		<view class="member_box">
 			<view class="member_head">
-			   <text class="title" >开通会员</text>
-			   <text class="sub_title"  @click="toMember()">立即开通</text>
-			 <!--  <text class="title" v-if="userObj.usertype == 1" >三源会员</text> -->
+			   <text class="v-logo" ></text>
+			   <!-- <text class="sub_title"  @click="toMember()">立即开通</text> -->
+			  <text class="title" >成为会员 ></text>
 			</view>
 		</view>
-		<view class="btn_head">
+		<view class="grap"></view>
+		<view class="main_block">
+			
+		</view>
+		<view class="grap"></view>
+		<view class="main_block">
+			
+		</view>
+		<view class="grap"></view>
+		<view class="main_block">
+			
+		</view>
+		<view class="grap"></view>
+		<view class="main_block">
+			
+		</view>
+		
+		<!-- <view class="btn_head">
 			<view class="row">
 				<view class="btn" @click="toDiscount">
 					<image src="../../static/my/discounts.png" mode=""></image>
@@ -35,9 +54,9 @@
 				</view>
 			</view>
 			
-		</view>
+		</view> -->
 		<!-- //我得订单 -->
-		<view class="order_box">
+		<!-- <view class="order_box">
 			<text class="title">我的订单</text>
 			<view class="row">
 				<view class="btn" @click="toOrder(0)">
@@ -52,10 +71,10 @@
 					<image src="../../static/my/trading.png" mode=""></image>
 					<text>待收货</text>
 				</view>
-				<!-- <view class="btn" @click="toOrder(3)">
+				<view class="btn" @click="toOrder(3)">
 					<image src="../../static/my/traded.png" mode=""></image>
 					<text>完成</text>
-				</view> -->
+				</view>
 			</view>
 			<image src="../../static/ad3.png" class="active" mode=""></image>
 			<view class="row">
@@ -86,15 +105,15 @@
 					<text>设置</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="cu-modal " :class="modalName=='doLoginModal'?'show':''">
+		<!-- <view class="cu-modal " :class="modalName=='doLoginModal'?'show':''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">授权提醒</view>
-					<!-- <view class="action" @tap="hideModal">
+					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-golden" ></text>
-					</view> -->
+					</view>
 				</view>
 				<view class="padding bg-white">
 					请授权头像等信息，以便为您提供更好的服务
@@ -103,7 +122,7 @@
 					<button class="cu-btn bg-golden margin-tb-sm lg" open-type="getUserInfo" @getuserinfo="getinfo()">去授权</button>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
