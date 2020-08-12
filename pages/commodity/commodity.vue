@@ -1,11 +1,52 @@
 <template>
-	<view class="page" v-cloak>
+	<view class="main-contaner" v-cloak>
+		<view class="status_bar"></view>  
+		<view class="top" :style="{top:headerTop,height: headHeight}"></view>
+		<view class="banner">
+			<image src="../../static/banner1.png"></image>
+		</view>
+		<view class="search">
+			<input type="text" placeholder="搜索商品" />
+		</view>
+		<view class="content">
+			<view class="breed-wrapper">
+				<view 
+					class="breed-name" 
+					v-for="(item, index) of breedList" 
+					:key="index"
+					:class="{'active': index === breedActive}"
+					@click="handleBreedChange(index)"
+				>
+					{{ item }}
+				</view>
+			</view>
+			<view class="goods-wrapper">
+				<view class="flex flex-wrap">
+					<view class="basis-df" v-for="(item, index) in 7" :class="{'text-right': index % 2 != 0}">
+						<image></image>
+						<view class="info" :class="{'move-right': index % 2 != 0}">
+							<view>
+								<view class="goods-name">
+									山东红富士
+								</view>
+								<view class="goods-price">
+									¥ 20元/斤
+								</view>
+							</view>
+							<text class="lg cuIcon-cart"></text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<!-- <view class="page" v-cloak>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
 			<block slot="content">商品列表</block>
 		</cu-custom>
-		<!-- 	 <view class="list_head">
+			 <view class="list_head">
 			<text class="nav" :class="{nav_act: currentType == index}" v-for="(item,index) in typeList.flist" :key='index' @click="chooseType(item.id,index)">{{item.name}}</text>
-		 </view> -->
+		 </view>
 		<view class="list_head">
 			<swiper :display-multiple-items='3' :current='currentType'>
 				<swiper-item v-for="(item,index) in typeList.flist" :key='index'>
@@ -32,7 +73,7 @@
 
 		</view>
 
-		<!-- //商品列表 -->
+		//商品列表
 		<view class="goodsList" v-for="(item,index) in goods" v-if='currentType == index' :key='index' :class='index'>
 			<view class="row" v-for="(val,num) in item.arr[0]" :key='num' @click="toDetails(val.id)">
 				<view class="left">
@@ -49,9 +90,9 @@
 					</view>
 
 				</view>
-				<!-- <view class="right">
+				<view class="right">
 					<text>销量:{{val.salesvolume}}</text>
-				</view> -->
+				</view>
 			</view>
 			<view class="foot_line" v-if="item.count == item.arr[0].length ">
 				没有更多了
@@ -90,8 +131,7 @@
 				</view>
 			</view>
 		</view>
-
-	</view>
+	</view> -->
 </template>
 
 <script>
@@ -102,6 +142,7 @@
 			return {
 				cateMaskState: 0, //是否展开搜索条件
 				headerTop: 0,
+				headHeight:0,
 				cateHeight: 0, //侧边栏高度
 				currentType: 0, //当前头部类型
 				typeList: {}, //商品类型
@@ -120,6 +161,10 @@
 				currentClassify: [], //选中的分类
 				selectObj: {}, //选中的对象
 				ishot: '', //是否是热门分类
+				
+				/* new */
+				breedList: ['水果', '菌菇', '茶水', '粮油', '肉类', '其他'],
+				breedActive: 0
 			};
 		},
 
@@ -355,7 +400,10 @@
 					self.goods.pop();
 				})
 			},
-
+			/* new */
+			handleBreedChange(index) {
+				this.breedActive = index
+			}
 		},
 		onLoad(option) {
 			console.log(option)
@@ -396,8 +444,10 @@
 
 		created() {
 			//初始化分类菜
-			this.headerTop = this.CustomBar + 'px';
-			this.cateHeight = uni.getSystemInfoSync().windowHeight - this.CustomBar + 'px'
+			// this.headerTop = this.CustomBar + 'px';
+			// this.cateHeight = uni.getSystemInfoSync().windowHeight - this.CustomBar + 'px'
+			this.headerTop = this.StatusBar + 'px';
+			this.headHeight = this.CustomBar/2 + 'px';
 		}
 	}
 </script>
