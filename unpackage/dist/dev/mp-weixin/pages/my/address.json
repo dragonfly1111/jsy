@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {
-    "picker-address": "/components/liudx-pickerAddress/index"
-  }
-}

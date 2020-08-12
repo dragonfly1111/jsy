@@ -6,36 +6,131 @@
 		<view class="my_top" :style="{top:headerTop,height: headHeight}">
 		</view>
 		<view class="my_head">
-			<image :src="userObj.avatar" mode=""></image>
-			<view class="user_msg">
-				<text class="no_tip">点击显示微信头像</text>
-				<view>
-					<text class="grow_value">成长值0</text>
+			<view class="user_no">
+				会员码
+			</view>
+			<view class="info-block">
+				<image :src="userObj.avatar" mode=""></image>
+				<view class="user_msg">
+					<text class="no_tip">点击显示微信头像</text>
+					<view>
+						<text class="grow_value">成长值0</text>
+					</view>
+				</view>
+			</view>
+			<view class="member_box">
+				<view class="member_head">
+				   <text class="v-logo" ></text>
+				   <!-- <text class="sub_title"  @click="toMember()">立即开通</text> -->
+				  <text class="title" >成为会员 ></text>
 				</view>
 			</view>
 		</view>
-		<view class="member_box">
-			<view class="member_head">
-			   <text class="v-logo" ></text>
-			   <!-- <text class="sub_title"  @click="toMember()">立即开通</text> -->
-			  <text class="title" >成为会员 ></text>
+		<view class="grap"></view>
+		<view class="main_block">
+			<view class="header">
+				<view class="title">我的订单</view>
+				<view class="more">
+					<text>查看全部订单</text>
+					<text class="lg text-gray cuIcon-right"></text>
+				</view>
+			</view>
+			<view class="body">
+				<view class="icon-area">
+					<view class="flex">
+						<view class="flex-sub padding-sm margin-xs">
+							<view  @click="toOrder(0)">
+								<image src="../../static/my/icon-wallet.png"></image>
+								<view class="text">待付款</view>
+							</view>
+						</view>
+						<view class="flex-sub padding-sm margin-xs">
+							<view  @click="toOrder(1)">
+								<image src="../../static/my/icon-box.png"></image>
+								<view class="text">待收货</view>
+							</view>
+						</view>
+						<view class="flex-sub padding-sm margin-xs">
+							<view  @click="toOrder(2)">
+								<image src="../../static/my/icon-truck.png"></image>
+								<view class="text">待发货</view>
+							</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<view class="grap"></view>
 		<view class="main_block">
-			
+			<view class="list">
+				<view class="flex">
+					<image src="../../static/my/icon-cart.png"></image>
+					<text class="text">购物车</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list">
+				<view class="flex">
+					<image src="../../static/my/icon-file.png"></image>
+					<text class="text">商务合作</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list">
+				<view class="flex">
+					<image src="../../static/my/icon-map.png"></image>
+					<text class="text">收货地址</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
 		</view>
 		<view class="grap"></view>
 		<view class="main_block">
-			
+			<view class="list" @click="toDiscount">
+				<view class="flex">
+					<image src="../../static/my/icon-ticket.png"></image>
+					<text class="text">优惠券</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list" @click="toMember()">
+				<view class="flex">
+					<image src="../../static/my/icon-vip.png"></image>
+					<text class="text">VIP</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
 		</view>
 		<view class="grap"></view>
 		<view class="main_block">
-			
-		</view>
-		<view class="grap"></view>
-		<view class="main_block">
-			
+			<view class="list">
+				<view class="flex">
+					<image src="../../static/my/icon-service.png"></image>
+					<text class="text">客服</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list" @click="toSeting()">
+				<view class="flex">
+					<image src="../../static/my/icon-user-setting.png"></image>
+					<text class="text">账号设置</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list" @click="toConnection()">
+				<view class="flex">
+					<image src="../../static/my/icon-phone.png"></image>
+					<text class="text">联系我们</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list" @click="toAbout()">
+				<view class="flex">
+					<image src="../../static/my/icon-about.png"></image>
+					<text class="text">关于我们</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
 		</view>
 		
 		<!-- <view class="btn_head">
