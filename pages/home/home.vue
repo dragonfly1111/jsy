@@ -1,5 +1,7 @@
 <template>
 	<view class="home_box" v-cloak>
+		
+		
 		<view class="search" :style="{paddingTop:headerTop}">
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
