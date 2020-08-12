@@ -87,7 +87,7 @@
 	.status_bar {
 		height: var(--status-bar-height);
 		width: 100%;
-		background-color: #857825;
+		/* background-color: #857825; */
 		position: fixed;
 		left: 0;
 		top: 0;
@@ -97,7 +97,7 @@
 		height: var(--status-bar-height);
 		width: 100%;
 		position: fixed;
-		background-color: #857825;
+		/* background-color: #857825; */
 		top: 0;
 		z-index: 9999999;
 	}

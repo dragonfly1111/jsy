@@ -71,6 +71,13 @@
 			</view>
 			<view class="list">
 				<view class="flex">
+					<image src="../../static/my/icon-start.png"></image>
+					<text class="text">收藏夹</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
+			<view class="list">
+				<view class="flex">
 					<image src="../../static/my/icon-file.png"></image>
 					<text class="text">商务合作</text>
 				</view>
