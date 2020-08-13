@@ -14,45 +14,46 @@
 			</swiper>
 		</view>
 		<view class="details_msg">
-			<view class="title">
-				<text v-if="detailsObj.name">{{detailsObj.name}}</text>
-			</view>
-			<view class="sub_title">
-				<text v-if="detailsObj.keyword">{{detailsObj.keyword.replace(",",' ')}}</text>
-				<text v-if="detailsObj.salesvolume">销量：{{detailsObj.salesvolume}}</text>
-			</view>
 			<view class="price_box">
 				<view class="discount">
 					<text class="coin">￥</text>
 					<text class="price">{{detailsObj.sellingprice}}</text>
-					<text class="unit" v-if="detailsObj.unit">/{{detailsObj.unit}}</text>
 				</view>
-				<view class="original">
-					<text v-if="detailsObj.marketprice" >￥{{detailsObj.marketprice}}/{{detailsObj.unit}}</text>
-				</view>
+			</view>
+			<view class="name">
+				<text v-if="detailsObj.name">{{detailsObj.name}}</text>
+			</view>
+			<view class="sub_title">
+				原产地：{{detailsObj.area}}
 			</view>
 		</view>
 		
-		<view class="source_box">
-			<view class="source">
-				<image src="../../static/details/location.png" mode=""></image>
-				<text v-if="detailsObj.area">{{detailsObj.area}}</text>
-				<view class="line">
-					
-				</view>
-			</view>
-			<view class="source">
-				<image src="../../static/details/brand.png" mode=""></image>
-				<text v-if="detailsObj.trademark">{{detailsObj.trademark}}</text>
-				<view class="line">
-					
-				</view>
-			</view>
-			<view class="source">
-				<image src="../../static/details/provider.png" mode=""></image>
-				<text v-if="detailsObj.supplier">{{detailsObj.supplier}}</text>
-			</view>
+		<view class="grep_bar"></view>
+		
+		<view class="attr-line">
+			品质保证
 		</view>
+		<view class="grep_bar"></view>
+		
+		<view class="attr-line">
+			<text class="lint-title">运费</text>
+			<text class="line-content" v-if="detailsObj.freemail == 1">免运费</text>
+			<text class="line-content" v-if="detailsObj.freemail == 0">{{detailsObj.postage}}</text>
+		</view>
+		<view class="attr-line flex-center-between">
+			<view>
+				<text class="lint-title">选择</text>
+				<text class="line-content">规格</text>
+			</view>
+			<image clsss="right-icon" src="../../static/details/arrow.png" mode=""></image>
+		</view>
+		<view class="grep_bar"></view>
+		
+		<view class="shop-line flex-center-between">
+			<image src="../../static/details/shop_logo.png" mode=""></image>
+			<view class="go-shop">进店逛逛</view>
+		</view>
+		<view class="grep_bar"></view>
 		
 		<view class="choose_list">
 			<view class="row" v-for="(item,index) in detailsObj.specification_detail" :key='index' @click="chooseType(item.sellingprice,index,item.id,item.combination,item.marketprice)">
@@ -69,13 +70,25 @@
 		</view>
 		
 		<view class="foot_btn">
-			<view class="collect_box">
-				<image @click="addCollect" src="../../static/details/collect.png" mode="" v-if="collectType == false"></image>
-				<text @click="addCollect" v-if="collectType == false">收藏</text>
+			<view class="operating_box">
+				<view class="operating_item">
+					<image @click="toService" src="../../static/details/service.png" mode="" v-if="collectType == false"></image>
+					<view  @click="toService" v-if="collectType == false">客服</view>
+				</view>
+				<view class="operating_item">
+					<image @click="addCollect" src="../../static/details/collect.png" mode="" v-if="collectType == false"></image>
+					<view @click="addCollect" v-if="collectType == false">收藏</view>
+					
+<!-- 					<image @click="addCollect" src="../../static/details/collected.png" mode="" v-if="collectType == true"></image>
+					<view @click="addCollect" v-if="collectType == true">已收藏</view> -->
+				</view>
 				
-				<image @click="addCollect" src="../../static/details/collected.png" mode="" v-if="collectType == true"></image>
-				<text @click="addCollect" v-if="collectType == true">已收藏</text>
+				<view class="operating_item">
+					<image @click="toCart" src="../../static/details/car.png" mode="" v-if="collectType == false"></image>
+					<view @click="toCart" v-if="collectType == false">购物车</view>
+				</view>
 			</view>
+
 			<view class="btn_box">
 				<text class="add" @click="addCart()">加入购物车</text>
 				<text class="buy" @click="nowBuy()">立即购买</text>
@@ -175,6 +188,13 @@
 				}
 				
 			},
+			//去客服
+			toService(){
+				
+			},
+			//去购物车
+			toCart(){},
+			
 			//添加或者移除收藏
 			addCollect(){
 				let self = this;
