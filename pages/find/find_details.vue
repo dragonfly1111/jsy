@@ -1,12 +1,18 @@
 <template>
 	<view class="details_box">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">金三源</block>
+		<cu-custom bgColor="none-bg" :isBack="true">
+			<block slot="content"></block>
 		</cu-custom>
-		<view class="top_title" v-if="detailsObj != '' ">
-			{{detailsObj.title}}
+		
+		<view class="head_img">
+			<image :src="imgHttp + detailsObj.pic1"></image>
+			<view class="head_title">
+				{{detailsObj.title}}
+			</view>
 		</view>
-		<view class="details_head" v-if="detailsObj != '' ">
+		<view class="top_title" v-if="detailsObj != '' ">
+		</view>
+<!-- 		<view class="details_head" v-if="detailsObj != '' ">
 			<image src="../../static/details/source.png"></image>
 			<view class="source">
 				<text class="title">{{detailsObj.audit_user}}</text>
@@ -15,7 +21,7 @@
 			<view class="browse">
 				<text>阅读：{{detailsObj.hits}}</text>
 			</view>
-		</view>
+		</view> -->
 		<view class="details_text">
 		   <rich-text v-html="detailsObj.content"></rich-text>
 		</view>
@@ -28,7 +34,8 @@
 			return{
 				detailsId:'',
 				detailsTitle:'',
-				detailsObj:''
+				detailsObj:'',
+				imgHttp:''
 			}
 		},
 		methods:{
@@ -46,6 +53,7 @@
 		},
 		onLoad(option) {
 			console.log(option)
+			this.imgHttp = this.comHttp;
 			this.detailsId = option.id;
 			this.detailsTitle = option.title;
 			this.getNewsDetails()
@@ -55,6 +63,29 @@
 </script>
 
 <style lang="scss">
+	.head_img{
+		width: 100%;
+		height: 500rpx;
+		position: relative;
+		image{
+			width: 100%;
+			height: 100%;
+		}
+		.head_title{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background-color: #988F52;
+			font-size: 32rpx;
+			text-align: center;
+			height: 100rpx;
+			line-height: 100rpx;
+			color: #FFFFFF;
+			border-top-left-radius: 30rpx;
+			border-top-right-radius: 30rpx;
+		}
+	}
+	
 	.top_title{
 		width: 100%;
 		padding: 30rpx;

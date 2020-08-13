@@ -69,6 +69,8 @@
 			<rich-text :nodes="detailsObj.particular"></rich-text>
 		</view>
 		
+		<goodsRecommend></goodsRecommend>
+		
 		<view class="foot_btn">
 			<view class="operating_box">
 				<view class="operating_item">
@@ -79,8 +81,8 @@
 					<image @click="addCollect" src="../../static/details/collect.png" mode="" v-if="collectType == false"></image>
 					<view @click="addCollect" v-if="collectType == false">收藏</view>
 					
-<!-- 					<image @click="addCollect" src="../../static/details/collected.png" mode="" v-if="collectType == true"></image>
-					<view @click="addCollect" v-if="collectType == true">已收藏</view> -->
+					<image @click="addCollect" src="../../static/details/collected.png" mode="" v-if="collectType == true"></image>
+					<view @click="addCollect" v-if="collectType == true">已收藏</view>
 				</view>
 				
 				<view class="operating_item">
@@ -129,7 +131,11 @@
 </template>
 
 <script>
+	import goodsRecommend from '../../components/goods-recommend.vue'
 	export default{
+		components:{
+			goodsRecommend
+		},
 		data(){
 			return{
 				"heightTop":'',
