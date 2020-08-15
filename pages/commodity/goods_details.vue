@@ -64,19 +64,20 @@
 				<image src="../../static/details/specification.png" mode="" v-if="currentType == index"></image>
 			</view>
 		</view>
-		
 		<view class="details_bg">
 			<rich-text :nodes="detailsObj.particular"></rich-text>
 		</view>
+		<goodsRecommend class="recommend"></goodsRecommend>
+		<view style="height: 140rpx;width: 100%;"></view>
+
 		
-		<goodsRecommend></goodsRecommend>
 		
 		<view class="foot_btn">
 			<view class="operating_box">
-				<view class="operating_item">
-					<image @click="toService" src="../../static/details/service.png" mode="" v-if="collectType == false"></image>
-					<view  @click="toService" v-if="collectType == false">客服</view>
-				</view>
+				<button open-type='contact' class="operating_item">
+					<image @click="toService" src="../../static/details/service.png" mode=""></image>
+					<view  @click="toService">客服</view>
+				</button>
 				<view class="operating_item">
 					<image @click="addCollect" src="../../static/details/collect.png" mode="" v-if="collectType == false"></image>
 					<view @click="addCollect" v-if="collectType == false">收藏</view>
@@ -85,9 +86,9 @@
 					<view @click="addCollect" v-if="collectType == true">已收藏</view>
 				</view>
 				
-				<view class="operating_item">
-					<image @click="toCart" src="../../static/details/car.png" mode="" v-if="collectType == false"></image>
-					<view @click="toCart" v-if="collectType == false">购物车</view>
+				<view class="operating_item" @click="toCart()">
+					<image src="../../static/details/car.png" mode=""></image>
+					<view>购物车</view>
 				</view>
 			</view>
 
@@ -161,6 +162,13 @@
 			}
 		},
 		methods:{
+			//跳转到购物车
+			toCart(){
+				uni.navigateTo({
+					url:'../cart/cart'
+				})
+			},
+			
 			//返回上一页
 			back(){
 			   if(this.openShare == 'share'){
@@ -194,13 +202,6 @@
 				}
 				
 			},
-			//去客服
-			toService(){
-				
-			},
-			//去购物车
-			toCart(){},
-			
 			//添加或者移除收藏
 			addCollect(){
 				let self = this;

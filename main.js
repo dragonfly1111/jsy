@@ -80,7 +80,7 @@ Vue.prototype.getinfo = function(type) {
 				
 				wx.getUserInfo({
 					success: function(res) {
-						// console.log(code)
+						console.log(res)
 
 						uni.request({
 							url: self.comHttp + '/app/userLogin/doLoginByxcx',

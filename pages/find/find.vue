@@ -1,7 +1,7 @@
 <template>
 	<view class="find_box">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
-			<block slot="content">食宜有道</block>
+		<cu-custom bgColor="none-bg" :isBack="false">
+			<block slot="content"></block>
 		</cu-custom>
 		
 		<view class="find_head">

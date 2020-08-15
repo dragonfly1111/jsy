@@ -211,13 +211,6 @@
 			},
 			
 			{
-				"pagePath": "pages/cart/cart",
-				"iconPath": "static/com/cart.png",
-				"selectedIconPath": "./static/com/cart_green.png",
-				"text": "购物车"
-			},
-			
-			{
 				"pagePath": "pages/my/my",
 				"iconPath": "static/com/my.png",
 				"selectedIconPath": "static/com/my_green.png",

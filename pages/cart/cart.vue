@@ -1,12 +1,21 @@
 <template>
 	<view class="cart_box" v-cloak>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
+		<cu-custom bgColor="none-bg" :isBack="true">
 			<block slot="content">购物车</block>
 		</cu-custom>
+		<view class="head-line">
+			<view class="shop-name">
+				<image src="../../static/my/shop.png"></image>
+				金三源
+			</view>
+			<text v-if="!showEdit && cartList.length != 0" @click="openEdit()">编辑</text>
+			<text v-if="showEdit && cartList.length != 0" @click="closeEdit()">取消</text>
+		</view>
+		
 		<view class="goodsList" true>
 			<checkbox-group  @change="getCheck($event)">
 			<view class="row" v-for="(item,index) in cartList " :key="item.id" >
-				<image src="../../static/com/clear.png" class="clear" mode="" @click="clearCartList(item.id)"></image>
+				<image v-if="showEdit" src="../../static/com/clear.png" class="clear" mode="" @click="clearCartList(item.id)"></image>
 				<view class="left">
 			        	<checkbox class='round blue' :checked="selected.includes(JSON.stringify({itemid:item.id}))" :value="JSON.stringify({itemid:item.id})"></checkbox> 
 					<image :src="imgHttp + item.cover" mode="" @click="to_goods(item.itemid)"></image>
@@ -14,19 +23,25 @@
 				<view class="center">
 					<view class="good">
 						<text class="title">{{item.name}}</text>
-						<text class="sub_title">{{item.keyword.replace(","," ")}}</text>
+						<!-- <text class="sub_title">{{item.keyword.replace(","," ")}}</text> -->
 					</view>
-					<view class="price">￥{{item.sellingprice}}<text class="unit">/{{item.unit}}</text> </view>
+					
+					<view @click="openSheet()" class="specification">
+						<text>一斤装*3草草草草草</text>
+						<image src="../../static/my/icon-down.png"></image>
+					</view>
+					<view class="price">￥<text class="num">{{item.sellingprice}}</text></view>
+					<!-- <text class="unit">/{{item.unit}}</text> -->
 				</view>
 				<view class="right">
 					<view class="reduce" @click="reduceNum(index,item.num)">
-						<text>-</text>
+						-
 					</view>
 					<view class="num">
-						<text>{{item.num}}</text>
+						{{item.num}}
 					</view>
 					<view class="add" @click="addNum(index,item.num)">
-						<text>+</text>
+						+
 					</view>
 				</view>
 			</view>
@@ -42,22 +57,28 @@
 			</view>
 			<view class="right">
 				<!-- <text class="title">免运费</text> -->
-				<text class="sub_title">合计</text>
-				<text class="price">￥{{endPrice}}</text>
-				<text class="btn" @click="to_details()">去结算</text>
+				<view>
+					<view class="title">合计:<text class="symbol">￥</text><text class="num">{{endPrice}}</text></view>
+					<view class="ship-price">不含运费</view>
+				</view>
+				<text class="btn" @click="to_details()">结算</text>
 				
 			</view>
 		</view>
 		<view class="no_data" v-if="isLogin == false">
-			<image src="../../static/com/emptyCart.jpg" mode=""></image>
-			<button class="cu-btn bg-golden margin-tb-sm lg" open-type="getUserInfo" @getuserinfo="getinfo('cart')">亲，去授权</button>
+			<image src="../../static/com/emptyCart.png" mode=""></image>
+			<button class="cu-btn bg-golden margin-tb-sm" open-type="getUserInfo" @getuserinfo="getinfo('cart')">亲，去授权</button>
 		</view>
 		
 		<view class="no_data" v-if="cartList.length == 0 && isLogin==true">
-			<image src="../../static/com/emptyCart.jpg" mode=""></image>
-			<button class="cu-btn bg-golden margin-tb-sm lg" @click="to_home()" >购物车空空如也，去逛逛</button>
+			<image src="../../static/com/emptyCart.png" mode=""></image>
+			<text>购物车还是空的</text>
+			<button class="cu-btn bg-golden margin-tb-sm" @click="to_home()">进 店 逛 逛</button>
 			
 		</view>
+		
+		<goodsRecommend></goodsRecommend>
+		<view style="width: 100%; height: 150rpx;"></view>
 		
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
@@ -78,7 +99,11 @@
 
 <script>
 	import Vue from 'vue'
+	import goodsRecommend from '../../components/goods-recommend.vue'
 	export default{
+		components:{
+			goodsRecommend
+		},
 		data(){
 			return{
 				imgHttp:'',
@@ -89,9 +114,24 @@
 				cartStatus:'去登陆',
 				endPrice: 0,
 				modalName:'',
+				showEdit: false
 			}
 		},
 		methods:{
+			// 打开选择规格
+			openSheet(){
+				console.log('打开选择规格')
+			},
+			
+			//打开编辑
+			openEdit(){
+				this.showEdit = true
+			},
+			
+			closeEdit(){
+				this.showEdit = false
+			},
+			
 			//关闭授权
 			closeDoLogin:function(){
 				this.modalName = '';
@@ -216,6 +256,7 @@
 				this.ask("/app/index/getCartList","POST",data,function(res){
 					console.log(res)
 					self.cartList = res.data.data;	
+
 				})
 			},
 			//数量加加

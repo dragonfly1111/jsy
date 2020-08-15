@@ -87,6 +87,7 @@ page{
 }
 .order_list .row .row_main .right {
 	min-width: 100rpx;
+	color: #857825;
 }
 .order_list .row .row_head {
     height: 80rpx;
@@ -116,8 +117,8 @@ page{
 			min-width: 130rpx;
 		}
 		.sub_title{
-			color: #F24544;
-			font-weight: bold;
+			color: #857825;
+			// font-weight: bold;
 			font-size: 32rpx;
 		}
 	}
@@ -131,7 +132,7 @@ page{
 		min-height: 80rpx;
 		margin: 10rpx 0;
 		.sub_title{
-			color: #666;
+			color: #999999;
 			font-size: 28rpx;
 			font-weight: normal;
 		}
@@ -150,7 +151,7 @@ page{
 	margin-bottom: 150rpx;
 	.row{
 		.sub_title{
-			color: #666;
+			color: #999999;
 			font-size: 28rpx;
 			font-weight: normal;
 		}

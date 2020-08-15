@@ -1,7 +1,7 @@
 <template>
 	<view class="order" v-cloak>
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="content">我的订单</block>
+		<cu-custom bgColor="none-bg" :isBack="true">
+			<block slot="content"></block>
 		</cu-custom>
 		<view class="order_head">
 			<text :class="{act_nav: currentNav  == '-1'}" @click="chooseNav('-1')">全部</text>
@@ -15,10 +15,10 @@
 
 			<view class="row" v-for="(item,index) in allArr" :key='index'>
 				<view class="row_head">
-					<text class="title">{{item.time}}</text>
+					<!-- <text class="title">{{item.time}}</text> -->
 					<text class="sub_title" v-if='item.state==0'>待付款</text>
 					<text class="sub_title" v-if='item.state==1'>待发货</text>
-					<text class="sub_title" v-if='item.state==2'>待收货</text>
+					<text class="sub_title" v-if='item.state==2'>卖家已发货</text>
 					<text class="sub_title" v-if='item.state==4'>订单完成</text>
 					<text class="sub_title" v-if='item.state==98'>退款</text>
 					<text class="sub_title" v-if='item.state==99'>已取消</text>
@@ -29,14 +29,13 @@
 					</view>
 					<view class="center">
 						<text class="title">{{val.title}}</text>
-						<text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text>
-						
-						<text class="num" v-if="item.order_number.indexOf('openMember') != -1" >x{{val.itemnum}}</text>
+						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
+						<text class="sub_title">规格字段</text>
 					</view>
 					<view class="right">
-						<text class="title">合计:</text>
-						<text class="sub_title">￥{{val.price * val.itemnum}}</text>
-
+						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
+						<text class="num" ><text class="small_symbol">x</text>{{val.itemnum}}</text>
+						<!-- v-if="item.order_number.indexOf('openMember') != -1" -->
 					</view>
 				</view>
 
@@ -85,8 +84,8 @@
 					<text>删除订单</text>
 				</view>
 			</view>
-			<view class="no_more" v-if="maxallArr == allArr.length">
-				没有更多了
+			<view class="no_more" v-if="allArr.length == 0">
+				<image src="../../static/my/no-order.png"></image>
 			</view>
 		</view>
 
@@ -139,8 +138,8 @@
 					<text @click="to_order_fill(item)">去支付</text>
 				</view>
 			</view>
-			<view class="no_more" v-if="maxarrearage == arrearage.length">
-				没有更多了
+			<view class="no_more" v-if="arrearage.length == 0">
+				<image src="../../static/my/no-order.png"></image>
 			</view>
 		</view>
 
@@ -197,8 +196,8 @@
 					<text>已提醒</text>
 				</view>
 			</view>
-			<view class="no_more" v-if="maxunshipped == unshipped.length">
-				没有更多了
+			<view class="no_more" v-if="unshipped.length == 0">
+				<image src="../../static/my/no-order.png"></image>
 			</view>
 		</view>
 
@@ -208,7 +207,7 @@
 			<view class="row" v-for="(item,index) in waitReceiving" :key='index'>
 				<view class="row_head">
 					<text class="title">{{item.time}}</text>
-					<text class="sub_title" v-if='state==2'>待收货</text>
+					<text class="sub_title" v-if='state==2'>卖家已发货</text>
 				</view>
 				<view class="row_main"   @click="to_order_details(item.id,item.order_number)" v-for="(val,num) in item.goodslist" :key='num' v-if="item.goodslist.length == 1">
 					<view class="left">
@@ -252,19 +251,31 @@
 				</view>
 	
 			</view>
-			<view class="no_more" v-if="maxwaitReceiving == waitReceiving.length">
-				没有更多了
+			<view class="no_more" v-if="waitReceiving.length == 0">
+				<image src="../../static/my/no-order.png"></image>
 			</view>
 		</view>
 
-
-
+		<goodsRecommend></goodsRecommend>
+		<div style="height: 100rpx;width: 100%;"></div>
 	</view>
 
 </template>
 
 <script>
+	import goodsRecommend from '../../components/goods-recommend.vue'
 	export default {
+		components:{
+			goodsRecommend
+		},
+		filters:{
+				numberFilter(e){
+					return e.toString().split('.')[0] + '.'
+				},
+				numberFilter1(e){
+					return e.toString().split('.')[1]
+				}
+		},
 		data() {
 			return {
 				imgHttp: '',
@@ -504,7 +515,7 @@
 							self.waitReceiving = res.data.data;
 							self.maxwaitReceiving = res.data.count;
 
-						} else if (self.state == '') {
+						} else if (self.state == '-1') {
 							self.allArr = res.data.data;
 							self.maxallArr = res.data.count;
 
@@ -516,7 +527,7 @@
 							self.unshipped.push(...res.data.data);
 						} else if (self.state == '2' && self.maxwaitReceiving != self.waitReceiving) {
 							self.waitReceiving.push(...res.data.data);
-						} else if (self.state == '' && self.maxallArr != self.allArr.length) {
+						} else if (self.state == '-1' && self.maxallArr != self.allArr.length) {
 							self.allArr.push(...res.data.data);
 						}
 					}

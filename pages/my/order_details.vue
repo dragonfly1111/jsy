@@ -1,8 +1,21 @@
 <template>
 	<view class="details" v-cloak>
-		<cu-custom bgColor="bg-gradual-blue"  :isBack="true" :isRedirect="source == 'goodsDetails'" >
+		<cu-custom bgColor="none-bg"  :isBack="true" :isRedirect="source == 'goodsDetails'" >
 			<block slot="content">订单详情</block>
 		</cu-custom>
+		<view class="address">
+			<view class="left">
+				<image src="../../static/details/logistics.png" mode=""></image>
+			</view>
+			<view class="center" >
+				<text class="title">物流信息</text>
+				<text class="name">已揽件</text>
+			</view>
+			<view class="right">
+				<image src="../../static/details/arrow.png" mode=""></image>
+			</view>
+		</view>
+		
 		<view class="address">
 			<view class="left">
 				<image src="../../static/details/address.png" mode=""></image>
@@ -12,7 +25,7 @@
 				<text class="name">{{detailsObj.consigneename}}<text class="tel">{{detailsObj.consigneetelephone}}</text></text>
 			</view>
 			<view class="right">
-				<!-- <image src="../../static/details/arrow.png" mode=""></image> -->
+				<image src="../../static/details/arrow.png" mode=""></image>
 			</view>
 		</view>
 		<view class="order_list">
@@ -28,7 +41,7 @@
 					<view class="center">
 						<text class="title">{{item.itemname}}</text>
 						<text class="sub_title">单价:￥{{item.sellingprice}}/{{item.unit}}</text>
-						<text class="num">x{{item.itemnum}}</text>
+						<text class="num">x {{item.itemnum}}</text>
 					</view>
 					<view class="right">
 						<text class="sub_title">￥{{item.sellingprice * item.itemnum}}</text>
@@ -62,7 +75,7 @@
 		<view class="remark_box">
 			<view class="row">
 				<text class="title">订单备注</text>
-				<text class="sub_title">{{detailsObj.remark}}</text>
+				<text class="sub_title">{{detailsObj.remark || "无"}}</text>
 			</view>
 		</view>
 		

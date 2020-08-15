@@ -166,8 +166,8 @@
 	min-height: 0;
 	padding: 30rpx 30rpx;
 	padding-top: 0rpx;
-	margin-bottom: 100rpx;
 }
+
 
 .foot_btn{
 	position: fixed;
@@ -184,7 +184,18 @@
 	.operating_box{
 		display: flex;
 		justify-content: space-around;
-		width: calc(100% - 500rpx);
+		width: calc(100% - 450rpx);
+		button{
+			padding: 0;
+			border: 0;
+			margin: 0;
+			line-height: unset;
+			background: #FFFFFF;
+		}
+		button::after{
+			width: 0;
+			height: 0;
+		}
 	}
 	.operating_item{
 		color: #9D9D9F;
@@ -194,9 +205,10 @@
 			width: 45rpx;
 			height: 45rpx;
 		}
+		
 	}
 	.btn_box{
-		width: 500rpx;
+		width: 450rpx;
 		height: 100%;
 		
 		display: flex;

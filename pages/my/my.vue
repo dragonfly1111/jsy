@@ -22,7 +22,7 @@
 				<view class="member_head">
 				   <text class="v-logo" ></text>
 				   <!-- <text class="sub_title"  @click="toMember()">立即开通</text> -->
-				  <text class="title" >成为会员 ></text>
+				  <text class="title" @click="toMember()">成为会员 ></text>
 				</view>
 			</view>
 		</view>
@@ -30,7 +30,7 @@
 		<view class="main_block">
 			<view class="header">
 				<view class="title">我的订单</view>
-				<view class="more">
+				<view class="more" @click="toOrder(-1)">
 					<text>查看全部订单</text>
 					<text class="lg text-gray cuIcon-right"></text>
 				</view>
@@ -62,28 +62,28 @@
 		</view>
 		<view class="grap"></view>
 		<view class="main_block">
-			<view class="list">
+			<view class="list" @click="toCart()">
 				<view class="flex">
 					<image src="../../static/my/icon-cart.png"></image>
 					<text class="text">购物车</text>
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view class="list">
+			<view class="list" @click="toCollected()">
 				<view class="flex">
 					<image src="../../static/my/icon-start.png"></image>
 					<text class="text">收藏夹</text>
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view class="list">
+			<view class="list" @click="toDistribution()">
 				<view class="flex">
 					<image src="../../static/my/icon-file.png"></image>
 					<text class="text">商务合作</text>
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view class="list">
+			<view class="list" @click="toAddressList">
 				<view class="flex">
 					<image src="../../static/my/icon-map.png"></image>
 					<text class="text">收货地址</text>
@@ -111,10 +111,10 @@
 		<view class="grap"></view>
 		<view class="main_block">
 			<view class="list">
-				<view class="flex">
+				<button open-type='contact' class="flex">
 					<image src="../../static/my/icon-service.png"></image>
 					<text class="text">客服</text>
-				</view>
+				</button>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 			<view class="list" @click="toSeting()">
@@ -256,6 +256,13 @@
 					url:'./message_list'
 				})
 			},
+			//跳转到购物车
+			toCart(){
+				uni.navigateTo({
+					url:'../cart/cart'
+				})
+			},
+			
 			//跳转到收藏
 			toCollected(){
 				uni.navigateTo({
@@ -330,6 +337,14 @@
 					url:'./seting'
 				})
 			},
+			
+			//跳转到地址列表
+			toAddressList(){
+				uni.navigateTo({
+					url:'./address_list'
+				})
+			},
+			
 			//获取分销状态
 			getMarketStatu(){
 				let self = this;
