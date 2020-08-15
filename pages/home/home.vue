@@ -1,13 +1,13 @@
 <template>
 	<view class="home_box" v-cloak>
-		
-		
+
+
 		<view class="search" :style="{paddingTop:headerTop}">
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
 		<view class="swiper_head">
-			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true"
-			 :autoplay="true" interval="5000" duration="500">
+			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true" :autoplay="true" interval="5000"
+			 duration="500">
 				<swiper-item v-for="(item,index) in headSwiper" :key='index'>
 					<view class="swiper-item" @click="toSwiper(item.type,item.imgurl)">
 						<image :src="imgHttp+item.imgsrc" mode=""></image>
@@ -17,16 +17,16 @@
 		</view>
 
 		<view class="head_nav">
-			<view class="nav" v-for="(item,index) in headNav" v-if="index < 3" :key = 'index' @click="toCommmodity(item.id)">
+			<view class="nav" v-for="(item,index) in headNav" v-if="index < 3" :key='index' @click="toCommmodity(item.id)">
 				<image :src="imgHttp+item.producttypeimg" mode=""></image>
 				<text>{{item.producttypename}}</text>
 			</view>
 		</view>
-		
+
 		<view class="font-bar">
 			<image src="../../static/home/font-bar.png"></image>
 		</view>
-		
+
 		<view class="main-contaner">
 			<view class="advertising">
 				<view class="ad-item left">
@@ -48,7 +48,7 @@
 					<image src="../../static/home/arrow.png" mode=""></image>
 				</view>
 			</view>
-			
+
 			<view class="goods_list">
 				<view class="goods" v-if="index <= 6" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
 					<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
@@ -66,12 +66,12 @@
 				</view>
 			</view>
 		</view>
-		
-	
 
-		
+		<floatWindows :showFloat="showFloat" class="float_windows"></floatWindows>
 
-<!-- 		<view class="title_type">
+
+
+		<!-- 		<view class="title_type">
 			<text class="title">热卖食材推荐</text>
 			<view class="title_sub" @click="toCommmodity('hot')">
 				<text>更多</text>
@@ -102,9 +102,9 @@
 				</swiper-item>
 			</swiper>
 		</view> -->
-		
-		 <!-- todo -->
-		
+
+		<!-- todo -->
+
 		<!-- <view class="title_type">
 			<text class="title">折扣专区</text>
 			<view class="title_sub">
@@ -188,108 +188,123 @@
 				</view>
 			</view>
 		</view> -->
-		
+
 	</view>
 </template>
 
 <script>
-
-	export default{
-		data(){
-			return{
+	import floatWindows from '../../components/float-windows.vue'
+	export default {
+		data() {
+			return {
 				headerTop: 0,
-				headHeight:0,
+				headHeight: 0,
 				current: 0,
-				headSwiper:[],//顶部轮播图数组
-				headNav:[],//顶部导航
-				goods:[],//商品
-				recommend:[],//商品推荐
-				imgHttp:'', //图片接口前缀
-				moreType:0, //更多类型
-				searchKey:'',//搜索关键字
-				moreType1:'',
-				moreType2:'',
-				
+				headSwiper: [], //顶部轮播图数组
+				headNav: [], //顶部导航
+				goods: [], //商品
+				recommend: [], //商品推荐
+				imgHttp: '', //图片接口前缀
+				moreType: 0, //更多类型
+				searchKey: '', //搜索关键字
+				moreType1: '',
+				moreType2: '',
+				showFloat: true,
+
 			}
 		},
 		
-		methods:{		
+		onPageScroll(e) {
+			console.log(e)
+			if(e.scrollTop > 20){
+				this.showFloat = false
+			} else{
+				this.showFloat = true
+			}
+		},
+		
+		components:{
+			floatWindows
+		},
+		methods: {
 			//搜索跳转
-			toSearch(){
+			toSearch() {
 				uni.navigateTo({
-					url:'../commodity/search?key=' + this.searchKey
+					url: '../commodity/search?key=' + this.searchKey
 				})
 			},
 			//轮播图跳转
-			toSwiper(type,id){
-				if(type == 1){
+			toSwiper(type, id) {
+				if (type == 1) {
 					uni.navigateTo({
-						url:"../commodity/goods_details?id=" + id
+						url: "../commodity/goods_details?id=" + id
 					})
-				} else if(type == 2){
+				} else if (type == 2) {
 					uni.navigateTo({
-					    url:"./web_view?id=" + id
+						url: "./web_view?id=" + id
 					})
-				} else if(type == 3){
+				} else if (type == 3) {
 					uni.navigateTo({
-						url:"../find/find_details?id=" + id
+						url: "../find/find_details?id=" + id
 					})
-				} else if(type == 4){
+				} else if (type == 4) {
 					uni.navigateTo({
-					    url:"./web_view?id=" + id
+						url: "./web_view?id=" + id
 					})
 				}
 			},
 			//跳转到分类
-			toCommmodity(type){
+			toCommmodity(type) {
 				console.log(type)
-				uni.setStorageSync('actNav',type);
+				uni.setStorageSync('actNav', type);
 				uni.switchTab({
-					url:'../commodity/commodity' 
+					url: '../commodity/commodity'
 				})
 			},
-		    //跳转到商品详情
-			toDetails:function(id){
+			//跳转到商品详情
+			toDetails: function(id) {
 				uni.navigateTo({
-					url:'../commodity/goods_details?id=' + id
+					url: '../commodity/goods_details?id=' + id
 				})
 			},
 			//切换打折专区
-			currentDiscount:function(num){
+			currentDiscount: function(num) {
 				this.current = num
 			},
 			//获取顶部轮播图
-			getSwiperTop:function(){
+			getSwiperTop: function() {
 				let self = this;
-				this.ask("/app/index/getIndexCarousel","GET",{pid:'index'},function(res){
+				this.ask("/app/index/getIndexCarousel", "GET", {
+					pid: 'index'
+				}, function(res) {
 					self.headSwiper = res.data.data;
-					
+
 				})
 			},
 			//获取头部导航
-			getHeadNav:function(){
+			getHeadNav: function() {
 				let self = this;
-				this.ask("/app/index/getIndexClassify","GET",{},function(res){
+				this.ask("/app/index/getIndexClassify", "GET", {}, function(res) {
 					self.headNav = res.data.data
 					console.log(self.headNav)
 				})
 			},
 			//获取推荐商品
-			getRecommend:function(){
+			getRecommend: function() {
 				let self = this;
-				this.ask("/app/index/getIndexHot","GET",{},function(res){
+				this.ask("/app/index/getIndexHot", "GET", {}, function(res) {
 					console.log(res)
 					self.recommend = res.data.data
 					// console.log(self.recommend)
 				})
 			},
 			//获取顶部商品列表
-			getGoods:function(){
+			getGoods: function() {
 				let self = this;
-				this.ask("/app/index/getProductListForIndex","GET",{},function(res){
-				   
-					for(let i = 0 ; i<res.data.data.length;i++){
-						if(res.data.data[i].id == '881c90f447304eada8aabe80a1b04271'){
+				this.ask("/app/index/getProductListForIndex", "GET", {}, function(res) {
+
+					for (let i = 0; i < res.data.data.length; i++) {
+						if (res.data.data[i].id == '881c90f447304eada8aabe80a1b04271') {
 							self.moreType1 = res.data.data[i].id;
 							self.goods = res.data.data[i].productlist;
 							self.moreType = i;
@@ -298,9 +313,9 @@
 					console.log(res)
 				})
 			}
-			
+
 		},
-		onLoad:function(){
+		onLoad: function() {
 			this.getSwiperTop();
 			this.getHeadNav();
 			this.getGoods();
@@ -316,5 +331,5 @@
 
 
 <style lang="scss">
-@import "./home.scss"
+	@import "./home.scss"
 </style>

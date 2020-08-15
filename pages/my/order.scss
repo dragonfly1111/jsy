@@ -75,6 +75,7 @@ page{
 					width: 160rpx;
 					height: 160rpx;
 					margin: 0 20rpx;
+					border-radius: 20rpx;
 				}
 			}
 			.center{
@@ -142,6 +143,7 @@ page{
 			font-size: 26rpx;
 			margin-left: 15rpx;
 		}
+		
 		.text_gray{
 			color: #999999;
 			border: 1rpx solid #999999;
@@ -153,26 +155,30 @@ page{
 		justify-content: space-between;
 		align-items: center;
 		.right{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
+			// display: flex;
+			// flex-direction: column;
+			// justify-content: center;
+			// align-items: center;
 			min-width: 150rpx;
 			margin-right: 20rpx;
 
 			.count{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				.title{
-					font-size: 24rpx;
-					color: #333;
+				color: #857825;
+				text-align: right;
+				.big_num{
+					font-size: 36rpx;
+				}
+				.num{
+					color: #8F9192;
+					font-size: 32rpx;
+					// font-weight: bold;
+					text-align: right;
+					margin: 10rpx 0;
 				}
 				.sub_title{
-					color: #F24544;
 					font-size: 32rpx;
-					font-weight: bold;
 				}
+
 			}
 			.num{
 				display: flex;
@@ -203,8 +209,7 @@ page{
 				max-height: 160rpx;
 				min-height: 160rpx;
 				max-height: 160rpx;
-				
-
+				border-radius: 20rpx;
 			}
 			text{
 				margin: 0 20rpx;

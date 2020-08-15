@@ -50,15 +50,16 @@
 					</swiper>
 					<view class="right">
 						<view class="count">
-							<text class="title">合计:</text>
-							<text class="sub_title">￥{{item.payprice}}</text>
+							<!-- <text class="title">合计:</text> -->
+							<viev class="sub_title">￥<text class="big_num">{{item.payprice | numberFilter}}</text><text>{{item.payprice | numberFilter1}}</text></viev>
 						</view>
 						<view class="num">
 							<text>共{{item.goodslist.length}}件</text>
 						</view>
 					</view>
 				</view>
-
+				
+				
 				<view class="row_bottom" v-if="item.state == 0" @click="to_order_fill(item)">
 					<text>去支付</text>
 				</view>
@@ -70,8 +71,9 @@
 				<view class="row_bottom" v-if="item.state  == 1 && idArr.includes(item.id)">
 					<text>已提醒</text>
 				</view>
-				<view class="row_bottom" v-if="item.state == 2" @click="confirmOrder(item.id)">
-					<text>确认收货</text>
+				<view class="row_bottom" v-if="item.state == 2">
+					<text class="text_gray" @click="to_order_details(item.id,item.order_number)">查看物流</text>
+					<text @click="confirmOrder(item.id)">确认收货</text>
 				</view>
 				<view class="row_bottom" v-if="item.state == 3">
 					<button open-type="contact">售后</button>
@@ -94,22 +96,21 @@
 
 			<view class="row" v-for="(item,index) in arrearage" :key='index'>
 				<view class="row_head">
-					<text class="title">{{item.time}}</text>
 					<text class="sub_title" v-if='state==0'>待付款</text>
 				</view>
 				<view class="row_main"   @click="to_order_details(item.id,item.order_number)" v-for="(val,num) in item.goodslist" :key='num' v-if="item.goodslist.length == 1">
 					<view class="left">
-						<image :src="imgHttp+val.image" mode="" ></image>
+						<image :src="imgHttp+val.image" mode=""></image>
 					</view>
 					<view class="center">
 						<text class="title">{{val.title}}</text>
-						<text class="sub_title">单价:￥{{val.price}}/{{val.unit}}</text>
-						<text class="num">x{{val.itemnum}}</text>
+						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
+						<text class="sub_title">规格字段</text>
 					</view>
 					<view class="right">
-						<text class="title">合计:</text>
-						<text class="sub_title">￥{{val.price * val.itemnum}}</text>
-
+						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
+						<text class="num" ><text class="small_symbol">x</text>{{val.itemnum}}</text>
+						<!-- v-if="item.order_number.indexOf('openMember') != -1" -->
 					</view>
 				</view>
 
@@ -148,22 +149,21 @@
 
 			<view class="row" v-for="(item,index) in unshipped" :key='index'>
 				<view class="row_head">
-					<text class="title">{{item.time}}</text>
 					<text class="sub_title" v-if='state==1'>待发货</text>
 				</view>
 				<view class="row_main"   @click="to_order_details(item.id,item.order_number)" v-for="(val,num) in item.goodslist" :key='num' v-if="item.goodslist.length == 1">
 					<view class="left">
-						<image :src="imgHttp+val.image" mode="" ></image>
+						<image :src="imgHttp+val.image" mode=""></image>
 					</view>
 					<view class="center">
 						<text class="title">{{val.title}}</text>
-						<text class="sub_title">单价:￥{{val.price}}/{{val.unit}}</text>
-						<text class="num">x{{val.itemnum}}</text>
+						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
+						<text class="sub_title">规格字段</text>
 					</view>
 					<view class="right">
-						<text class="title">合计:</text>
-						<text class="sub_title">￥{{val.price * val.itemnum}}</text>
-
+						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
+						<text class="num" ><text class="small_symbol">x</text>{{val.itemnum}}</text>
+						<!-- v-if="item.order_number.indexOf('openMember') != -1" -->
 					</view>
 				</view>
 
@@ -206,22 +206,21 @@
 
 			<view class="row" v-for="(item,index) in waitReceiving" :key='index'>
 				<view class="row_head">
-					<text class="title">{{item.time}}</text>
 					<text class="sub_title" v-if='state==2'>卖家已发货</text>
 				</view>
 				<view class="row_main"   @click="to_order_details(item.id,item.order_number)" v-for="(val,num) in item.goodslist" :key='num' v-if="item.goodslist.length == 1">
 					<view class="left">
-						<image :src="imgHttp+val.image" mode="" ></image>
+						<image :src="imgHttp+val.image" mode=""></image>
 					</view>
 					<view class="center">
 						<text class="title">{{val.title}}</text>
-						<text class="sub_title">单价:￥{{val.price}}/{{val.unit}}</text>
-						<text class="num">x{{val.itemnum}}</text>
+						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
+						<text class="sub_title">规格字段</text>
 					</view>
 					<view class="right">
-						<text class="title">合计:</text>
-						<text class="sub_title">￥{{val.price * val.itemnum}}</text>
-
+						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
+						<text class="num" ><text class="small_symbol">x</text>{{val.itemnum}}</text>
+						<!-- v-if="item.order_number.indexOf('openMember') != -1" -->
 					</view>
 				</view>
 
@@ -247,6 +246,7 @@
 				</view>
 
 				<view class="row_bottom" v-if="state == 2" @click="confirmOrder(item.id)">
+					<text class="text_gray" @click="to_order_details(item.id,item.order_number)">查看物流</text>
 					<text>确认收货</text>
 				</view>
 	
@@ -273,7 +273,7 @@
 					return e.toString().split('.')[0] + '.'
 				},
 				numberFilter1(e){
-					return e.toString().split('.')[1]
+					return e.toString().split('.')[1] ? e.toString().split('.')[1] : '00'
 				}
 		},
 		data() {
