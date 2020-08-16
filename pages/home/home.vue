@@ -29,16 +29,16 @@
 
 		<view class="main-contaner">
 			<view class="advertising">
-				<view class="ad-item left">
+				<view class="ad-item left" @click="toSeason(1)">
 					<image src="../../static/home/spring-light.png"></image>
 				</view>
-				<view class="ad-item right">
+				<view class="ad-item right" @click="toSeason(2)">
 					<image src="../../static/home/summer-light.png"></image>
 				</view>
-				<view class="ad-item left">
+				<view class="ad-item left" @click="toSeason(3)">
 					<image src="../../static/home/autumn-light.png"></image>
 				</view>
-				<view class="ad-item right">
+				<view class="ad-item right" @click="toSeason(4)">
 					<image src="../../static/home/wind-light.png"></image>
 				</view>
 			</view>
@@ -312,6 +312,14 @@
 						}
 					}
 					console.log(res)
+				})
+			},
+			/* 跳转时节页面
+			 * params type: 1(春)、2(夏)、3(秋)、4(冬)
+			 */
+			toSeason(type) {
+				uni.navigateTo({
+					url: '../season/seasonPage?type=' + type
 				})
 			}
 

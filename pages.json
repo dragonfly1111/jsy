@@ -172,6 +172,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/season/seasonPage",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
 		}
 		
 		
