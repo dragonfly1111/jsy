@@ -1,9 +1,8 @@
 <template>
 	<view class="main-contaner" v-cloak>
-		<view class="status_bar"></view>  
-		<view class="top" :style="{top:headerTop,height: headHeight}"></view>
+		<navigation-custom :config="config" :scrollTop="scrollTop" :scrollMaxHeight="scrollMaxHeight"/>
 		<view class="banner">
-			<image src="../../static/banner1.png"></image>
+			<image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image>
 		</view>
 		<view class="search">
 			<input type="text" placeholder="搜索商品" />
@@ -13,24 +12,26 @@
 				<view 
 					class="breed-name" 
 					v-for="(item, index) of breedList" 
-					:key="index"
+					:key="item.id"
 					:class="{'active': index === breedActive}"
-					@click="handleBreedChange(index)"
+					@click="handleBreedChange(index, item)"
 				>
-					{{ item }}
+					{{ item.name }}
 				</view>
 			</view>
 			<view class="goods-wrapper">
 				<view class="flex flex-wrap">
-					<view class="basis-df" v-for="(item, index) in 7" :class="{'text-right': index % 2 != 0}">
-						<image></image>
+					<view class="basis-df" v-for="(item, index) in goods[breedActive].arr" :class="{'text-right': index % 2 != 0}">
+						<view class="image-wrapper">
+							<image :src="imgHttp + item.cover"></image>
+						</view>
 						<view class="info" :class="{'move-right': index % 2 != 0}">
 							<view>
 								<view class="goods-name">
-									山东红富士
+									{{ item.name }}
 								</view>
 								<view class="goods-price">
-									¥ 20元/斤
+									¥ {{ item.sellingprice }}元/{{ item.unit }}
 								</view>
 							</view>
 							<text class="lg cuIcon-cart"></text>
@@ -135,321 +136,107 @@
 </template>
 
 <script>
-	import Vue from 'vue'
-	export default {
-
-		data() {
-			return {
-				cateMaskState: 0, //是否展开搜索条件
-				headerTop: 0,
-				headHeight:0,
-				cateHeight: 0, //侧边栏高度
-				currentType: 0, //当前头部类型
-				typeList: {}, //商品类型
-				goodsId: '', //商品id
-				goodsPid: '', //商品pid
-				slist: [], //二级菜单
-				sureType: [], //选中的商品id
-				goods: [{
-					arr: []
-				}], //商品数组
-				imgHttp: '',
-				currentOrder: 0, //当前排序
-				state: 'marketprice', //排序的当前字段
-				currentSupplier: -1, //选中的供应商
-				currentArea: -1, //选择的地区
-				currentClassify: [], //选中的分类
-				selectObj: {}, //选中的对象
-				ishot: '', //是否是热门分类
-				
-				/* new */
-				breedList: ['水果', '菌菇', '茶水', '粮油', '肉类', '其他'],
-				breedActive: 0
-			};
-		},
-
-		onPageScroll(e) {
-			//兼容iOS端下拉时顶部漂移
-			if (e.scrollTop >= 0) {
-				this.headerPosition = "fixed";
-			} else {
-				this.headerPosition = "absolute";
-			}
-		},
-		methods: {
-			stopPrevent() {
-
-			},
-			//选择分类
-			chooseClassify(id) {
-				if (this.currentClassify.length == 0) {
-					this.currentClassify.push(id);
-				} else {
-					if (this.currentClassify.indexOf(id) === -1) {
-						// 不存在,则添加
-						this.currentClassify.push(id);
-					} else {
-						// 存在,则删除
-						this.currentClassify.splice(this.currentClassify.indexOf(id), 1)
-					}
-				}
-
-			},
-			//选择产地
-			chooseArea(num) {
-				this.currentArea = num;
-			},
-			//选择供应商
-			chooseSupplier(num) {
-				this.currentSupplier = num;
-			},
-			//跳转到详情
-			toDetails(id) {
-				uni.navigateTo({
-					url: "./goods_details?id=" + id
-				})
-			},
-			//获取筛选的数据列表
-			getNewList(selectObj, page, isFirst) {
-				let self = this;
-				let data = {
-					"page": page,
-					"pagesize": 10,
-					"classify": selectObj.classify,
-					"area": selectObj.area,
-					"supplier": selectObj.supplier,
-					"ishot": self.ishot,
-				}
-				console.log(data)
-				this.ask("/app/index/getProductList", "POST", data, function(res) {
-					console.log(res)
-					if (isFirst == true) {
-						Vue.set(self.goods[self.currentType], "arr", [res.data.data]);
-						Vue.set(self.goods[self.currentType], "count", res.data.count);
-						Vue.set(self.goods[self.currentType], "page", page + 1);
-						Vue.set(self.goods[self.currentType], "selectObj", selectObj);
-						self.cateMaskState = 0;
-					} else {
-						let oldArr = self.goods[self.currentType].arr;
-						let newArr = oldArr[0].concat(res.data.data);
-						Vue.set(self.goods[self.currentType], "arr", [newArr]);
-						Vue.set(self.goods[self.currentType], "page", page + 1);
-						self.goods.push([]);
-						self.goods.pop();
-					}
-					self.orderSort(self.state);
-				})
-			},
-			//确定筛选
-			sureBtn() {
-				
-				let classifyArr = [];
-				for(let i = 0; i<this.typeList.flist[this.currentType].classify.length ; i++){
-					for(let j = 0 ; j < this.currentClassify.length;j++){
-						if(this.typeList.flist[this.currentType].classify[i].id == this.currentClassify[j]){
-							classifyArr.push(this.currentClassify[j])
-						}
-					}
-				}
-				if (this.currentArea == -1 && this.currentSupplier == -1 && classifyArr.length == 0) {
-					this.hint('请选择过滤条件');
-					return
-				}
-				let classify = classifyArr.join(",");
-				let area = this.typeList.flist[this.currentType].area[this.currentArea] ? this.typeList.flist[this.currentType].area[
-					this.currentArea].area : "";
-				let supplier = this.typeList.flist[this.currentType].supplier[this.currentSupplier] ? this.typeList.flist[this.currentType]
-					.supplier[this.currentSupplier].supplier : "";
-				if (classify == '') {
-					classify = this.goods[this.currentType].id;
-				}
-				this.selectObj = {
-					classify: classify,
-					area: area,
-					supplier: supplier,
-				}
-				this.getNewList(this.selectObj, 1, true);
-			},
-			//重置
-			resetBtn() {
-				this.currentClassify = [];
-				this.currentArea = -1;
-				this.currentSupplier = -1;
-				console.log(this.typeList)
-				console.log(this.currentType)
-				console.log(this.typeList.flist[this.currentType].id)
-				// this.cateMaskState  = 0;
-				this.selectObj.classify = this.typeList.flist[this.currentType].id;
-				this.selectObj.area = '';
-				this.selectObj.supplier = '';
-
-				this.getNewList(this.selectObj, 1, true);
-			},
-			//切换头部
-			chooseType(id, index) {
-				this.currentType = index;
-				this.goodsId = id;
-				this.filtrationType();
-				this.orderSort(this.state);
-				uni.setStorageSync('actNav', id);
-			},
-			//切换排序
-			chooseOrder(num) {
-				this.currentOrder = num;
-				if (num == 0) {
-					this.state = 'marketprice';
-				} else if (num == 1) {
-					this.state = 'salesvolume';
-				} else {
-					this.state = 'sellingprice';
-				}
-				this.orderSort(this.state);
-			},
-			//排序方法
-			orderSort(state) {
-				if (this.goods[this.currentType].arr[0].length == 0) return
-				console.log(this.goods[this.currentType].arr[0].length)
-				this.goods[this.currentType].arr[0].sort(this.compare(state));
-			},
-			compare(key) {
-				return function(a, b) {
-					let val1 = a[key];
-					let val2 = b[key];
-					return val2 - val1;
-				}
-			},
-			//选择子类型
-			handleChildType(id, num, index) {
-				for (let i = 0; i < this.slist[index].tlist.length; i++) {
-					this.slist[index].tlist[i].actNum = num
-				}
-				this.slist.push([]);
-				this.slist.pop();
-			},
-			//显示分类面板
-			toggleCateMask(type) {
-				let timer = type === 'show' ? 10 : 300;
-				let state = type === 'show' ? 1 : 0;
-				this.cateMaskState = state;
-			},
-			//获取商品类型
-			getClassify() {
-				let self = this;
-				this.ask("/app/index/getClassify", "POST", {}, function(res) {
-					console.log(res)
-					self.typeList = res.data
-					self.goodsId = self.typeList.flist[0].id;
-					// console.log(self.typeList)
-					self.goods.length = self.typeList.flist.length;
-					self.filtrationType();
-					for (let i = 0; i < self.goods.length; i++) {
-						self.goods[i] = {
-							arr: [],
-							id: self.typeList.flist[i].id
-						};
-						self.getGoodsList(self.typeList.flist[i].id, i)
-					}
-
-					if (uni.getStorageSync('actNav')) {
-						for (let i = 0; i < self.typeList.flist.length; i++) {
-							if (self.typeList.flist[i].id == uni.getStorageSync('actNav')) {
-								self.currentType = i;
-							}
-						}
-
-					} else {
-						self.currentType = 0;
-					}
-
-				})
-			},
-			//过滤商品类型
-			filtrationType(index, num) {
-				this.slist = [];
-				for (let i = 0; i < this.typeList.slist.length; i++) {
-					if (this.typeList.slist[i].pid == this.goodsId) {
-						this.typeList.slist[i].tlist = [];
-						this.slist.push(this.typeList.slist[i], )
-					}
-				}
-
-			},
-			//首次获取商品列表
-			getGoodsList(id, num) {
-				let self = this;
-				let data = {
-					"page": 1,
-					"pagesize": 10,
-					"classify": id,
-					"area": '',
-					"supplier": '',
-					"ishot": self.ishot,
-				}
-				console.log(data)
-				this.ask("/app/index/getProductList", "POST", data, function(res) {
-					self.goods[num].arr.push(res.data.data);
-					self.goods[num].count = res.data.count;
-					self.goods[num].page = 2;
-					self.goods[num].id = id;
-					self.goods[num].selectObj = {
-							classify: '',
-							area: '',
-							supplier: ''
-						},
-						self.goods.push([]);
-					self.goods.pop();
-				})
-			},
+import navigationCustom from "../../components/struggler-navigationCustom/navigation-custom.vue"
+export default{
+	components:{
+		navigationCustom
+	},
+	data() {
+		return {
 			/* new */
-			handleBreedChange(index) {
-				this.breedActive = index
-			}
-		},
-		onLoad(option) {
-			console.log(option)
-			this.imgHttp = this.comHttp;
-			this.getClassify();
-		},
-		onShow() {
-			
-			let self = this;
-			if (uni.getStorageSync('actNav') == 'hot') {
-				self.ishot = '1'
-				self.currentType = 0;
-				return
-			}
+			imgHttp: '',
+			goods: [], //商品数组
+			config:{
+			    title: "三源甄选", //title
+			    bgcolor:"#fff", //背景颜色
+			    fontcolor:"#000", //文字颜色，默认白色
+			    type: 4, //type 1，3胶囊 2，4无胶囊模式
+			    transparent: false, //是否背景透明 默认白色
+			    // linear:true, //是为开启下滑渐变
+			    // share:true, //是否将主页按钮显示为分享按钮
+			    menuIcon:"../../static/icon/back_.png", // 当type为3或者4的时候左边的icon文件位置，注意位置与当前页面不一样
+			    // menuText:"返回", 当type为3或4的时候icon右边的文字
+			},
+			scrollTop:0 ,// 当linear为true的时候需要通过onpagescroll传递参数
+			scrollMaxHeight:200, //滑动的高度限制，超过这个高度即背景全部显示
+			breedList: [],
+			breedActive: 0
+		};
+	},
 
-			if (uni.getStorageSync('actNav')) {
-				self.ishot = '';
-				for (let i = 0; i < self.typeList.flist.length; i++) {
-					if (self.typeList.flist[i].id == uni.getStorageSync('actNav')) {
-						self.currentType = i;
-					}
-				}
-			} else {
-				self.currentType = 0;
-			}
-
-
-		},
-		//监听滚到到底部
-		onReachBottom() {
-			let selectObj = this.goods[this.currentType].selectObj;
-			let page = this.goods[this.currentType].page;
-			let count = this.goods[this.currentType].count;
-
-			if (this.goods[this.currentType].arr[0].length >= count) return;
-			this.getNewList(selectObj, page, false)
-		},
-
-		created() {
-			//初始化分类菜
-			// this.headerTop = this.CustomBar + 'px';
-			// this.cateHeight = uni.getSystemInfoSync().windowHeight - this.CustomBar + 'px'
-			this.headerTop = this.StatusBar + 'px';
-			this.headHeight = this.CustomBar/2 + 'px';
+	onPageScroll(e) {
+		//兼容iOS端下拉时顶部漂移
+		if (e.scrollTop >= 0) {
+			this.headerPosition = "fixed";
+		} else {
+			this.headerPosition = "absolute";
 		}
+	},
+	methods: {
+		//获取商品类型
+		getClassify() {
+			this.ask("/app/index/getClassify", "POST", {}, (res) => {
+				console.log(res)
+				let data = res.data.flist
+				this.breedList = []
+				// 三源甄选分类
+				try {
+					let breedList = data.filter((item) => item.name === '三源甄选')[0].classify
+					for (let i = 0; i < breedList.length; i++) {
+						let di = breedList[i]
+						this.breedList.push(di)
+						this.goods.push({
+							arr: []
+						})
+					}
+					this.getGoodsList(breedList[0].id, 0)
+				} catch(e) {
+					console.log(e)
+				}
+			})
+		},
+		//首次获取商品列表
+		getGoodsList(id, num) {
+			let data = {
+				"page": 1,
+				"pagesize": 10,
+				"classify": id
+			}
+			console.log(data)
+			this.ask("/app/index/getProductList", "POST", data, (res) => {
+				if (res.data.data.length) {
+					this.goods[num].arr = res.data.data;
+					this.goods[num].page = 2;
+				}
+				this.goods[num].count = res.data.count;
+				this.goods[num].id = id;
+				this.goods.push([]);
+				this.goods.pop();
+				console.log(this.goods)
+			})
+		},
+		// 切换分类
+		handleBreedChange(index, item) {
+			this.breedActive = index
+			this.getGoodsList(item.id, index)
+		}
+	},
+	onLoad(option) {
+		this.getClassify()
+		this.imgHttp = this.comHttp
+		console.log(this.imgHttp + "/marketResources/upload/2008/20088c7d0a15d26841dabdfa3743d6386be7.png")
+	},
+	onShow() {
+
+	},
+	//监听滚到到底部
+	onReachBottom() {
+		console.log(111)
+	},
+	created() {
+		
 	}
+}
 </script>
 
 <style lang="scss">
