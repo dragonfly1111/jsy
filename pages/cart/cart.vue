@@ -94,15 +94,18 @@
 				</view>
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
 	</view>
 </template>
 
 <script>
 	import Vue from 'vue'
+	import floatWindows from '../../components/float-windows.vue'
 	import goodsRecommend from '../../components/goods-recommend.vue'
 	export default{
 		components:{
-			goodsRecommend
+			goodsRecommend,
+			floatWindows
 		},
 		data(){
 			return{

@@ -24,8 +24,8 @@ Vue.prototype.hint = function(title) {
 	})
 }
 //全局请求
-// Vue.prototype.comHttp = 'https://www.juanfenjiang.com/MicroMarket'
-Vue.prototype.comHttp = 'http://rdp.wars.cat:3902/MicroMarket'
+Vue.prototype.comHttp = 'https://www.juanfenjiang.com/MicroMarket'
+// Vue.prototype.comHttp = 'http://rdp.wars.cat:3902/MicroMarket'
 // Vue.prototype.comHttp = 'http://192.168.1.18'
 Vue.prototype.ask = function(url, method, data, callback) {
 	let self = this;

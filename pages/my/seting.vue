@@ -16,11 +16,18 @@
 		<view class="foot_btn" >
 			<text @click="clearUserMsg()">退出登录</text>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				

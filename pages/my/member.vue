@@ -93,12 +93,18 @@
 		<view class="foot_btn">
 			<text @click="pay">开通{{memberObj[currentType].title}}</text>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
 		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				userObj:'',

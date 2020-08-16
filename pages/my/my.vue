@@ -139,6 +139,7 @@
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
 		
 		<!-- <view class="btn_head">
 			<view class="row">
@@ -229,7 +230,12 @@
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				headerTop: 0,
@@ -237,6 +243,7 @@
 				modalName:'',//是否显示授权弹窗
 				userObj: {nickname:'',avatar:'../../static/missing-face.png'},//用户信息
 				applicationstatu: '',
+				
 			}
 		},
 		methods:{

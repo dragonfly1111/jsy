@@ -2,7 +2,7 @@
 	<view class="main-contaner" v-cloak>
 		<navigation-custom :config="config" :scrollTop="scrollTop" :scrollMaxHeight="scrollMaxHeight"/>
 		<view class="banner">
-			<image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image>
+			<!-- <image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image> -->
 		</view>
 		<view class="search">
 			<input type="text" placeholder="搜索商品" />

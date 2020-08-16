@@ -257,6 +257,8 @@
 		</view>
 
 		<goodsRecommend></goodsRecommend>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 		<div style="height: 100rpx;width: 100%;"></div>
 	</view>
 
@@ -264,9 +266,12 @@
 
 <script>
 	import goodsRecommend from '../../components/goods-recommend.vue'
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default {
 		components:{
-			goodsRecommend
+			goodsRecommend,
+			floatWindows
 		},
 		filters:{
 				numberFilter(e){

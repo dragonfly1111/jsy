@@ -5,41 +5,49 @@
 		</cu-custom>
 		<view class="discount_list">
 			<view class="no_more" v-if="discountList.length == 0">
-			    没有更多了	
+			    没有更多了
 			</view>
-			
-			<view class="row" :class="{row_red: item.coupon_type == 0}" v-if=" (item.conditionsofuse <= minPrice && item.coupon_type =='1') || item.coupon_type =='0'  "   @click="isChoosed(item.id)" v-for="(item,index) in discountList" :key='index'>
-		
+
+			<view class="row" v-if=" (item.conditionsofuse <= minPrice && item.coupon_type =='1') || item.coupon_type =='0'  "   @click="isChoosed(item.id)" v-for="(item,index) in discountList" :key='index'>
+
 				<image class="angle" src="../../static/my/angle.png" mode="" v-if="chooseed.includes(item.id)"></image>
+				<!-- <image class="angle" src="../../static/my/angle.png" mode=""></image> -->
 				<view class="discount_msg">
 					<view class="left">
-						<!-- <text class="title" v-if="item.coupon_type == '1'">满{{item.conditionsofuse}}减</text> -->
-						<text class="title" >{{item.title}}</text>
-						<view class="sub_title">
-						  <text>使用规则</text>
-						    <text class="time" v-if="item.coupon_type == '1'">满{{item.conditionsofuse}}减{{item.money}}</text>
-						   <text class="time" v-else>无</text>
-						</view>
+						<view class="symbol">￥</view>
+						<text class="big_num">{{item.money}}</text>
 					</view>
 					<view class="right">
-						<text class="title">￥{{item.money}}</text>
-						<text class="sub_title">商城内通用</text>
+						<view class="title" >RMB_</view>
+						<view class="sub_title">{{item.title}}</view>
+<!-- 						<view class="sub_title">
+						  <text>使用规则1</text>
+						    <text class="time" v-if="item.coupon_type == '1'">满{{item.conditionsofuse}}减{{item.money}}</text>
+						   <text class="time" v-else>无</text>
+						</view> -->
+						<view class="time">有效期: 111111</view>
 					</view>
 				</view>
-				<view class="foot">
+		<!-- 		<view class="foot">
 					<text class="title">{{item.usergroup == null ? '' : item.usergroup }}</text>
 					<text class="sub_title">未使用</text>
-				</view>
+				</view> -->
 
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
 
 	</view>
-	
+
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				chooseed: [],
@@ -52,10 +60,10 @@
 		methods:{
 			isChoosed(id){
 				if(this.sourceType != '1') return
-				
+
 				if(this.chooseed.length == 0){
 					this.chooseed.push(id);
-				} 
+				}
 				else{
 					if (this.chooseed.indexOf(id) === -1) {
 					    // 不存在,则添加
@@ -75,7 +83,7 @@
 				}
 				console.log(this.discountPrice)
 				uni.$emit('discountArr',{choosed:this.chooseed,discountPrice:this.discountPrice})
-				
+
 			},
 			//获取优惠券列表
 			getDiscountList(){
@@ -87,7 +95,7 @@
 				this.ask('/app/coupon/getCouponList','POST',data,function(res){
 					console.log(res)
 					self.discountList = res.data.couponlist;
-					
+
 				})
 			}
 		},
@@ -106,7 +114,7 @@
 				this.minPrice = 999999999999;
 				this.getDiscountList();
 			}
-			
+
 		}
 	}
 </script>
@@ -127,11 +135,13 @@
 			.row{
 				width: 100%;
 				min-height: 180rpx;
-				background-image: linear-gradient(to right,#85792a,#af9c42);
+				// background-image: linear-gradient(to right,#85792a,#af9c42);
+				background: url(../../static/my/coupon.png) 50% 50% no-repeat;
+				background-size: 100%;
 				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				flex-direction: column;
+				justify-content: flex-start;
+				// align-items: center;
+				// flex-direction: column;
 				color: #fff;
 				border-radius: 12rpx;
 				// border: 1rpx solid #e1e1e1;
@@ -148,86 +158,67 @@
 				}
 				.discount_msg{
 					display: flex;
-					width: 100%;
-					align-items: center;
-					justify-content: space-between;
+					width: 70%;
+					align-items: baseline;
+					// justify-content: flex-start;
 					height: 200rpx;
 				    padding: 0 25rpx;
 					.left{
+						margin: 0 20rpx 0 8rpx;
+						color: #81772b;
 						display: flex;
-						flex-direction: column;
-						margin-bottom: 15rpx;
-						.title{
-							font-size: 50rpx;
+						.symbol{
+							font-size: 28rpx;
+							margin-top: 40rpx;
 							font-weight: bold;
-							margin-bottom: 10rpx;
 							
 						}
-						.sub_title{
-							margin-bottom: 20rpx;
-						}
-						.time{
-							margin: 0 8rpx;
+						.big_num{
+							font-size: 160rpx;
+							font-weight: bold;
 						}
 					}
 					.right{
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-						justify-content: center;
-						margin-bottom: 25rpx;
-						.title{
-							font-size: 80rpx;
-							font-weight: bold;
-							margin-bottom: 0rpx;
-						}
+						color: #81772b;
+						transform: translateY(20rpx);
 						.sub_title{
-							margin-top: -15rpx;
+							font-size: 32rpx;
+							font-weight: bold;
+						}
+						.time{
+							color: #999999;
+							font-size: 28rpx;
 						}
 					}
-				}
-				.foot{
-					width: 100%;
-					height: 80rpx;
-					background-color: #fff;
-					color: #666;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					padding: 0 30rpx;
-					.sub_title{
-						color: #857825;
-					}
-					
 				}
 			}
-			
 		}
-		
 	}
-	.row::after{
-		content: "";
-		background-color: #f9f9f9;
-		position: absolute;
-		width: 40rpx;
-		height: 40rpx;
-		left: -20rpx;
-		top: 65%;
-		border-radius: 50%;
-		border-right: 1rpx solid #e1e1e1;
 
-	}
-	.row::before{
-		content: "";
-		background-color: #f9f9f9;
-		position: absolute;
-		width: 40rpx;
-		height: 40rpx;
-		right: -20rpx;
-		top: 65%;
-		border-radius: 50%;
-		border-left: 1rpx solid #e1e1e1;
-	}
+
+	// .row::after{
+	// 	content: "";
+	// 	background-color: #f9f9f9;
+	// 	position: absolute;
+	// 	width: 40rpx;
+	// 	height: 40rpx;
+	// 	left: -20rpx;
+	// 	top: 65%;
+	// 	border-radius: 50%;
+	// 	border-right: 1rpx solid #e1e1e1;
+
+	// }
+	// .row::before{
+	// 	content: "";
+	// 	background-color: #f9f9f9;
+	// 	position: absolute;
+	// 	width: 40rpx;
+	// 	height: 40rpx;
+	// 	right: -20rpx;
+	// 	top: 65%;
+	// 	border-radius: 50%;
+	// 	border-left: 1rpx solid #e1e1e1;
+	// }
 	.row_red{
 	   background-image: linear-gradient(to right,#d9383f,#e3575c) !important;
 	}

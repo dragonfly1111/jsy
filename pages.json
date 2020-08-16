@@ -194,27 +194,27 @@
 		"list": [{
 				"pagePath": "pages/home/home",
 				"iconPath": "static/com/home.png",
-				"selectedIconPath": "static/com/home_green.png",
-				"text": "首页"
+				"selectedIconPath": "static/com/home.png",
+				"text": ""
 			},
-			{
-				"pagePath": "pages/commodity/commodity",
-				"iconPath": "static/com/classify.png",
-				"selectedIconPath": "static/com/classify_green.png",
-				"text": "分类"
-			},
+			// {
+			// 	"pagePath": "pages/commodity/commodity",
+			// 	"iconPath": "static/com/classify.png",
+			// 	"selectedIconPath": "static/com/classify_green.png",
+			// 	"text": "分类"
+			// },
 			{
 				"pagePath": "pages/find/find",
 				"iconPath": "static/com/food.png",
-				"selectedIconPath": "./static/com/food_green.png",
-				"text": "食宜有道"
+				"selectedIconPath": "./static/com/food.png",
+				"text": ""
 			},
 			
 			{
 				"pagePath": "pages/my/my",
 				"iconPath": "static/com/my.png",
-				"selectedIconPath": "static/com/my_green.png",
-				"text": "我"
+				"selectedIconPath": "static/com/my.png",
+				"text": ""
 			}
 		]
 	}

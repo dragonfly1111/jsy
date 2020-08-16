@@ -19,6 +19,9 @@
 					<text class="coin">￥</text>
 					<text class="price">{{detailsObj.sellingprice}}</text>
 				</view>
+				<button open-type="share">
+					<image src="../../static/floaWindow/share.png"></image>
+				</button>
 			</view>
 			<view class="name">
 				<text v-if="detailsObj.name">{{detailsObj.name}}</text>
@@ -40,22 +43,24 @@
 			<text class="line-content" v-if="detailsObj.freemail == 1">免运费</text>
 			<text class="line-content" v-if="detailsObj.freemail == 0">{{detailsObj.postage}}</text>
 		</view>
-		<view class="attr-line flex-center-between">
-			<view>
+		<view class="attr-line flex-center-between" @click="openChooseList()">
+			<view class="left-line">
 				<text class="lint-title">选择</text>
-				<text class="line-content">规格</text>
+				<viex class="line-content">{{specSelectedName || "请选择规格"}}</viex>
 			</view>
 			<image clsss="right-icon" src="../../static/details/arrow.png" mode=""></image>
 		</view>
 		<view class="grep_bar"></view>
 		
-		<view class="shop-line flex-center-between">
+		<view class="shop-line flex-center-between" @click="toHome()">
 			<image src="../../static/details/shop_logo.png" mode=""></image>
 			<view class="go-shop">进店逛逛</view>
 		</view>
 		<view class="grep_bar"></view>
 		
-		<view class="choose_list">
+		<view @click="hideChooseList()" v-if="showChoose" class="mask"></view>
+		
+		<view class="choose_list" :class="showChoose ? 'list_show' : 'list_hide'">
 			<view class="row" v-for="(item,index) in detailsObj.specification_detail" :key='index' @click="chooseType(item.sellingprice,index,item.id,item.combination,item.marketprice)">
 				<view class="type_text">
 					<text class="title">规格：</text>
@@ -128,14 +133,18 @@
 				</view>
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
 	import goodsRecommend from '../../components/goods-recommend.vue'
 	export default{
 		components:{
-			goodsRecommend
+			goodsRecommend,
+			floatWindows
 		},
 		data(){
 			return{
@@ -158,10 +167,26 @@
 				"userObj":{},
 				"token":'',
 				"collectType": false,
-				"openShare": ''//是否从分享路口进来
+				"showChoose": false
 			}
 		},
 		methods:{
+			toHome(){
+				uni.switchTab({
+					url:"../home/home"
+				})
+			},
+			
+			//打开选择规格
+			openChooseList(){
+				if(this.showChoose) return
+				this.showChoose = true
+			},
+			
+			hideChooseList(){
+				this.showChoose = false
+			},
+			
 			//跳转到购物车
 			toCart(){
 				uni.navigateTo({
@@ -302,7 +327,9 @@
 				this.currentType = index;
 				this.specSelectedId = id;
 				this.specSelectedName = name;
+				this.showChoose = false;
 			},
+		
 			//获取商品详情
 			getGoodsDetails(){
 				let data = {

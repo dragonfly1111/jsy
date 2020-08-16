@@ -30,11 +30,17 @@
 		<view class="no_more" v-if="collectObj.length == count">
 			没有更多了
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
 	export default {
+		components:{
+			floatWindows
+		},
 		data() {
 			return {
 				index: 1,

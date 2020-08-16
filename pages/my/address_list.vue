@@ -17,11 +17,18 @@
 		<view class="foot_btn" >
 			<text @click="to_address('add')">添加新地址</text>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				addressList:''

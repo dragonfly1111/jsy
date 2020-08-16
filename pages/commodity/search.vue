@@ -25,11 +25,17 @@
 				没有更多了
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				count:0,
@@ -77,5 +83,5 @@
 </script>
 
 <style lang="scss">
-	@import "./commodity.scss"
+	@import "./search.scss"
 </style>

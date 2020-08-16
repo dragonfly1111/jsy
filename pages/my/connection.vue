@@ -26,11 +26,18 @@
 			</view>
 
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default {
+		components:{
+			floatWindows
+		},
 		data() {
 			return {
               addresObj:'',//地址对象

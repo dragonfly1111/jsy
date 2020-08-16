@@ -25,12 +25,14 @@
 		
 		<view class="go-shop">
 			进店逛逛
-			<image src="../../../static/details/arrow.png"></image>
+			<image src="../static/details/arrow.png"></image>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default{
+	}
 </script>
 
 <style scoped lang="scss">

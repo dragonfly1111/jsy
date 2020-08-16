@@ -39,6 +39,8 @@
 		</view>
 		
 		<pickerAddress v-model="addressShow" @confirm="addresspick" />
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 	
 </template>
@@ -46,9 +48,12 @@
 <script>
 	
     import pickerAddress from '@/components/liudx-pickerAddress/index.vue'
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
 		components:{
-		    pickerAddress
+		    pickerAddress,
+			floatWindows
 		},
 		data(){
 			return{

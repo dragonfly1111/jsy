@@ -89,13 +89,18 @@
 		<view class="foot_btn">
 			<text @click="submitApply()">提交</text>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
 
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
 	import BIN from "bankcardinfo"
 	export default {
+		components:{
+			floatWindows
+		},
 		data() {
 			return {
 				currentCompany: '',

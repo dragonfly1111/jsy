@@ -1,0 +1,120 @@
+.goodsList{
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		height: auto;
+
+		.foot_line{
+			font-size: 24rpx;
+			color: #666;
+			width: 100%;
+			text-align: center;
+			padding: 10rpx 0;
+		}
+		.row{
+			width: 95%;
+			margin-left: 5%;
+			border-bottom: 0.1upx solid #E1E1E1;
+			height: 260rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			position: relative;
+			
+			.left image{
+				width: 200rpx;
+				height: 200rpx;
+			}
+			.center{
+				display: flex;
+				height: 100%;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: flex-start;
+				margin: 30rpx 0;
+				flex: 1;
+				margin-left: 5%;
+				.good{
+					display: flex;
+					align-items: flex-start;
+					flex-direction:column;
+					margin-top: 30rpx;
+					width: 100%;
+					.title{
+						color: #857827;
+						font-size: 34rpx;
+						width: 90%;
+						overflow : hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						-webkit-box-orient: vertical;
+						.unit{
+							font-size: 36rpx;
+							margin-left: 6rpx;
+							font-weight: bold;
+						}
+					}
+					.sub_title{
+						color: #666;
+						font-size: 24rpx;
+						margin-top: 10rpx;
+						width: 90%;
+						overflow : hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 1;
+						-webkit-box-orient: vertical;
+					}
+				}
+				.price_box{
+					display: flex;
+					justify-content: space-between;
+					align-items: flex-end;
+					width: 100%;
+					.price{
+						margin-bottom: 30rpx;
+						color: #F43F3B;
+						font-size: 36rpx;
+						font-weight: bold;
+						.unit{
+							font-weight: normal;
+							color: #666;
+							font-size: 32rpx;
+						}
+					}
+					.num{
+						color: #666;
+						margin-bottom: 30rpx;
+						margin-right: 20rpx;
+						font-size: 24rpx;
+					}
+				}
+				
+			}
+			.right {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				height: 100%;
+				display: flex;
+				width: 120rpx;
+				flex-direction: column;
+				justify-content: flex-end;
+				margin-right: 20rpx;
+				font-size: 24rpx;
+				text{
+					display: flex;
+					margin-bottom: 38rpx;
+					color: #666;
+				}
+				image{
+					width: 50rpx;
+					height: 50rpx;
+					margin-bottom: 30rpx;
+				}
+			}
+		}
+	}

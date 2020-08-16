@@ -67,7 +67,8 @@
 			</view>
 		</view>
 
-		<floatWindows :showFloat="showFloat" class="float_windows"></floatWindows>
+		<!-- <floatWindows :showFloat="showFloat"></floatWindows> -->
+		<floatWindows :showFloat="true"></floatWindows>
 
 
 
@@ -209,19 +210,19 @@
 				searchKey: '', //搜索关键字
 				moreType1: '',
 				moreType2: '',
-				showFloat: true,
+				showFloat: false,
 
 			}
 		},
 		
-		onPageScroll(e) {
-			console.log(e)
-			if(e.scrollTop > 20){
-				this.showFloat = false
-			} else{
-				this.showFloat = true
-			}
-		},
+		// onPageScroll(e) {
+		// 	console.log(e)
+		// 	if(e.scrollTop > 20){
+		// 		this.showFloat = true
+		// 	} else{
+		// 		this.showFloat = false
+		// 	}
+		// },
 		
 		components:{
 			floatWindows
@@ -257,7 +258,7 @@
 			toCommmodity(type) {
 				console.log(type)
 				uni.setStorageSync('actNav', type);
-				uni.switchTab({
+				uni.navigateTo({
 					url: '../commodity/commodity'
 				})
 			},
@@ -304,7 +305,7 @@
 				this.ask("/app/index/getProductListForIndex", "GET", {}, function(res) {
 
 					for (let i = 0; i < res.data.data.length; i++) {
-						if (res.data.data[i].id == '881c90f447304eada8aabe80a1b04271') {
+						if (res.data.data[i].id == '1') {
 							self.moreType1 = res.data.data[i].id;
 							self.goods = res.data.data[i].productlist;
 							self.moreType = i;

@@ -34,11 +34,17 @@
 		<view class="no_more" v-if="newsObj.length == count">
 			没有更多了
 		</view>
+		<floatWindows :showFloat="showFloat"></floatWindows>
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				imgHttp:'',
@@ -46,6 +52,7 @@
 				count:0,
 				index:1,
 				currentNav: 0,
+				showFloat: true,
 			}
 		},
 		methods:{

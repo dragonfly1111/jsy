@@ -7,12 +7,18 @@
 			<image :src="imgHttp + '/marketResources/img/aboutUs.png'" mode="widthFix" style="width: 100%;"></image>
 		</view>
 		
+		<floatWindows :showFloat="true"></floatWindows>
 
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				imgHttp:'',

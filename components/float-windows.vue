@@ -1,21 +1,23 @@
 <template>
 	<view>
+		<view v-if="showFloat && showIcon" class="mask" @click="showList"></view>
+		
 		<view class="add-icon" :class="!showFloat ? 'hide-add' : 'show-add'" :style="showIcon1 ? 'background-color: #2c2c2c' : ''" @click="showList()">
 			<view :class="showIcon1 ? 'close_image' : 'add_image'"></view>
 			<!-- <image src="../static/floaWindow/add.png"></image> -->
 		</view>
 
-		<view class="icon_list" :class="closing ? 'close_list' : ''" v-if="showIcon">
+		<view class="icon_list" :class="closing ? 'close_list' : ''" v-if="showFloat && showIcon">
 			<view class="icon_row">
-				<image src="../static/floaWindow/cart.png"></image>
-				<image src="../static/floaWindow/service.png"></image>
-				<image src="../static/floaWindow/share.png"></image>
+				<image @click="toCart()" src="../static/floaWindow/cart.png"></image>
+				<button open-type='contact'><image src="../static/floaWindow/service.png"></image></button>
+				<button open-type='share'><image src="../static/floaWindow/share.png"></image></button>
 			</view>
 
 			<view class="icon_row">
-				<image src="../static/floaWindow/member.png"></image>
+				<image @click="toMember()" src="../static/floaWindow/member.png"></image>
 				<image src="../static/floaWindow/goods.png"></image>
-				<image src="../static/floaWindow/top.png"></image>
+				<image @click="toTop()" src="../static/floaWindow/top.png"></image>
 			</view>
 
 
@@ -46,12 +48,47 @@
 						this.showIcon = false				
 					},200)
 				}
+			},
+		
+			toCart(){
+				this.showList()
+				
+				uni.navigateTo({
+					url:'../cart/cart'
+				})
+			},
+			
+			//跳转到会员
+			toMember(){
+				this.showList()
+				
+				uni.navigateTo({
+					url:"../my/member"
+				})
+			},
+			
+			toTop(){
+				this.showList()
+				
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				});
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+	.mask{
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		left: 0;
+		position: fixed;
+		z-index: 10000;
+	}
+	
 	.add-icon {
 		position: fixed;
 		bottom: 100rpx;
@@ -64,6 +101,7 @@
 		justify-content: center;
 		align-items: center;
 		background-color: #FFFFFF;
+		z-index: 10001;
 
 	}
 
@@ -87,6 +125,7 @@
 		position: fixed;
 		bottom: 100rpx;
 		right: 0rpx;
+		z-index: 10000;
 		
 		// bottom: 150rpx;
 		// right: 180rpx;
@@ -101,6 +140,23 @@
 
 		.icon_row {
 			width: 100%;
+			button{
+				padding: 0;
+				margin: 0;
+				line-height: unset;
+				border: none;
+				background: unset;
+				// width: 100rpx;
+				// height: 100rpx;
+				display: inline;
+				image{
+					// margin: 0;
+				}
+			}
+			button::after{
+				height: 0;
+				width: 0;
+			}
 		}
 	}
 	

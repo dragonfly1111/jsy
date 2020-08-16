@@ -25,11 +25,18 @@
 		<view class="details_text">
 		   <rich-text v-html="detailsObj.content"></rich-text>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 </template>
 
 <script>
+	import floatWindows from '../../components/float-windows.vue'
+	
 	export default{
+		components:{
+			floatWindows
+		},
 		data(){
 			return{
 				detailsId:'',

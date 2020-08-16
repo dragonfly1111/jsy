@@ -2,8 +2,9 @@
 	<view>
 		<view class="cu-custom" :style="[{height:CustomBar + 'px'}]">
 			<view class="cu-bar fixed" :style="style" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
-				<view class="action" @tap="BackPage" v-if="isBack">
-					<text class="cuIcon-back"></text>
+				<view class="action" v-if="isBack">
+					<text class="cuIcon-back" @tap="BackPage" ></text>
+					<text class="cuIcon-home" @tap="toHome" ></text>
 					<slot name="backText"></slot>
 				</view>
 				<view class="content" :style="[{top:StatusBar + 'px'}]">
@@ -59,6 +60,12 @@
 			},
 		},
 		methods: {
+			toHome() {
+				uni.switchTab({
+					url:"../../pages/home/home"
+				})
+			},
+			
 			BackPage() {
 				let routes = getCurrentPages(); // 获取当前打开过的页面路由数组
 				let curRoute = routes[routes.length - 1].route // 获取当前页面路由，也就是最后一个打开的页面路由
