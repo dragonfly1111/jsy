@@ -1,75 +1,169 @@
 <template>
 	<view>
 		<view v-if="showFloat && showIcon" class="mask" @click="showList"></view>
-		
-		<view class="add-icon" :class="!showFloat ? 'hide-add' : 'show-add'" :style="showIcon1 ? 'background-color: #2c2c2c' : ''" @click="showList()">
+
+		<view class="add-icon" :class="!showFloat ? 'hide-add' : 'show-add'" :style="showIcon1 ? 'background-color: #2c2c2c' : ''"
+		 @click="showList()">
 			<view :class="showIcon1 ? 'close_image' : 'add_image'"></view>
 			<!-- <image src="../static/floaWindow/add.png"></image> -->
 		</view>
 
 		<view class="icon_list" :class="closing ? 'close_list' : ''" v-if="showFloat && showIcon">
 			<view class="icon_row">
-				<image @click="toCart()" src="../static/floaWindow/cart.png"></image>
-				<button open-type='contact'><image src="../static/floaWindow/service.png"></image></button>
-				<button open-type='share'><image src="../static/floaWindow/share.png"></image></button>
+				<view @click="toCart()" class="icon_item">
+					<image src="../static/floaWindow/cart.png"></image>
+					<view>购物车</view>
+				</view>
+				<view class="icon_item">
+					<button open-type='contact'>
+						<image src="../static/floaWindow/service.png"></image>
+					</button>
+					<view>客服</view>
+
+				</view>
+				<view @click="openShare()" class="icon_item">
+					<image src="../static/floaWindow/share.png"></image>
+					<view>分享</view>
+				</view>
 			</view>
 
 			<view class="icon_row">
-				<image @click="toMember()" src="../static/floaWindow/member.png"></image>
-				<image src="../static/floaWindow/goods.png"></image>
-				<image @click="toTop()" src="../static/floaWindow/top.png"></image>
+				<view @click="toMember()" class="icon_item">
+					<image src="../static/floaWindow/member.png"></image>
+					<view>会员</view>
+				</view>
+				<view class="icon_item">
+					<image src="../static/floaWindow/goods.png"></image>
+					<view>推荐</view>
+				</view>
+				<view @click="toTop()" class="icon_item">
+					<image src="../static/floaWindow/top.png"></image>
+					<view>顶部</view>
+				</view>
 			</view>
 
 
+		</view>
+
+		<view class="post" v-if="showPost">
+			<canvas canvas-id="canvas" width="80%" height="75%"></canvas>
+			<!-- <image :src="imgHttp+'/marketResources/upload/2007/share.png'" mode=""></image> -->
+			<view class="qr-code">
+
+			</view>
+			<view class="save-post" @click="savePost()">保存图片</view>
+		</view>
+
+		<view :class="openShareSheet ? 'show-share' : ''" class="share-box">
+			<view style="height: 30rpx;width: 100%;"></view>
+			<button open-type="share">发送给朋友</button>
+
+			<view style="height: 30rpx;width: 100%;"></view>
+			<view @click="generatePoster()">生成海报</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props:['showFloat'],
+		props: ['showFloat'],
 		data() {
 			return {
 				showIcon: false,
 				showIcon1: false,
-				closing: false
+				closing: false,
+				openShareSheet: false,
+				showPost: false,
+				imgHttp: '', //图片接口前缀
+
 			}
 		},
+		mounted() {
+			this.imgHttp = this.comHttp;
+		},
+		onReady() {
+			this.drawCanvas()
+		},
+
 		methods: {
+			drawCanvas() {
+				const ctx = wx.createCanvasContext('canvas', this)
+				console.log(ctx)
+
+				wx.downloadFile({
+					url: this.imgHttp + '/marketResources/upload/2007/share.png',
+					success: (res) => {
+						console.log(res)
+						if (res.statusCode === 200) {
+							ctx.drawImage(res.tempFilePath,0,0,wx.getSystemInfoSync().windowWidth * 0.8, wx.getSystemInfoSync().windowHeight * 0.75)
+							ctx.draw()
+						}
+					},
+					fail: (res) => {
+						console.log(res)
+						
+					}
+				})
+
+			},
+
+			savePost() {
+
+			},
+
+			generatePoster() {
+				this.openShareSheet = false
+				this.showPost = true
+			},
+
+			openShare() {
+				this.closing = true
+				this.showIcon1 = false
+				setTimeout(() => {
+					this.closing = false
+					this.showIcon = false
+				}, 200)
+				this.openShareSheet = true
+			},
+
 			showList() {
-				if(!this.showIcon){
-				this.showIcon = true
-				this.showIcon1 = true
+				if (!this.showIcon) {
+					this.showIcon = true
+					this.showIcon1 = true
 				} else {
 					this.closing = true
 					this.showIcon1 = false
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.closing = false
-						this.showIcon = false				
-					},200)
+						this.showIcon = false
+					}, 200)
+				}
+
+				if (this.openShareSheet) {
+					this.openShareSheet = false
 				}
 			},
-		
-			toCart(){
+
+			toCart() {
 				this.showList()
-				
+
 				uni.navigateTo({
-					url:'../cart/cart'
+					url: '../cart/cart'
 				})
 			},
-			
+
 			//跳转到会员
-			toMember(){
+			toMember() {
 				this.showList()
-				
+
 				uni.navigateTo({
-					url:"../my/member"
+					url: "../my/member"
 				})
 			},
-			
-			toTop(){
+
+			toTop() {
 				this.showList()
-				
+
 				uni.pageScrollTo({
 					scrollTop: 0,
 					duration: 300
@@ -80,15 +174,95 @@
 </script>
 
 <style scoped lang="scss">
-	.mask{
+	.mask {
 		height: 100vh;
 		width: 100vw;
 		top: 0;
 		left: 0;
 		position: fixed;
 		z-index: 10000;
+		// background-color: rgba(0,0,0,0.7);
+
 	}
-	
+
+	.save-post {}
+
+	.post {
+		height: 100vh;
+		width: 100vw;
+		top: 0;
+		left: 0;
+		position: fixed;
+		z-index: 10000;
+		background-color: rgba(0, 0, 0, 0.7);
+
+		canvas {
+			width: 80%;
+			height: 80%;
+			margin: 50px 10% 0 10%;
+		}
+
+		.save-post {
+			width: 80%;
+			height: 80rpx;
+			text-align: center;
+			line-height: 80rpx;
+			margin: 50rpx 10% 0 10%;
+			background-color: #857827;
+			color: #FFFFFF;
+			font-size: 32rpx;
+		}
+
+		.qr-code {
+			width: 35vw;
+			height: 35vw;
+			position: absolute;
+			bottom: 250rpx;
+			left: 32.5%;
+			background-color: #999999;
+		}
+	}
+
+	.share-box {
+		position: fixed;
+		bottom: -170rpx;
+		background-color: #FFFFFF;
+		border-top-left-radius: 40rpx;
+		border-top-right-radius: 40rpx;
+		height: 160rpx;
+		width: 100%;
+		text-align: center;
+		z-index: 10001;
+		box-shadow: 0 5rpx 20rpx 10rpx #999999;
+
+		button {
+			height: 80rpx;
+			font-size: 32rpx;
+			width: 100%;
+			color: #666666;
+		}
+
+		view {
+			height: 80rpx;
+			font-size: 32rpx;
+			color: #666666;
+		}
+	}
+
+	.show-share {
+		animation: showShare 0.2s forwards;
+	}
+
+	@keyframes showShare {
+		0% {
+			bottom: -170rpx;
+		}
+
+		100% {
+			bottom: 0rpx;
+		}
+	}
+
 	.add-icon {
 		position: fixed;
 		bottom: 100rpx;
@@ -105,15 +279,15 @@
 
 	}
 
-	.add_image{
+	.add_image {
 		width: 80%;
 		height: 80%;
 		background: url(../static/floaWindow/add.png) 50% 50% no-repeat;
 		background-size: 100%;
 		animation: changeIcon1 0.2s forwards;
 	}
-	
-	.close_image{
+
+	.close_image {
 		width: 80%;
 		height: 80%;
 		animation: changeIcon 0.2s forwards;
@@ -126,7 +300,7 @@
 		bottom: 100rpx;
 		right: 0rpx;
 		z-index: 10000;
-		
+
 		// bottom: 150rpx;
 		// right: 180rpx;
 		border-radius: 50rpx;
@@ -140,84 +314,95 @@
 
 		.icon_row {
 			width: 100%;
-			button{
-				padding: 0;
-				margin: 0;
-				line-height: unset;
-				border: none;
-				background: unset;
-				// width: 100rpx;
-				// height: 100rpx;
-				display: inline;
-				image{
-					// margin: 0;
-				}
-			}
-			button::after{
-				height: 0;
-				width: 0;
+			display: flex;
+
+			.icon_item {
+				text-align: center;
+				color: #FFFFFF;
 			}
 		}
 	}
-	
-	.close_list{
+
+	button {
+		height: 100rpx;
+		width: 100rpx;
+		padding: 0;
+		margin: 0;
+		line-height: unset;
+		border: none;
+		background: unset;
+		// width: 100rpx;
+		// height: 100rpx;
+		display: inline;
+
+		image {
+			margin-bottom: 12rpx;
+		}
+	}
+
+	button::after {
+		height: 0;
+		width: 0;
+	}
+
+	.close_list {
 		animation: hideList 0.2s forwards;
 	}
 
-	.hide-add{
+	.hide-add {
 		animation: hideAdd 0.2s forwards;
 	}
-	
-	.show-add{
+
+	.show-add {
 		animation: showAdd 0.2s forwards;
-		
+
 	}
-	
-	@keyframes hideAdd{
+
+	@keyframes hideAdd {
 		0% {
 			transform: translateX(0rpx);
 		}
-		
+
 		100% {
 			transform: translateX(100rpx);
-			
+
 		}
 	}
 
-	@keyframes showAdd{
+	@keyframes showAdd {
 		0% {
 			transform: translateX(100rpx);
 		}
-		
+
 		100% {
 			transform: translateX(0rpx);
 		}
 	}
 
-	@keyframes changeIcon{
+	@keyframes changeIcon {
 		0% {
 			transform: rotate(0);
 		}
-		
+
 		100% {
 			transform: rotate(90deg);
 			background: url(../static/floaWindow/add_white.png) 50% 50% no-repeat;
 			background-size: 100%;
 		}
 	}
-	
-	@keyframes changeIcon1{
+
+	@keyframes changeIcon1 {
 		0% {
 			transform: rotate(90deg);
 			background: url(../static/floaWindow/add.png) 50% 50% no-repeat;
 			background-size: 100%;
 		}
-		
+
 		100% {
 			transform: rotate(0);
 		}
 	}
-	
+
 
 	@keyframes showList {
 		0% {
@@ -228,12 +413,12 @@
 			transform: scale(1) translateX(-180rpx) translateY(-50rpx);
 		}
 	}
-	
+
 	@keyframes hideList {
 		0% {
 			transform: scale(1) translateX(-180rpx) translateY(-50rpx);
 		}
-	
+
 		100% {
 			transform: scale(0) translateX(0) translateY(0);
 		}

@@ -379,7 +379,7 @@
 			})
 			return {
 			      title: this.detailsObj.name,
-			      path: '/pages/commodity/goods_details?id=' +  this.key + '&&type=share' + '&&userid=' + uni.getStorageSync('customer').userid
+			      path: '/pages/commodity/goods_details?id=' +  this.key + '&&type=share' + '&&userid=' + uni.getStorageSync('customer').userid,
 			    }
 		},
 		onShow() {

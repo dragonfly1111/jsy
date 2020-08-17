@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<navigation-custom
+<!-- 		<navigation-custom
 			v-if="config.title"
 			:config="config" 
 			:scrollTop="scrollTop" 
 			:scrollMaxHeight="scrollMaxHeight"
 			@customConduct="back()"
-		/>
+		/> -->
 		<view class="search">
 			<input type="text" placeholder="搜索商品" />
 		</view>
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-	import navigationCustom from "../../components/struggler-navigationCustom/navigation-custom.vue"
+	// import navigationCustom from "../../components/struggler-navigationCustom/navigation-custom.vue"
 	export default{
 		components:{
-			navigationCustom
+			// navigationCustom
 		},
 		data(){
 			return{

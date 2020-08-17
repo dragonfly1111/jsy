@@ -5,33 +5,27 @@
 		</cu-custom>
 		<view class="discount_list">
 			<view class="no_more" v-if="discountList.length == 0">
-			    没有更多了
+				<image src="../../static/my/no-coupon.png"></image>
+				<view class="remark">暂时还没有优惠券码哦</view>
+				<view class="cu-btn bg-golden margin-tb-sm" @click="toHome()">进 店 逛 逛</view>
 			</view>
-
-			<view class="row" v-if=" (item.conditionsofuse <= minPrice && item.coupon_type =='1') || item.coupon_type =='0'  "   @click="isChoosed(item.id)" v-for="(item,index) in discountList" :key='index'>
+			
+			<view class="row" v-if=" (item.conditionsofuse <= minPrice && item.coupon_type =='1') || item.coupon_type =='0'  "
+			 @click="isChoosed(item.id)" v-for="(item,index) in discountList" :key='index'>
 
 				<image class="angle" src="../../static/my/angle.png" mode="" v-if="chooseed.includes(item.id)"></image>
-				<!-- <image class="angle" src="../../static/my/angle.png" mode=""></image> -->
 				<view class="discount_msg">
 					<view class="left">
 						<view class="symbol">￥</view>
 						<text class="big_num">{{item.money}}</text>
 					</view>
 					<view class="right">
-						<view class="title" >RMB_</view>
+						<view class="title">RMB_</view>
 						<view class="sub_title">{{item.title}}</view>
-<!-- 						<view class="sub_title">
-						  <text>使用规则1</text>
-						    <text class="time" v-if="item.coupon_type == '1'">满{{item.conditionsofuse}}减{{item.money}}</text>
-						   <text class="time" v-else>无</text>
-						</view> -->
+
 						<view class="time">有效期: 111111</view>
 					</view>
 				</view>
-		<!-- 		<view class="foot">
-					<text class="title">{{item.usergroup == null ? '' : item.usergroup }}</text>
-					<text class="sub_title">未使用</text>
-				</view> -->
 
 			</view>
 		</view>
@@ -43,56 +37,63 @@
 
 <script>
 	import floatWindows from '../../components/float-windows.vue'
-	
-	export default{
-		components:{
+
+	export default {
+		components: {
 			floatWindows
 		},
-		data(){
-			return{
+		data() {
+			return {
 				chooseed: [],
-				discountList:'',
-				sourceType:'',
-				discountPrice:0,
-				minPrice:0,//满减优惠劵的最低使用价格
+				discountList: '',
+				sourceType: '',
+				discountPrice: 0,
+				minPrice: 0, //满减优惠劵的最低使用价格
 			}
 		},
-		methods:{
-			isChoosed(id){
-				if(this.sourceType != '1') return
+		methods: {
+			toHome() {
+				uni.switchTab({
+					url: "../home/home"
+				})
+			},
+			isChoosed(id) {
+				if (this.sourceType != '1') return
 
-				if(this.chooseed.length == 0){
+				if (this.chooseed.length == 0) {
 					this.chooseed.push(id);
-				}
-				else{
+				} else {
 					if (this.chooseed.indexOf(id) === -1) {
-					    // 不存在,则添加
-					    this.chooseed.push(id)
-					  } else {
-					    // 存在,则删除
-					    this.chooseed.splice(this.chooseed.indexOf(id), 1)
-				      }
+						// 不存在,则添加
+						this.chooseed.push(id)
+					} else {
+						// 存在,则删除
+						this.chooseed.splice(this.chooseed.indexOf(id), 1)
+					}
 				}
 				this.discountPrice = 0;
-				for(let i = 0 ; i<this.discountList.length;i++){
-					for(let j = 0 ; j<this.chooseed.length;j++){
-						if(this.discountList[i].id == this.chooseed[j]){
+				for (let i = 0; i < this.discountList.length; i++) {
+					for (let j = 0; j < this.chooseed.length; j++) {
+						if (this.discountList[i].id == this.chooseed[j]) {
 							this.discountPrice += this.discountList[i].money;
 						}
 					}
 				}
 				console.log(this.discountPrice)
-				uni.$emit('discountArr',{choosed:this.chooseed,discountPrice:this.discountPrice})
+				uni.$emit('discountArr', {
+					choosed: this.chooseed,
+					discountPrice: this.discountPrice
+				})
 
 			},
 			//获取优惠券列表
-			getDiscountList(){
+			getDiscountList() {
 				let self = this;
 				let data = {
-					"token":uni.getStorageSync('token'),
-					"userid":uni.getStorageSync('customer').userid
+					"token": uni.getStorageSync('token'),
+					"userid": uni.getStorageSync('customer').userid
 				}
-				this.ask('/app/coupon/getCouponList','POST',data,function(res){
+				this.ask('/app/coupon/getCouponList', 'POST', data, function(res) {
 					console.log(res)
 					self.discountList = res.data.couponlist;
 
@@ -101,16 +102,16 @@
 		},
 		onLoad(option) {
 			console.log(option)
-			if(JSON.stringify(option) != '{}'){
+			if (JSON.stringify(option) != '{}') {
 				this.sourceType = option.type;
 				this.minPrice = Number(option.minPrice);
 				// console.log(this.minPrice)
-				if(JSON.parse(option.couponId) != ""){
+				if (JSON.parse(option.couponId) != "") {
 					this.chooseed = JSON.parse(option.couponId)
 					console.log(this.chooseed)
 				}
 				this.getDiscountList();
-			} else{
+			} else {
 				this.minPrice = 999999999999;
 				this.getDiscountList();
 			}
@@ -120,19 +121,40 @@
 </script>
 
 <style lang="scss">
-	page{
+	page {
 		background-color: #f9f9f9;
 	}
-	.discount_bxo{
+
+	.no_more {
+		image {
+			width: 366rpx;
+			height: 290rpx;
+			margin-top: 200rpx;
+		}
+		.remark{
+			text-align: center;
+			margin: 20rpx 0;
+			color: #999999;
+			font-size: 30rpx;
+			
+		}
+		.cu-btn{
+			border-radius: 40rpx;
+		}
+	}
+
+	.discount_bxo {
 		width: 100%;
-		.discount_list{
+
+		.discount_list {
 			width: 100%;
 			padding: 30rpx;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			.row{
+
+			.row {
 				width: 100%;
 				min-height: 180rpx;
 				// background-image: linear-gradient(to right,#85792a,#af9c42);
@@ -149,43 +171,51 @@
 				position: relative;
 				margin-bottom: 30rpx;
 				position: relative;
-				.angle{
+
+				.angle {
 					position: absolute;
 					right: 0;
 					top: 0;
 					width: 80rpx;
 					height: 80rpx;
 				}
-				.discount_msg{
+
+				.discount_msg {
 					display: flex;
 					width: 70%;
 					align-items: baseline;
 					// justify-content: flex-start;
 					height: 200rpx;
-				    padding: 0 25rpx;
-					.left{
+					padding: 0 25rpx;
+
+					.left {
 						margin: 0 20rpx 0 8rpx;
 						color: #81772b;
 						display: flex;
-						.symbol{
+
+						.symbol {
 							font-size: 28rpx;
 							margin-top: 40rpx;
 							font-weight: bold;
-							
+
 						}
-						.big_num{
+
+						.big_num {
 							font-size: 160rpx;
 							font-weight: bold;
 						}
 					}
-					.right{
+
+					.right {
 						color: #81772b;
 						transform: translateY(20rpx);
-						.sub_title{
+
+						.sub_title {
 							font-size: 32rpx;
 							font-weight: bold;
 						}
-						.time{
+
+						.time {
 							color: #999999;
 							font-size: 28rpx;
 						}
@@ -219,10 +249,11 @@
 	// 	border-radius: 50%;
 	// 	border-left: 1rpx solid #e1e1e1;
 	// }
-	.row_red{
-	   background-image: linear-gradient(to right,#d9383f,#e3575c) !important;
+	.row_red {
+		background-image: linear-gradient(to right, #d9383f, #e3575c) !important;
 	}
-	.row_gray{
-		background-image: linear-gradient(to right,#c2c2c2,#c2c2c2) !important;
+
+	.row_gray {
+		background-image: linear-gradient(to right, #c2c2c2, #c2c2c2) !important;
 	}
 </style>

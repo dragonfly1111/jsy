@@ -214,7 +214,7 @@
 
 			}
 		},
-		
+
 		// onPageScroll(e) {
 		// 	console.log(e)
 		// 	if(e.scrollTop > 20){
@@ -223,10 +223,19 @@
 		// 		this.showFloat = false
 		// 	}
 		// },
-		
-		components:{
+
+		onShareAppMessage(res) {
+			return {
+				title: '金三源',
+				path: '/pages/home/home',
+				imageUrl: ''
+			}
+		},
+
+		components: {
 			floatWindows
 		},
+
 		methods: {
 			//搜索跳转
 			toSearch() {
@@ -305,7 +314,7 @@
 				this.ask("/app/index/getProductListForIndex", "GET", {}, function(res) {
 
 					for (let i = 0; i < res.data.data.length; i++) {
-						if (res.data.data[i].id == '1') {
+						if (res.data.data[i].id == '881c90f447304eada8aabe80a1b04271') {
 							self.moreType1 = res.data.data[i].id;
 							self.goods = res.data.data[i].productlist;
 							self.moreType = i;
@@ -330,6 +339,7 @@
 			this.getGoods();
 			this.getRecommend();
 			this.imgHttp = this.comHttp;
+			
 		},
 		created() {
 			this.headerTop = this.StatusBar + 45 + 'px';
