@@ -7,8 +7,152 @@
 			<text :class="{act_text: currentType == 0}" @click="chooseType(0)">佣金</text>
 			<text :class="{act_text: currentType == 1}" @click="chooseType(1)">推广关系</text>
 		</view>
-
-		<view class="distribution_msg" v-if="currentType == 0">
+		<view class="main-wrapper">
+			<view v-if="currentType == 0">
+				<view class="banner">
+					<image src="../../static/my/money-banner.png" mode="aspectFit"></image>
+					<view class="text-area">
+						<view class="text">已提佣金</view>
+						<view class="value">
+							2356.6 <text class="unit">元</text>
+						</view>
+						<view class="text" style="margin-top: 10rpx;">未提佣金</view>
+						<view class="value">
+							1235.5 <text class="unit">元</text>
+						</view>
+					</view>
+					<view class="bottom-area">
+						<view class="text">冻结佣金</view>
+						<view class="value">656.6</view>
+						<view class="unit">元</view>
+					</view>
+				</view>
+				<view class="body-group">
+					<view class="date">04月21日</view>
+					<view class="block">
+						<view class="info">
+							<image src="../../static/my/no-header.png"></image>
+							<view>
+								<view class="rows">
+									<text class="label">金额：</text>
+									<text class="value">103元</text>
+									<text class="line">|</text>
+									<text class="label">佣金：</text>
+									<text class="value">5元</text>
+								</view>
+								<view>
+									<text class="label">单号：</text>
+									<text class="value">mm15990099933399522122222</text>
+								</view>
+							</view>
+						</view>
+						<view class="status">
+							<text>冻结</text>
+						</view>
+					</view>
+					<view class="block">
+						<view class="info">
+							<image src="../../static/my/no-header.png"></image>
+							<view>
+								<view class="rows">
+									<text class="label">金额：</text>
+									<text class="value">103元</text>
+									<text class="line">|</text>
+									<text class="label">佣金：</text>
+									<text class="value">5元</text>
+								</view>
+								<view>
+									<text class="label">单号：</text>
+									<text class="value">mm15990099933399522122222</text>
+								</view>
+							</view>
+						</view>
+						<view class="status">
+							<text class="text-red">未提现</text>
+						</view>
+					</view>
+				</view>
+				<view class="body-group">
+					<view class="date">04月21日</view>
+					<view class="block">
+						<view class="info">
+							<image src="../../static/my/no-header.png"></image>
+							<view>
+								<view class="rows">
+									<text class="label">金额：</text>
+									<text class="value">103元</text>
+									<text class="line">|</text>
+									<text class="label">佣金：</text>
+									<text class="value">5元</text>
+								</view>
+								<view>
+									<text class="label">单号：</text>
+									<text class="value">mm15990099933399522122222</text>
+								</view>
+							</view>
+						</view>
+						<view class="status">
+							<text class="text-red">未提现</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view v-if="currentType == 1">
+				<view class="banner banner-bg">
+					<view class="flex flex-wrap">
+						<view class="basis-df">
+							<view class="text">会员</view>
+							<view class="value">
+								99
+								<text class="unit">人</text>
+							</view>
+						</view>
+						<view class="basis-df">
+							<view class="text">游客</view>
+							<view class="value">
+								6
+								<text class="unit">人</text>
+							</view>
+						</view>
+					</view>
+					<view class="bottom-area" style="padding: 0;">
+						<view class="flex flex-wrap" style="width: 100%;">
+							<view class="basis-df">
+								<view class="header-text">昵称</view>
+							</view>
+							<view class="basis-df">
+								<view class="header-text">游客</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="user-list">
+					<view class="rows">
+						<view class="flex flex-wrap" style="width: 100%;">
+							<view class="basis-df">
+								<image src="../../static/my/no-header.png"></image>
+								<text class="user-name">jaisjiajsd</text>
+							</view>
+							<view class="basis-df" style="justify-content: center;">
+								<view class="user-type text-red">游客</view>
+							</view>
+						</view>
+					</view>
+					<view class="rows">
+						<view class="flex flex-wrap" style="width: 100%;">
+							<view class="basis-df">
+								<image src="../../static/my/no-header.png"></image>
+								<text class="user-name">阿朵</text>
+							</view>
+							<view class="basis-df" style="justify-content: center;">
+								<view class="user-type">会员</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- <view class="distribution_msg" v-if="currentType == 0">
 			<view class="msg_head">
 				<text class="title">未提现佣金</text>
 				<text class="sub_title">{{statistics.uncashtotalbrokerage == null ? 0 : statistics.uncashtotalbrokerage }}<text class="unit">元</text></text>
@@ -72,7 +216,7 @@
 			</view>
 	
 		</view>
-
+ -->
 		<!-- <view class="foot_btn" v-if="currentType == 0">
 			<text @click="applyRefund()">申请提现</text>
 		</view> -->
@@ -179,9 +323,11 @@
 </script>
 
 <style lang="scss">
+	page{
+		background-color: #f9f9f9;
+	}
 	.distribution_box {
 		width: 100%;
-
 		.distribution_head {
 			width: 100%;
 			height: 80rpx;
@@ -209,167 +355,166 @@
 			}
 
 		}
-         .distribution_head .act_text::after{
-         	content: '';
-         	position: absolute;
-         	bottom: 0;
-         	width: 50%;
-         	left: 25%;
-         	height: 8rpx;
-         	background-color: #857825;
-         }
-		.distribution_msg {
-			width: calc(100% - 60rpx);
-			margin: 30rpx;
-			min-height: 0;
-			background-image: linear-gradient(45deg, #85792a, #e9d1b4);
-            margin-top: 20rpx;
-			.msg_head {
-				width: 100%;
-				background-image: linear-gradient(45deg, #85792a, #e9d1b4);
-				height: 150rpx;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				color: #fff;
-				border-radius: 6rpx 6rpx 0 0;
-
-				.title {
-					font-size: 24rpx;
-				}
-
-				.sub_title {
-					font-size: 44rpx;
-					font-weight: bold;
-					margin-top: 5rpx;
-				}
-
-				.unit {
-					font-size: 22rpx;
-				}
-			}
-
-			.msg_foot {
-				width: 100%;
-				height: 120rpx;
-				background-color: #857825;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				background-color: rgba(000, 000, 000, 0.3);
-				border-radius: 0 0 9rpx 9rpx;
-
-				view {
-					flex: 1;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-direction: column;
-					color: #fff;
-
-					.title {
-						font-size: 24rpx;
-					}
-
-					.sub_title {
-						font-size: 36rpx;
-						margin-top: 8rpx;
-
-					}
-
-					.unit {
-						font-size: 22rpx;
-					}
-
-				}
-			}
-		}
-
-		.distribution_list {
-			width: 100%;
-			padding: 30rpx;
-			padding-top: 0;
-            margin-bottom: 120rpx;
-			.row {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin-bottom: 20rpx;
-
-				text {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					color: #666;
-				}
-
-				.order {
-					flex: 3;
-					color: #857825;
-				}
-
-				.money {
-					flex: 1;
-					color: #857825;
-				}
-
-				.brokerage {
-					flex: 1;
-					color: #857825;
-				}
-
-				.type_title {
-					flex: 1;
-					color: #857825;
-
-				}
-
-				.type {
-					flex: 1;
-					color: #000;
-				}
-
-				.freezeType {
-					color: #F24544;
-
-				}
-			}
-
-			.th {
-				color: #857825;
-				font-size: 30rpx;
-				font-weight: bold;
-
-			}
-
+		.distribution_head .act_text::after{
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 50%;
+			left: 25%;
+			height: 8rpx;
+			background-color: #857825;
 		}
 	}
-
-	.foot_btn {
-		width: 100%;
-		height: 80rpx;
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 50rpx;
-		position: fixed;
-		bottom: 40rpx;
-		text{
+	.main-wrapper {
+		width: calc(100% - 60rpx);
+		margin: 0 auto;
+		.banner {
+			height: 300rpx;
+			margin-top: 20rpx;
+			position: relative;
 			color: #fff;
-			background-color: #857825;
-			width: 380rpx;
-			height: 100%;
-			display: -webkit-box;
-			display: -webkit-flex;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			border-radius: 60rpx;
+			margin-bottom: 10rpx;
+			border-radius: 10rpx;
+			image {
+				position: absolute;
+				width: 100%;
+				height: 300rpx;
+				z-index: -1;
+			}
+			.text-area {
+				padding-top: 40rpx;
+				padding-left: 40rpx;
+				.text {
+					font-size: 28rpx;
+				}
+				.value {
+					font-size: 42rpx;
+					margin-top: 5rpx;
+				}
+				.unit {
+					font-size: 28rpx;
+				}
+			}
+			.bottom-area {
+				padding-left: 40rpx;
+				width: 100%;
+				height: 60rpx;
+				background: rgba($color: #000000, $alpha: 0.3);
+				position: absolute;
+				bottom: 0;
+				border-radius: 0 0 10rpx 10rpx;
+				display: flex;
+				align-items: center;
+				color: #fff;
+				.text {
+					font-size: 28rpx;
+					margin-right: 40rpx;
+				}
+				.value {
+					
+				}
+				.unit {
+					font-size: 28rpx;
+				}
+			}
 		}
-
+		.body-group {
+			.date {
+				padding-left: 40rpx;
+				margin-bottom: 10rpx;
+			}
+			.block {
+				padding: 30rpx 40rpx;
+				background: #fff;
+				border-radius: 10rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10rpx;
+				.info {
+					display: flex;
+					align-items: center;
+					image {
+						width: 80rpx;
+						height: 80rpx;
+						margin-right: 20rpx;
+					}
+					.rows {
+						display: flex;
+						align-items: center;
+						margin-bottom: 10rpx;
+					}
+					.label {
+						font-size: 24rpx;
+						font-weight: bold;
+						color: #7d7834;
+					}
+					.value {
+						font-size: 22rpx;
+						color: #666;
+					}
+					.line {
+						color: #7d7834;
+						margin-left: 8rpx;
+						margin-right: 8rpx;
+					}
+				}
+				.status {
+					font-size: 24rpx;
+					font-weight: bold;
+					.text-red {
+						color: #d14949;
+					}
+				}
+			}
+		}
+	
+		.banner-bg {
+			background-color: #7d7834;
+			text-align: center;
+			margin-bottom: 30rpx;
+			.text {
+				font-size: 48rpx;
+				margin-top: 60rpx;
+				margin-bottom: 30rpx;
+			}
+			.value {
+				font-size: 54rpx;
+			}
+			.unit {
+				margin-left: 10rpx;
+				font-size: 20rpx;
+			}
+			.header-text {
+				font-size: 26rpx;
+			}
+		}
+		.user-list {
+			text-align: center;
+			font-size: 26rpx;
+			image {
+				width: 80rpx;
+				height: 80rpx;
+				margin-right: 20rpx;
+				margin-left: 30rpx;
+			}
+			.rows {
+				margin-bottom: 30rpx;
+			}
+			.basis-df {
+				display: flex;
+				align-items: center;
+			}
+			.user-name {
+				color: #666;
+			}
+			.user-type {
+				color: #000;
+			}
+			.text-red {
+				color: #d14949;
+			}
+		}
 	}
 
 </style>
