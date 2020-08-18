@@ -138,6 +138,13 @@
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
+			<view class="list" @click="toFenXiao()">
+				<view class="flex">
+					<image src="../../static/my/icon-about.png"></image>
+					<text class="text">分销</text>
+				</view>
+				<text class="lg text-gray cuIcon-right"></text>
+			</view>
 		</view>
 		<floatWindows :showFloat="true"></floatWindows>
 		
@@ -349,6 +356,12 @@
 			toAddressList(){
 				uni.navigateTo({
 					url:'./address_list'
+				})
+			},
+			// 跳转分销
+			toFenXiao(){
+				uni.navigateTo({
+					url:'./distribution'
 				})
 			},
 			
