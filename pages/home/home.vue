@@ -333,13 +333,22 @@
 			}
 
 		},
-		onLoad: function() {
+		onLoad: function(option) {
+			console.log(option)
+			if (option.scene) {
+				// 处理二维码传进参数
+				let scene = decodeURIComponent(data.scene)
+				scene = decodeURIComponent(scene)
+				const srcUserId = scene.split("&")[0].split("=")[1]
+				uni.setStorageSync('sender', srcUserId)
+			}
+
 			this.getSwiperTop();
 			this.getHeadNav();
 			this.getGoods();
 			this.getRecommend();
 			this.imgHttp = this.comHttp;
-			
+
 		},
 		created() {
 			this.headerTop = this.StatusBar + 45 + 'px';

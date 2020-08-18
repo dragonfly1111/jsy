@@ -45,13 +45,14 @@
 
 		</view>
 
-		<view class="post" v-if="showPost">
+		<view class="post" v-show="showPost">
 			<canvas canvas-id="canvas" width="80%" height="75%"></canvas>
 			<!-- <image :src="imgHttp+'/marketResources/upload/2007/share.png'" mode=""></image> -->
-			<view class="qr-code">
+			<view class="post-foot">
 
+				<view class="close-post" @click="showPost = false">关闭</view>
+				<view class="save-post" @click="savePost()">保存图片</view>
 			</view>
-			<view class="save-post" @click="savePost()">保存图片</view>
 		</view>
 
 		<view :class="openShareSheet ? 'show-share' : ''" class="share-box">
@@ -75,45 +76,109 @@
 				openShareSheet: false,
 				showPost: false,
 				imgHttp: '', //图片接口前缀
+				loadImagePath: '', //生成的图片临时路径
 
 			}
 		},
 		mounted() {
 			this.imgHttp = this.comHttp;
+			if (uni.getStorageSync('customer').userid) {
+				this.getQrCode()
+			}
 		},
-		onReady() {
-			this.drawCanvas()
-		},
+
 
 		methods: {
-			drawCanvas() {
-				const ctx = wx.createCanvasContext('canvas', this)
-				console.log(ctx)
-
+			getQrCode: function() {
+				const params = {
+					sceneStr: {
+						userId: uni.getStorageSync('customer').userid
+					},
+					pageUrl: 'pages/home/home',
+				}
+				let that = this
+				this.ask("/api/share/createPoster", "POST", params, function(res) {
+					console.log('?')
+					// that.drawCanvas(res.data.data.file_url)
+				})
+			},
+			drawCanvas(url) {
+				wx.showLoading({
+					title: '加载中...',
+				})
+				let that = this
+				const ctx = wx.createCanvasContext('canvas', that)
 				wx.downloadFile({
 					url: this.imgHttp + '/marketResources/upload/2007/share.png',
+					// url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/Activity/30fc3357611d45328a333094f24b1b9f.jpg',
 					success: (res) => {
 						console.log(res)
 						if (res.statusCode === 200) {
-							ctx.drawImage(res.tempFilePath,0,0,wx.getSystemInfoSync().windowWidth * 0.8, wx.getSystemInfoSync().windowHeight * 0.75)
-							ctx.draw()
+							ctx.drawImage(res.tempFilePath, 0, 0, wx.getSystemInfoSync().windowWidth * 0.8, wx.getSystemInfoSync().windowHeight *
+								0.75)
+							ctx.draw(true)
+							wx.downloadFile({
+								// url: this.imgHttp + url,
+								url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/avatar/144c1f24680449db860d6d8b1671958a.jpg',
+								success: (res) => {
+									console.log(res)
+									if (res.statusCode === 200) {
+										ctx.drawImage(res.tempFilePath, wx.getSystemInfoSync().windowWidth * 0.25, wx.getSystemInfoSync().windowHeight *
+											0.5, wx.getSystemInfoSync().windowWidth * 0.3, wx.getSystemInfoSync().windowWidth * 0.3)
+										ctx.draw(true,function(){
+											console.log('画完了')
+											wx.canvasToTempFilePath({
+												canvasId: 'canvas',
+												success: function(res) {
+													wx.hideLoading()
+													that.loadImagePath = res.tempFilePath
+												},
+												fail: function(res) {
+													wx.hideLoading()
+													console.log(res);
+												}
+											},that);
+										})
+										
+
+									}
+								},
+								fail: (res) => {
+									console.log(res)
+
+								}
+							})
 						}
 					},
 					fail: (res) => {
 						console.log(res)
-						
+
 					}
 				})
+
+
 
 			},
 
 			savePost() {
-
+				wx.saveImageToPhotosAlbum({
+					filePath: this.loadImagePath,
+					success(res) {
+						console.log('res', res);
+						wx.showToast({
+							title: '已保存到相册',
+							icon: 'success',
+							duration: 3000
+						})
+					}
+				})
 			},
 
 			generatePoster() {
 				this.openShareSheet = false
 				this.showPost = true
+				this.drawCanvas()
+				
 			},
 
 			openShare() {
@@ -185,7 +250,6 @@
 
 	}
 
-	.save-post {}
 
 	.post {
 		height: 100vh;
@@ -198,29 +262,38 @@
 
 		canvas {
 			width: 80%;
-			height: 80%;
+			height: 70%;
 			margin: 50px 10% 0 10%;
 		}
 
-		.save-post {
-			width: 80%;
-			height: 80rpx;
-			text-align: center;
-			line-height: 80rpx;
+
+		.post-foot {
+			display: flex;
 			margin: 50rpx 10% 0 10%;
-			background-color: #857827;
-			color: #FFFFFF;
-			font-size: 32rpx;
+			width: 100%;
+
+			.close-post {
+				width: 35%;
+				height: 80rpx;
+				text-align: center;
+				line-height: 80rpx;
+				background-color: #FFFFFF;
+				border: 1px solid #000000;
+			}
+
+			.save-post {
+				margin-bottom: 10%;
+				width: 35%;
+				height: 80rpx;
+				text-align: center;
+				line-height: 80rpx;
+				margin-left: 10%;
+				background-color: #857827;
+				color: #FFFFFF;
+				font-size: 32rpx;
+			}
 		}
 
-		.qr-code {
-			width: 35vw;
-			height: 35vw;
-			position: absolute;
-			bottom: 250rpx;
-			left: 32.5%;
-			background-color: #999999;
-		}
 	}
 
 	.share-box {

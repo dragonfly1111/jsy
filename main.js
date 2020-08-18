@@ -44,20 +44,25 @@ Vue.prototype.ask = function(url, method, data, callback) {
 		    },
 		method: method,
 		success: function(res) {
+			// console.log(url)
+			// console.log(res)
+			
 			uni.hideLoading()
-			if (res.data.isFail == true) {
-				console.log(res)
-				self.hint(res.data.msg);
-				Vue.prototype.hint(res.msg)
-				return
-			}
+			// if (res.data.isFail == true) {
+			// 	console.log(res)
+			// 	self.hint(res.data.msg);
+			// 	Vue.prototype.hint(res.msg)
+			// 	return
+			// }
 			callback(res);
 		},
 		fail: function(error) {
+			// console.log(url)
+			console.log(error);
+			
 			if (error.errMsg == 'request:fail timeout' || error.errMsg == 'request:fail The request timed out.') {
 				Vue.prototype.hint('请求超时,请稍后再试')
 			}
-			console.log(error);
 			setTimeout(function() {
 				uni.hideLoading()
 			}, 2500)
