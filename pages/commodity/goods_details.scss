@@ -171,13 +171,15 @@
 
 .choose_list{
 	width: 100%;
-	padding: 30rpx 30rpx;
+	min-height: 70%;
+	padding: 30rpx 50rpx;
 	background: #FFFFFF;
 	position: fixed;
 	bottom: -100vh;
-	// box-shadow: 3rpx 0rpx 40rpx 10rpx #878787;
+	border-top-left-radius: 40rpx;
+	border-top-right-radius: 40rpx;
 
-	z-index: 9999;
+	z-index: 10002;
 	.row{
 		width: 100%;
 		min-height: 80rpx;
@@ -199,7 +201,7 @@
 }
 
 .choose_list::before{
-	content: '规格';
+	/* content: '规格';
 	position: absolute;
 	top: -70rpx;
 	height: 80rpx;
@@ -209,7 +211,7 @@
 	color: #FFFFFF;
 	left: 0;
 	line-height: 70rpx;
-	text-align: center;
+	text-align: center; */
 	border-top-left-radius: 40rpx;
 	border-top-right-radius: 40rpx;
 }
@@ -331,3 +333,96 @@
 		line-height: 50rpx;
 	}
 }
+
+/* 规格弹出宽 */
+.cuIcon-close {
+	font-size: 50rpx;
+	position: absolute;
+	right: 30rpx;
+	top: 30rpx;
+}
+.goods_info {
+	display: flex;
+	align-items: flex-end;
+	padding-bottom: 40rpx;
+	border-bottom: 1rpx solid #eee;
+	image {
+		width: 180rpx;
+		height: 180rpx;
+		background: #eee;
+	}
+	.goods-price {
+		margin-left: 30rpx;
+		color: #7d7834;
+		.price-wrapper {
+			display: flex;
+			align-items: flex-end;
+			.symbol {
+				font-size: 32rpx;
+			}
+			.price {
+				font-size: 40rpx;
+			}
+			.line {
+				align-self: center;
+			}
+		}
+		.text {
+			margin-top: 30rpx;
+			color: #999;
+			font-size: 32rpx;
+		}
+	}
+}
+.specs-wrapper {
+	padding-top: 20rpx;
+	.text {
+		color: #000;
+		// font-weight: bold;
+		margin-bottom: 30rpx;
+	}
+	.specs-list {
+		display: flex;
+		align-items: center;
+		.item {
+			font-size: 30rpx;
+			color: #000;
+			padding: 20rpx 40rpx;
+			background: #f7f8fa;
+			margin-right: 40rpx;
+		}
+		.item.active { 
+			background: #d0ceb6;
+		}
+	}
+}
+.button-wrapper {
+	width: 100%;
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+	display: flex;
+	position: absolute;
+	left: 0;
+	bottom: 40rpx;
+	.button {
+		font-size: 32rpx;
+		width: 50%;
+		height: 80rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #fff;
+		letter-spacing: 4rpx;
+	}
+	.button-left {
+		background: #a19e6d;
+		border-top-left-radius: 40rpx;
+		border-bottom-left-radius: 40rpx;
+	}
+	.button-right {
+		background: #7d7834;
+		border-top-right-radius: 40rpx;
+		border-bottom-right-radius: 40rpx;
+	}
+}
+

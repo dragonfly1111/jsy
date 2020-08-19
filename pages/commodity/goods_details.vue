@@ -61,12 +61,50 @@
 		<view @click="hideChooseList()" v-if="showChoose" class="mask"></view>
 		
 		<view class="choose_list" :class="showChoose ? 'list_show' : 'list_hide'">
-			<view class="row" v-for="(item,index) in detailsObj.specification_detail" :key='index' @click="chooseType(item.sellingprice,index,item.id,item.combination,item.marketprice)">
-				<view class="type_text">
-					<text class="title">规格：</text>
-					<text class="sub_title">{{item.combination.replace(","," ")}}</text>
+			<text class="text-gray cuIcon-close" @click="showChoose = false"></text>
+			<view class="goods_info">
+				<image :src="imgHttp + carousel[0]"></image>
+				<view class="goods-price">
+					<view class="price-wrapper">
+						<view v-if="vipprice">
+							<text class="symbol">¥</text>
+							<text class="price">{{ vipprice }}</text>
+						</view>
+						<view v-else>
+							<view v-if="detailsObj.specification_detail.length > 1">
+								<text class="symbol">¥</text>
+								<text class="price">{{ detailsObj.lowest_price }}</text>
+								<text class="line">—</text>
+								<text class="price">{{ detailsObj.highest_price }}</text>
+							</view>
+							<view v-else>
+								<text class="symbol">¥</text>
+								<text class="price">{{ detailsObj.highest_price }}</text>
+							</view>
+						</view>
+					</view>
+					<view class="text">
+						选择&nbsp;&nbsp;规格
+					</view>
 				</view>
-				<image src="../../static/details/specification.png" mode="" v-if="currentType == index"></image>
+			</view>
+			<view class="specs-wrapper">
+				<view class="text">规格：</view>
+				<view class="specs-list">
+					<view 
+						class="item" 
+						:class="{'active': currentType == index}"
+						v-for="(item,index) in detailsObj.specification_detail" 
+						:key='index' 
+						@click="chooseType(item.sellingprice,index,item.id,item.combination,item.marketprice)"
+					>
+						{{item.combination.replace(","," ")}}
+					</view>
+				</view>
+			</view>
+			<view class="button-wrapper">
+				<view class="button button-left">加入购物车</view>
+				<view class="button button-right">立即购买</view>
 			</view>
 		</view>
 		<view class="details_bg">
@@ -325,7 +363,7 @@
 				this.currentType = index;
 				this.specSelectedId = id;
 				this.specSelectedName = name;
-				this.showChoose = false;
+				// this.showChoose = false;
 			},
 		
 			//获取商品详情
@@ -342,6 +380,14 @@
 					self.detailsObj = res.data.data
 					self.carousel = self.detailsObj.carousel.split(",");
 					self.vipprice = self.detailsObj.vipprice;
+					/* 找出最大单价、最小单价 */
+					let priceList = []
+					for (let i = 0; i < self.detailsObj.specification_detail.length; i++) {
+						const di = self.detailsObj.specification_detail[i]
+						priceList.push(di.sellingprice)
+					}
+					self.detailsObj.lowest_price = Math.min(...priceList)
+					self.detailsObj.highest_price = Math.max(...priceList)
 					// self.carousel.pop();
 					// console.log(self.detailsObj)
 					// console.log(self.detailsObj.specification_detail)
