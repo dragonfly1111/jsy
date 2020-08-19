@@ -65,22 +65,20 @@
 			<view class="goods_info">
 				<image :src="imgHttp + carousel[0]"></image>
 				<view class="goods-price">
-					<view class="price-wrapper">
-						<view v-if="vipprice">
+					<view v-if="vipprice" class="price-wrapper">
+						<text class="symbol">¥</text>
+						<text class="price">{{ vipprice }}</text>
+					</view>
+					<view v-else>
+						<view v-if="detailsObj.specification_detail.length > 1" class="price-wrapper">
 							<text class="symbol">¥</text>
-							<text class="price">{{ vipprice }}</text>
+							<text class="price">{{ detailsObj.lowest_price }}</text>
+							<text class="line">—</text>
+							<text class="price">{{ detailsObj.highest_price }}</text>
 						</view>
-						<view v-else>
-							<view v-if="detailsObj.specification_detail.length > 1">
-								<text class="symbol">¥</text>
-								<text class="price">{{ detailsObj.lowest_price }}</text>
-								<text class="line">—</text>
-								<text class="price">{{ detailsObj.highest_price }}</text>
-							</view>
-							<view v-else>
-								<text class="symbol">¥</text>
-								<text class="price">{{ detailsObj.highest_price }}</text>
-							</view>
+						<view v-else class="price-wrapper">
+							<text class="symbol">¥</text>
+							<text class="price">{{ detailsObj.highest_price }}</text>
 						</view>
 					</view>
 					<view class="text">
