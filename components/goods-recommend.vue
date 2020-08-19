@@ -7,14 +7,16 @@
 		<view class="goods-wrapper">
 			<view class="flex flex-wrap">
 				<view class="basis-df" v-for="(item, index) in goodsList" @click="toGoods(item.id)" :class="{'text-right': index % 2 != 0}">
-					<image :src="imgHttp + item.cover"></image>
+					<view class="image-wrapper">
+						<image :src="imgHttp + item.cover"></image>
+					</view>
 					<view class="info" :class="{'move-right': index % 2 != 0}">
 						<view>
 							<view class="goods-name">
-								{{item.name}}
+								{{ item.name }}
 							</view>
 							<view class="goods-price">
-								¥ {{item.sellingprice}}元/{{item.unit}}
+								¥ {{ item.sellingprice }}元/{{ item.unit }}
 							</view>
 						</view>
 						<text class="lg cuIcon-cart"></text>
@@ -23,7 +25,8 @@
 			</view>
 		</view>
 		
-		<view class="go-shop">
+		
+		<view class="go-shop" @click="toHome()">
 			进店逛逛
 			<image src="../static/details/arrow.png"></image>
 		</view>
@@ -32,6 +35,7 @@
 
 <script>
 	export default{
+		props:['terms'],
 		data(){
 			return{
 				goodsList:[],
@@ -39,6 +43,12 @@
 			}
 		},
 		methods:{
+			toHome(){
+				uni.switchTab({
+					url:"../home/home"
+				})
+			},
+			
 			//跳转到商品详情
 			toGoods(id){
 				uni.navigateTo({
@@ -48,18 +58,36 @@
 			//获取精选商品列表
 			getGoodList(){
 				let self = this;
-				this.ask("/app/index/getProductList", "POST", {
-					page:1,
-					pagesize: 6,
-					is_choice: 1
-				}, function(res) {
+				let params
+				if(self.terms){
+					params = {
+						page:1,
+						pagesize: 6,
+						is_choice: 1,
+						terms: self.terms
+					}
+				} else{
+					params = {
+						page:1,
+						pagesize: 6,
+						is_choice: 1
+					}
+				}
+				this.ask("/app/index/getProductList", "POST", params, function(res) {
 					self.goodsList = res.data.data
+					self.goodsList.push([]);
+					self.goodsList.pop();
 				})
 			}
 		},
 		mounted() {
 			this.imgHttp = this.comHttp;
 			this.getGoodList()
+		},
+		watch:{
+			terms(val){
+				this.getGoodList()
+			}
 		}
 	}
 </script>
@@ -98,14 +126,18 @@
 	}
 	
 	.goods-wrapper {
-		width: 85%;
+		width: 80%;
 		margin: 0 auto;
 		.basis-df {
-			image {
+			.image-wrapper{
 				width: calc(100% - 20rpx);
-				height:0;
-				padding-bottom:100%;
+				height: 240rpx;
+				// padding-bottom:100%;
 				background: #eee;
+			}
+			image {
+				width: 100%;
+				height: 100%;
 			}
 			.info {
 				display: flex;
@@ -142,7 +174,6 @@
 			}
 		}
 	}
-	
 	.go-shop{
 		width: 85%;
 		margin: 30rpx auto 0 auto;

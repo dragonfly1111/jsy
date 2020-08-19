@@ -1,17 +1,13 @@
 <template>
 	<view>
 		<cu-custom bgColor="none-bg" :isBack="true">
-			<block slot="content">春生</block>
+			<block slot="content">{{title}}</block>
 		</cu-custom>
 		<view class="search">
 			<input type="text" placeholder="搜索商品" />
 		</view>
 		<view class="find_head">
-			<text :class="{act_nav: currentNav  == 0}" @click="chooseNav(0)">立春</text>
-			<text :class="{act_nav: currentNav  == 1}" @click="chooseNav(1)">雨水</text>
-			<text :class="{act_nav: currentNav  == 2}" @click="chooseNav(2)">惊蛰</text>
-			<text :class="{act_nav: currentNav  == 3}" @click="chooseNav(3)">清明</text>
-			<text :class="{act_nav: currentNav  == 4}" @click="chooseNav(4)">春分</text>
+			<text v-for="(item,index) in curSeasonList" :class="{act_nav: currentNav  == index}" @click="chooseNav(index)">{{item}}</text>
 		</view>
 		<view class="banner"></view>
 		<view class="info">
@@ -25,32 +21,35 @@
 			<view class="name">浙江春笋</view>
 			<image></image>
 		</view>
+		
+		<goodsRecommend :terms="curSeasonList[currentNav]"></goodsRecommend>
+		
 	</view>
 </template>
 
 <script>
+	import goodsRecommend from '../../components/goods-recommend.vue'
+	
 	// import navigationCustom from "../../components/struggler-navigationCustom/navigation-custom.vue"
 	export default{
 		components:{
 			// navigationCustom
+			goodsRecommend
 		},
 		data(){
 			return{
 				currentNav: 0,
 				type: 1,
-				config:{
-				    title: "", //title
-				    bgcolor:"#fff", //背景颜色
-				    fontcolor:"#000", //文字颜色，默认白色
-				    type: 4, //type 1，3胶囊 2，4无胶囊模式
-				    transparent: false, //是否背景透明 默认白色
-				    // linear:true, //是为开启下滑渐变
-				    // share:true, //是否将主页按钮显示为分享按钮
-				    menuIcon:"../../static/icon/back_.png", // 当type为3或者4的时候左边的icon文件位置，注意位置与当前页面不一样
-				    // menuText:"返回", 当type为3或4的时候icon右边的文字
-				},
+				title: 1,
 				scrollTop:0 ,// 当linear为true的时候需要通过onpagescroll传递参数
 				scrollMaxHeight:200, //滑动的高度限制，超过这个高度即背景全部显示
+				seasonList:[
+					["立春","雨水","惊蛰","春分","清明","谷雨"],
+					["立夏","小满","芒种","夏至","小暑","大暑"],
+					["立秋","处暑","白露","秋分","寒露","霜降"],
+					["立冬","小雪","大雪","冬至","小寒","大寒"]
+				],
+				curSeasonList:[]
 			}
 		},
 		methods:{
@@ -66,17 +65,24 @@
 		onLoad(option) {
 			this.type = option.type
 			switch (this.type) {
+				case '0':
+				this.title = '春生'
+				this.curSeasonList = this.seasonList[0]
+				break
 				case '1':
-				this.config.title = '春生'
+				this.title = '夏物'
+				this.curSeasonList = this.seasonList[1]
+				
 				break
 				case '2':
-				this.config.title = '夏物'
+				this.title = '秋收'
+				this.curSeasonList = this.seasonList[2]
+				
 				break
 				case '3':
-				this.config.title = '秋收'
-				break
-				case '4':
-				this.config.title = '冬藏'
+				this.title = '冬藏'
+				this.curSeasonList = this.seasonList[3]
+				
 				break
 			}
 		},

@@ -150,10 +150,11 @@
 		}
 	}
 	.goods_list{
-		width: 100%;
+		width: 85%;
+		margin: 0 auto;
 		// padding: 30rpx 0rpx;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
 	}

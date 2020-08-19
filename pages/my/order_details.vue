@@ -120,6 +120,7 @@
 				source:'',
 				discountPrice:0,
 				discount:'',
+				expressInfo:[],
 			}
 		},
 		methods:{
@@ -285,11 +286,23 @@
 				this.ask("/app/order/getOrderById","POST",data,function(res){
 					console.log(res)
 					self.detailsObj = res.data.data;
-			
+					self.getOrderExpress(self.detailsObj.couriercode)
 					self.discountPrice = Math.floor(Number(self.detailsObj.totalprice) * (1 - self.discount / 10) *100) / 100;
 					
 				})
 			},
+			//获取订单物流信息
+			getOrderExpress(num){
+				let self = this;
+				let data = {
+					"num":num,
+				}
+				this.ask("/api/express/expressInfo","POST",data,function(res){
+					self.expressInfo = res.data.data;
+					console.log(self.expressInfo)
+				})
+			},
+			
 			//确认收货
 			sureDelivery(){
 				let self = this;
