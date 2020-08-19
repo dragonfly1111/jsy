@@ -4,7 +4,7 @@
 			<block slot="content">{{title}}</block>
 		</cu-custom>
 		<view class="search">
-			<input type="text" placeholder="搜索商品" />
+			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()'/>
 		</view>
 		<view class="find_head">
 			<text v-for="(item,index) in curSeasonList" :class="{act_nav: currentNav  == index}" @click="chooseNav(index)">{{item}}</text>
@@ -38,6 +38,7 @@
 		},
 		data(){
 			return{
+				searchKey: '',
 				currentNav: 0,
 				type: 1,
 				title: 1,
@@ -53,6 +54,12 @@
 			}
 		},
 		methods:{
+			//搜索跳转
+			toSearch() {
+				uni.navigateTo({
+					url: '../commodity/search?key=' + this.searchKey
+				})
+			},
 			back() {
 				uni.navigateBack({
 					delta:1

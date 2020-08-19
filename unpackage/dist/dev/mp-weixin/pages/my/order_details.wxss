@@ -1,0 +1,681 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+page {
+  background-color: #f7f7f7;
+}
+.no_more {
+  font-size: 24rpx;
+  color: #666;
+  width: 100%;
+  text-align: center;
+  padding: 150rpx 0;
+}
+.no_more image {
+  width: 190rpx;
+  height: 300rpx;
+}
+.order {
+  width: 100%;
+}
+.order_head {
+  width: 100%;
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  background-color: #FFFFFF;
+  color: #606060;
+  margin-top: #f7f7f7 solid 20rpx;
+}
+.order_head text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  height: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  font-size: 30rpx;
+  font-weight: bold;
+  position: relative;
+}
+.order_head .act_nav {
+  color: #7D7834;
+}
+.order_list {
+  width: 100%;
+  padding: 30rpx;
+}
+.order_list .row {
+  width: 100%;
+  margin-bottom: 30rpx;
+  min-height: 300rpx;
+  box-shadow: 0 5rpx 5rpx 5rpx #F0F0F0;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.order_list .row .row_head {
+  width: 100%;
+  height: 60rpx;
+  font-size: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  padding: 10rpx 30rpx 0 30rpx;
+}
+.order_list .row .row_head .sub_title {
+  color: #7D7834;
+}
+.order_list .row .row_main {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.order_list .row .row_main .left image {
+  width: 160rpx;
+  height: 160rpx;
+  margin: 0 20rpx;
+  border-radius: 20rpx;
+}
+.order_list .row .row_main .center {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-left: 10rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.order_list .row .row_main .center .title {
+  font-size: 32rpx;
+}
+.order_list .row .row_main .center .sub_title {
+  color: #8F9192;
+  font-size: 26rpx;
+  margin: 10rpx 0;
+}
+.order_list .row .row_main .center .num {
+  color: #857825;
+}
+.order_list .row .row_main .right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-right: 20rpx;
+  min-width: 150rpx;
+  font-size: 30rpx;
+}
+.order_list .row .row_main .right .title {
+  font-size: 24rpx;
+  color: #857825;
+  text-align: right;
+}
+.order_list .row .row_main .right .big_num {
+  font-size: 36rpx;
+}
+.order_list .row .row_main .right .num {
+  color: #8F9192;
+  font-size: 32rpx;
+  text-align: right;
+  margin: 10rpx 0;
+}
+.order_list .row .row_main .right .small_symbol {
+  font-size: 28rpx;
+}
+.order_list .row_bottom {
+  width: 100%;
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 0 30rpx;
+  margin-top: 20rpx;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+}
+.order_list .row_bottom text, .order_list .row_bottom button {
+  color: #857825;
+  border-radius: 30rpx;
+  width: 170rpx;
+  height: 55rpx;
+  border: 1rpx solid #857825;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 26rpx;
+  margin-left: 15rpx;
+}
+.order_list .row_bottom .text_gray {
+  color: #999999;
+  border: 1rpx solid #999999;
+}
+.order_list .row_body {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.order_list .row_body .right {
+  min-width: 150rpx;
+  margin-right: 20rpx;
+}
+.order_list .row_body .right .count {
+  color: #857825;
+  text-align: right;
+}
+.order_list .row_body .right .count .big_num {
+  font-size: 36rpx;
+}
+.order_list .row_body .right .count .num {
+  color: #8F9192;
+  font-size: 32rpx;
+  text-align: right;
+  margin: 10rpx 0;
+}
+.order_list .row_body .right .count .sub_title {
+  font-size: 32rpx;
+}
+.order_list .row_body .right .num {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 10rpx;
+  margin-right: 25rpx;
+}
+.order_list .row_body swiper {
+  width: calc(70% - 20rpx);
+  height: 200rpx;
+  position: relative;
+  margin-left: 20rpx;
+}
+.order_list .row_body swiper .swiper-item {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #857825;
+}
+.order_list .row_body swiper image {
+  min-width: 160rpx;
+  max-height: 160rpx;
+  min-height: 160rpx;
+  max-height: 160rpx;
+  border-radius: 20rpx;
+}
+.order_list .row_body swiper text {
+  margin: 0 20rpx;
+}
+button {
+  margin-right: 0;
+  background-color: #fff;
+}
+button::after {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.order_head .act_nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0rpx;
+  width: 60%;
+  border-radius: 5rpx;
+  left: 20%;
+  height: 8rpx;
+  background-color: #7D7834;
+}
+page {
+  background-color: #f9f9f9;
+}
+.details {
+  width: 100%;
+}
+.row_main {
+  padding-bottom: 20rpx;
+}
+.address {
+  box-shadow: 0 5rpx 5rpx 5rpx #F0F0F0;
+  width: calc(100% - 60rpx);
+  margin: 30rpx;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  min-height: 150rpx;
+  padding: 30rpx;
+  margin-bottom: 0;
+  border-radius: 8px;
+}
+.address .add_address {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #857825;
+}
+.address .left {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+  height: 100%;
+}
+.address .left image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.address .center {
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  margin: 0 20rpx;
+}
+.address .center .title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+.address .center .name {
+  color: #666;
+  font-size: 26rpx;
+}
+.address .center .tel {
+  margin-left: 20rpx;
+}
+.address .right {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.address .right image {
+  width: 30rpx;
+  height: 30rpx;
+}
+.order_list {
+  padding-bottom: 0;
+}
+.order_list .row {
+  border-radius: 8px;
+}
+.order_list .row .row_head {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+          justify-content: flex-start;
+  padding-top: 5px;
+}
+.order_list .row .row_head .title {
+  color: #000;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+.order_list .row .row_head .sub_title {
+  margin-left: 30rpx;
+  color: #857825;
+  font-size: 26rpx;
+}
+.order_list .row .row_main .right {
+  min-width: 100rpx;
+  color: #857825;
+}
+.order_list .row .row_head {
+  height: 80rpx;
+}
+.price_box, .remark_box, .order_box, .discount_box {
+  box-shadow: 0 5rpx 5rpx 5rpx #F0F0F0;
+  width: calc(100% - 60rpx);
+  margin: 30rpx;
+  height: 220rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.price_box .row, .remark_box .row, .order_box .row, .discount_box .row {
+  border-radius: 8px;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 60rpx;
+  padding: 0 30rpx;
+}
+.price_box .row .title, .remark_box .row .title, .order_box .row .title, .discount_box .row .title {
+  color: #666;
+  min-width: 130rpx;
+}
+.price_box .row .sub_title, .remark_box .row .sub_title, .order_box .row .sub_title, .discount_box .row .sub_title {
+  color: #857825;
+  font-size: 32rpx;
+}
+.remark_box {
+  height: auto;
+  min-height: 80rpx;
+}
+.remark_box .row {
+  height: auto;
+  min-height: 80rpx;
+  margin: 10rpx 0;
+}
+.remark_box .row .sub_title {
+  color: #999999;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.remark_box .row textarea {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  height: auto;
+  padding-left: 20rpx;
+}
+.order_box {
+  height: 140rpx;
+  margin-bottom: 150rpx;
+}
+.order_box .row .sub_title {
+  color: #999999;
+  font-size: 28rpx;
+  font-weight: normal;
+}
+.discount_box {
+  height: auto;
+  min-height: 80rpx;
+  margin-bottom: 150rpx;
+}
+.discount_box .row {
+  height: auto;
+  min-height: 80rpx;
+  margin: 10rpx 0;
+}
+.discount_box .row image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 8rpx;
+}
+.discount_box .row .coupon {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #F24544;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.details_foot {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 120rpx;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  z-index: 999;
+  width: 100%;
+  padding: 0 40rpx;
+}
+.details_foot .title {
+  color: #666;
+  font-size: 26rpx;
+}
+.details_foot .sub_title {
+  font-size: 32rpx;
+  color: #F24544;
+  font-weight: bold;
+}
+.details_foot .btn {
+  background-color: #857825;
+  color: #fff;
+  width: 200rpx;
+  height: 70rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 28rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-radius: 50rpx;
+  margin-left: 15rpx;
+}
+page {
+  position: relative;
+}
+.addres_box {
+  width: 100%;
+  height: 80%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+}
+.addres_box .shadow_box {
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  opacity: 0.5;
+}
+.addres_box .address_list {
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 9999999999;
+  height: 40%;
+  overflow-y: auto;
+}
+.addres_box .address_list radio-group {
+  width: 100%;
+}
+.addres_box .address_list .address {
+  box-shadow: none;
+  padding: 0;
+  margin: 5rpx 30rpx;
+  margin-top: 20rpx;
+  min-height: 90rpx;
+}
+.addres_box .address_list .address .center .title {
+  font-weight: normal;
+}
+.addres_box .address_list .address .edit {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+.addres_box .address_list .list_head {
+  width: 100%;
+  height: 80rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-bottom: 1rpx solid #e1e1e1;
+  padding: 0 30rpx;
+}
+.addres_box .address_list .list_head text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  height: 100%;
+}
+.addres_box .address_list .list_head .btn {
+  font-weight: normal;
+  color: #857825;
+  font-size: 28rpx;
+  margin-top: 15rpx;
+}
+.addres_box .address_list .list_head .cancel {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+          justify-content: flex-start;
+}
+.addres_box .address_list .list_head .add {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+}
+button {
+  margin-right: 0;
+  background-color: #fff;
+}
+button::after {
+  display: none;
+  width: 0;
+  height: 0;
+}
+

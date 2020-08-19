@@ -103,8 +103,8 @@
 				</view>
 			</view>
 			<view class="button-wrapper">
-				<view class="button button-left">加入购物车</view>
-				<view class="button button-right">立即购买</view>
+				<view class="button button-left" @click="addCart()">加入购物车</view>
+				<view class="button button-right" @click="nowBuy()">立即购买</view>
 			</view>
 		</view>
 		<view class="details_bg">

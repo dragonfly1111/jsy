@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "三源",
+  "usingComponents": {
+    "goods-recommend": "/components/goods-recommend"
+  }
+}

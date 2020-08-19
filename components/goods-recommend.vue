@@ -64,7 +64,7 @@
 						page:1,
 						pagesize: 6,
 						is_choice: 1,
-						terms: self.terms
+						terms: encodeURI(self.terms)
 					}
 				} else{
 					params = {
