@@ -5,14 +5,14 @@
 		</cu-custom>
 		
 		<view class="find_head">
-			<text :class="{act_nav: currentNav  == 0}" @click="chooseNav(0)">食物美学</text>
-			<text :class="{act_nav: currentNav  == 1}" @click="chooseNav(1)">生活常识</text>
-			<text :class="{act_nav: currentNav  == 2}" @click="chooseNav(2)">空间沙龙</text>
+			<text :class="{act_nav: currentNav  == 'swmx'}" @click="chooseNav('swmx')">食物美学</text>
+			<text :class="{act_nav: currentNav  == 'shcs'}" @click="chooseNav('shcs')">生活常识</text>
+			<text :class="{act_nav: currentNav  == 'kjsl'}" @click="chooseNav('kjsl')">空间沙龙</text>
 		</view>
 		
 		<!-- 食物美学 -->
-		<view v-if="currentNav == 0">
-			<view class="find_list" v-for="(item,index) in newsObj" :key='index'  @click="toDetails(item.id,item.title)">
+		<view v-if="currentNav == 'swmx'">
+			<view class="find_list" v-for="(item,index) in newsObjSw" :key='index'  @click="toDetails(item.id,item.title)">
 				<view class="img_box">
 					<image :src="imgHttp + item.pic1" mode=""></image>
 				</view>
@@ -22,36 +22,65 @@
 				</view>
 				<view class="sub_title" v-html="item.explain"></view>
 			</view>
+			<view class="no_more" v-if="newsObjSw.length == count">
+				没有更多了
+			</view>
 		</view>
 		
 		<!-- 生活常识 -->
-		<view v-if="currentNav == 1">生活常识</view>
+		<view v-if="currentNav == 'shcs'">
+			<view class="find_list" v-for="(item,index) in newsObjSh" :key='index'  @click="toDetails(item.id,item.title)">
+				<view class="img_box">
+					<image :src="imgHttp + item.pic1" mode=""></image>
+				</view>
+				<view class="find_head_line">
+					<text class="title">{{item.title}}</text>
+					<text class="time">{{item.audit_time | timeFilter}}</text>
+				</view>
+				<view class="sub_title" v-html="item.explain"></view>
+			</view>
+			<view class="no_more" v-if="newsObjSh.length == count">
+				没有更多了
+			</view>
+		</view>
 		
 		<!-- 空间沙龙 -->
-		<view v-if="currentNav == 2">空间沙龙</view>
+		<view v-if="currentNav == 'kjsl'">
+			<view class="find_list" v-for="(item,index) in newsObjKj" :key='index'  @click="toDetails(item.id,item.title)">
+				<view class="img_box">
+					<image :src="imgHttp + item.pic1" mode=""></image>
+				</view>
+				<view class="find_head_line">
+					<text class="title">{{item.title}}</text>
+					<text class="time">{{item.audit_time | timeFilter}}</text>
+				</view>
+				<view class="sub_title" v-html="item.explain"></view>
+			</view>
+			<view class="no_more" v-if="newsObjKj.length == count">
+				没有更多了
+			</view>
+		</view>
 		
 
-		<view class="no_more" v-if="newsObj.length == count">
-			没有更多了
-		</view>
+
 		<floatWindows :showFloat="showFloat"></floatWindows>
 	</view>
 </template>
 
 <script>
-	import floatWindows from '../../components/float-windows.vue'
-	
+
 	export default{
 		components:{
-			floatWindows
 		},
 		data(){
 			return{
 				imgHttp:'',
-				newsObj:[],
+				newsObjSw:[],
+				newsObjSh:[],
+				newsObjKj:[],
 				count:0,
 				index:1,
-				currentNav: 0,
+				currentNav: 'swmx',
 				showFloat: true,
 			}
 		},
@@ -66,21 +95,52 @@
 				let self = this;
 				let data = {
 					page: index, 
-					pagesize: 10
+					pagesize: 10,
+					type: this.currentNav
 				};
 				self.ask('/app/content/getContentList','POST',data,function(res){
 					console.log(res)
 					self.count = res.data.count;
-					for(let i = 0 ; i < res.data.data.length ; i++){
-						self.newsObj.push(res.data.data[i])
-						console.log(self.newsObj)
+					
+					if(self.currentNav == 'swmx'){
+						if(self.index != 1){
+							for(let i = 0 ; i < res.data.data.length ; i++){
+								self.newsObjSw.push(res.data.data[i])
+							}
+						} else{
+							self.newsObjSw = res.data.data
+						}
+	
 					}
+					if(self.currentNav == 'shcs'){
+						if(self.index != 1){
+							for(let i = 0 ; i < res.data.data.length ; i++){
+								self.newsObjSh.push(res.data.data[i])
+							}
+						} else{
+							self.newsObjSh = res.data.data
+						}
+	
+					}
+					if(self.currentNav == 'kjsl'){
+						if(self.index != 1){
+							for(let i = 0 ; i < res.data.data.length ; i++){
+								self.newsObjKj.push(res.data.data[i])
+							}
+						} else{
+							self.newsObjKj = res.data.data
+						}
+
+					}
+
 				
 				})
 			},
 			
 			chooseNav(index){
 				this.currentNav = index
+				this.index = 1
+				this.getNewsList(1)
 			},
 		},
 		filters:{

@@ -50,6 +50,23 @@
 			color: #fff;
 			font-size: 30rpx;
 			padding-top: 10rpx;
+			button {
+				height: 100rpx;
+				width: 100rpx;
+				padding: 0;
+				margin: 0;
+				line-height: unset;
+				border: none;
+				background: unset;
+				display: inline;
+	
+			}
+			
+			button::after {
+				height: 0;
+				width: 0;
+			}
+			
 			.no_tip {
 				font-size: 38rpx;
 				color: #454543;

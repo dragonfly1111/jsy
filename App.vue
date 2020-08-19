@@ -1,6 +1,7 @@
 <script>
 	import Vue from 'vue'
-	export default {
+
+    export default {
 		onLaunch: function() {
 			const updateManager = uni.getUpdateManager();
 			updateManager.onCheckForUpdate(function(res) {

@@ -1,12 +1,8 @@
 <template>
 	<view>
-<!-- 		<navigation-custom
-			v-if="config.title"
-			:config="config" 
-			:scrollTop="scrollTop" 
-			:scrollMaxHeight="scrollMaxHeight"
-			@customConduct="back()"
-		/> -->
+		<cu-custom bgColor="none-bg" :isBack="true">
+			<block slot="content">春生</block>
+		</cu-custom>
 		<view class="search">
 			<input type="text" placeholder="搜索商品" />
 		</view>

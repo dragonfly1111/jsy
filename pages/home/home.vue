@@ -194,7 +194,6 @@
 </template>
 
 <script>
-	import floatWindows from '../../components/float-windows.vue'
 	export default {
 		data() {
 			return {
@@ -233,7 +232,6 @@
 		},
 
 		components: {
-			floatWindows
 		},
 
 		methods: {
@@ -268,7 +266,7 @@
 				console.log(type)
 				uni.setStorageSync('actNav', type);
 				uni.navigateTo({
-					url: '../commodity/commodity'
+					url: '../commodity/commodity?type='+type
 				})
 			},
 			//跳转到商品详情
@@ -337,16 +335,15 @@
 			console.log(option)
 			if (option.scene) {
 				// 处理二维码传进参数
-				let scene = decodeURIComponent(data.scene)
+				let scene = decodeURIComponent(option.scene)
 				scene = decodeURIComponent(scene)
-				const srcUserId = scene.split("&")[0].split("=")[1]
-				uni.setStorageSync('sender', srcUserId)
+				uni.setStorageSync('sender', scene)
 			}
 
 			this.getSwiperTop();
 			this.getHeadNav();
 			this.getGoods();
-			this.getRecommend();
+			// this.getRecommend();
 			this.imgHttp = this.comHttp;
 
 		},

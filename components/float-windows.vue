@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view v-if="showFloat && showIcon" class="mask" @click="showList"></view>
+		<view v-if="showFloat && showIcon || openShareSheet" class="mask" @click="showList"></view>
 
 		<view class="add-icon" :class="!showFloat ? 'hide-add' : 'show-add'" :style="showIcon1 ? 'background-color: #2c2c2c' : ''"
 		 @click="showList()">
@@ -82,24 +82,19 @@
 		},
 		mounted() {
 			this.imgHttp = this.comHttp;
-			if (uni.getStorageSync('customer').userid) {
-				this.getQrCode()
-			}
 		},
 
 
 		methods: {
 			getQrCode: function() {
 				const params = {
-					sceneStr: {
-						userId: uni.getStorageSync('customer').userid
-					},
+					// sceneStr: "userId=" + encodeURI(uni.getStorageSync('customer').userid),
+					sceneStr: "1234hello",
 					pageUrl: 'pages/home/home',
 				}
 				let that = this
 				this.ask("/api/share/createPoster", "POST", params, function(res) {
-					console.log('?')
-					// that.drawCanvas(res.data.data.file_url)
+					that.drawCanvas(res.data.file_url)
 				})
 			},
 			drawCanvas(url) {
@@ -109,8 +104,8 @@
 				let that = this
 				const ctx = wx.createCanvasContext('canvas', that)
 				wx.downloadFile({
-					url: this.imgHttp + '/marketResources/upload/2007/share.png',
-					// url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/Activity/30fc3357611d45328a333094f24b1b9f.jpg',
+					// url: this.imgHttp + '/marketResources/upload/2007/share.png',
+					url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/Activity/%E9%A6%96%E9%A1%B5-%E5%88%86%E4%BA%AB%E9%A1%B5%E9%9D%A2.png',
 					success: (res) => {
 						console.log(res)
 						if (res.statusCode === 200) {
@@ -118,8 +113,9 @@
 								0.75)
 							ctx.draw(true)
 							wx.downloadFile({
+								url: url,
 								// url: this.imgHttp + url,
-								url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/avatar/144c1f24680449db860d6d8b1671958a.jpg',
+								// url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/avatar/144c1f24680449db860d6d8b1671958a.jpg',
 								success: (res) => {
 									console.log(res)
 									if (res.statusCode === 200) {
@@ -175,10 +171,13 @@
 			},
 
 			generatePoster() {
-				this.openShareSheet = false
-				this.showPost = true
-				this.drawCanvas()
-				
+				if (uni.getStorageSync('customer').userid) {
+					this.openShareSheet = false
+					this.showPost = true
+					this.getQrCode()
+				} else{
+					this.hint('请先登录再生成海报')
+				}
 			},
 
 			openShare() {

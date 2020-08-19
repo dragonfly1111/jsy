@@ -95,11 +95,9 @@
 </template>
 
 <script>
-	import floatWindows from '../../components/float-windows.vue'
 	import BIN from "bankcardinfo"
 	export default {
 		components:{
-			floatWindows
 		},
 		data() {
 			return {

@@ -14,16 +14,18 @@
 					<view class="text-area">
 						<view class="text">已提佣金</view>
 						<view class="value">
-							2356.6 <text class="unit">元</text>
+							{{statistics.cashbrokerage == null ? 0 : statistics.cashbrokerage }}
+							 <text class="unit">元</text>
 						</view>
 						<view class="text" style="margin-top: 10rpx;">未提佣金</view>
 						<view class="value">
-							1235.5 <text class="unit">元</text>
+							{{statistics.uncashtotalbrokerage == null ? 0 : statistics.uncashtotalbrokerage }}
+							<text class="unit">元</text>
 						</view>
 					</view>
 					<view class="bottom-area">
 						<view class="text">冻结佣金</view>
-						<view class="value">656.6</view>
+						<view class="value">{{statistics.freezebrokerage == null ? 0 : statistics.freezebrokerage}}</view>
 						<view class="unit">元</view>
 					</view>
 				</view>
@@ -77,6 +79,16 @@
 					<view class="block">
 						<view class="info">
 							<image src="../../static/my/no-header.png"></image>
+			<!-- 				        "id": "f6a7e19708294943bbd022270a42c59d",
+							        "ordercode": "mm1594282170384163316",
+							        "orderid": "10df13e2-8e00-ff33-7bb5-cef899a7dd57",
+							        "orderprice": "100.0",
+							        "owner": "43d1a99e-c944-c489-d38f-63869d604c5c",
+							        "ownertype": "销售",
+							        "payprice": "85.0",
+							        "sender": "0ee17383-98b1-5df2-c4fa-ca8ef10de124",
+							        "status": "0",
+							        "totalbrokerage": 1.0 -->
 							<view>
 								<view class="rows">
 									<text class="label">金额：</text>
@@ -103,14 +115,14 @@
 						<view class="basis-df">
 							<view class="text">会员</view>
 							<view class="value">
-								99
+								{{generalize.membernum}}
 								<text class="unit">人</text>
 							</view>
 						</view>
 						<view class="basis-df">
 							<view class="text">游客</view>
 							<view class="value">
-								6
+								{{generalize.unmembernum}}
 								<text class="unit">人</text>
 							</view>
 						</view>
@@ -127,25 +139,15 @@
 					</view>
 				</view>
 				<view class="user-list">
-					<view class="rows">
+				
+					<view class="rows" v-for="(item,index) in generalizeList" :key='index'>
 						<view class="flex flex-wrap" style="width: 100%;">
 							<view class="basis-df">
 								<image src="../../static/my/no-header.png"></image>
-								<text class="user-name">jaisjiajsd</text>
+								<text class="user-name">{{decodeURIComponent(item.nickname)}}</text>
 							</view>
 							<view class="basis-df" style="justify-content: center;">
-								<view class="user-type text-red">游客</view>
-							</view>
-						</view>
-					</view>
-					<view class="rows">
-						<view class="flex flex-wrap" style="width: 100%;">
-							<view class="basis-df">
-								<image src="../../static/my/no-header.png"></image>
-								<text class="user-name">阿朵</text>
-							</view>
-							<view class="basis-df" style="justify-content: center;">
-								<view class="user-type">会员</view>
+								<view class="user-type" :class="item.usertype == '会员' ? 'text-red' : '' ">{{item.usertype}}</view>
 							</view>
 						</view>
 					</view>

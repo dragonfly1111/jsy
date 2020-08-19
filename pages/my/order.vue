@@ -266,12 +266,10 @@
 
 <script>
 	import goodsRecommend from '../../components/goods-recommend.vue'
-	import floatWindows from '../../components/float-windows.vue'
-	
+
 	export default {
 		components:{
 			goodsRecommend,
-			floatWindows
 		},
 		filters:{
 				numberFilter(e){

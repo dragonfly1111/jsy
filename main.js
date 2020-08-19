@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App'
 import cuCustom from './colorui/components/cu-custom.vue'
+import floatWindows from './components/float-windows'
 Vue.component('cu-custom', cuCustom)
+Vue.component('floatWindows', floatWindows)
 Vue.config.productionTip = false
 App.mpType = 'app'
 
@@ -75,6 +77,7 @@ Vue.prototype.getinfo = function(type) {
 	let self = this;
 	this.modalName = '';
 	let code = ''
+	console.log(this)
 	console.log('哈哈哈',uni.getStorageSync('sender'))
 	wx.login({
 		success(res) {
@@ -85,6 +88,7 @@ Vue.prototype.getinfo = function(type) {
 				
 				wx.getUserInfo({
 					success: function(res) {
+						console.log('微信用户信息')
 						console.log(res)
 
 						uni.request({
@@ -131,7 +135,8 @@ Vue.prototype.getinfo = function(type) {
 									if(type == 'goodsDetails'){
 										self.isCollect()
 									}
-								
+									if(type == 'my'){
+									}
 								
 									
 									

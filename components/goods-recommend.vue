@@ -6,15 +6,15 @@
 		
 		<view class="goods-wrapper">
 			<view class="flex flex-wrap">
-				<view class="basis-df" v-for="(item, index) in 6" :class="{'text-right': index % 2 != 0}">
-					<image></image>
+				<view class="basis-df" v-for="(item, index) in goodsList" @click="toGoods(item.id)" :class="{'text-right': index % 2 != 0}">
+					<image :src="imgHttp + item.cover"></image>
 					<view class="info" :class="{'move-right': index % 2 != 0}">
 						<view>
 							<view class="goods-name">
-								山东红富士
+								{{item.name}}
 							</view>
 							<view class="goods-price">
-								¥ 20元/斤
+								¥ {{item.sellingprice}}元/{{item.unit}}
 							</view>
 						</view>
 						<text class="lg cuIcon-cart"></text>
@@ -32,6 +32,35 @@
 
 <script>
 	export default{
+		data(){
+			return{
+				goodsList:[],
+				imgHttp:''
+			}
+		},
+		methods:{
+			//跳转到商品详情
+			toGoods(id){
+				uni.navigateTo({
+					url:"../commodity/goods_details?id=" + id
+				})
+			},
+			//获取精选商品列表
+			getGoodList(){
+				let self = this;
+				this.ask("/app/index/getProductList", "POST", {
+					page:1,
+					pagesize: 6,
+					is_choice: 1
+				}, function(res) {
+					self.goodsList = res.data.data
+				})
+			}
+		},
+		mounted() {
+			this.imgHttp = this.comHttp;
+			this.getGoodList()
+		}
 	}
 </script>
 

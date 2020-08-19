@@ -1,14 +1,13 @@
 <template>
 	<view class="main-contaner" v-cloak>
 		<cu-custom bgColor="none-bg" :isBack="true">
-			<block slot="content">三源甄选</block>
+			<block slot="content">{{clssName}}</block>
 		</cu-custom>
-		<!-- <navigation-custom :config="config" :scrollTop="scrollTop" :scrollMaxHeight="scrollMaxHeight"/> -->
 		<view class="banner">
-			<!-- <image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image> -->
+			<image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image>
 		</view>
 		<view class="search">
-			<input type="text" placeholder="搜索商品" />
+			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
 		<view class="content">
 			<view class="breed-wrapper">
@@ -24,7 +23,7 @@
 			</view>
 			<view class="goods-wrapper">
 				<view class="flex flex-wrap">
-					<view class="basis-df" v-for="(item, index) in goods[breedActive].arr" :class="{'text-right': index % 2 != 0}">
+					<view class="basis-df" @click="toGoodDetail(item.id)" v-for="(item, index) in goods[breedActive].arr" :class="{'text-right': index % 2 != 0}">
 						<view class="image-wrapper">
 							<image :src="imgHttp + item.cover"></image>
 						</view>
@@ -148,18 +147,10 @@ export default{
 		return {
 			/* new */
 			imgHttp: '',
+			searchKey: '',
 			goods: [], //商品数组
-			config:{
-			    title: "三源甄选", //title
-			    bgcolor:"#fff", //背景颜色
-			    fontcolor:"#000", //文字颜色，默认白色
-			    type: 4, //type 1，3胶囊 2，4无胶囊模式
-			    transparent: false, //是否背景透明 默认白色
-			    // linear:true, //是为开启下滑渐变
-			    // share:true, //是否将主页按钮显示为分享按钮
-			    menuIcon:"../../static/icon/back_.png", // 当type为3或者4的时候左边的icon文件位置，注意位置与当前页面不一样
-			    // menuText:"返回", 当type为3或4的时候icon右边的文字
-			},
+			classId: '',
+			clssName: '',
 			scrollTop:0 ,// 当linear为true的时候需要通过onpagescroll传递参数
 			scrollMaxHeight:200, //滑动的高度限制，超过这个高度即背景全部显示
 			breedList: [],
@@ -176,6 +167,19 @@ export default{
 		}
 	},
 	methods: {
+		//跳转到商品详情
+		toDetails(id) {
+			uni.navigateTo({
+				url: '../commodity/goods_details?id=' + id
+			})
+		},
+		//搜索跳转
+		toSearch() {
+			uni.navigateTo({
+				url: '../commodity/search?key=' + this.searchKey
+			})
+		},
+		
 		//获取商品类型
 		getClassify() {
 			this.ask("/app/index/getClassify", "POST", {}, (res) => {
@@ -184,7 +188,8 @@ export default{
 				this.breedList = []
 				// 三源甄选分类
 				try {
-					let breedList = data.filter((item) => item.name === '三源甄选')[0].classify
+					let breedList = data.filter((item) => item.id === this.classId)[0].classify
+					this.clssName = data.filter((item) => item.id === this.classId)[0].name
 					for (let i = 0; i < breedList.length; i++) {
 						let di = breedList[i]
 						this.breedList.push(di)
@@ -225,6 +230,7 @@ export default{
 		}
 	},
 	onLoad(option) {
+		this.classId = option.type
 		this.getClassify()
 		this.imgHttp = this.comHttp
 		console.log(this.imgHttp + "/marketResources/upload/2008/20088c7d0a15d26841dabdfa3743d6386be7.png")

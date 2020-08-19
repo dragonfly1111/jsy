@@ -36,10 +36,8 @@
 </template>
 
 <script>
-	import floatWindows from '../../components/float-windows.vue'
 	export default {
 		components:{
-			floatWindows
 		},
 		data() {
 			return {

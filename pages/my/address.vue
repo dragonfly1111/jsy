@@ -48,12 +48,10 @@
 <script>
 	
     import pickerAddress from '@/components/liudx-pickerAddress/index.vue'
-	import floatWindows from '../../components/float-windows.vue'
-	
+
 	export default{
 		components:{
 		    pickerAddress,
-			floatWindows
 		},
 		data(){
 			return{

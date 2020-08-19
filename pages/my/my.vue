@@ -12,10 +12,8 @@
 			<view class="info-block">
 				<image :src="userObj.avatar" mode=""></image>
 				<view class="user_msg">
-					<text class="no_tip">点击显示微信头像</text>
-					<view>
-						<text class="grow_value">成长值0</text>
-					</view>
+					<text class="no_tip" v-if="userObj.nickname">{{decodeURIComponent(userObj.nickname)}}</text>
+					<button class="no_tip" v-if="!userObj.nickname" open-type="getUserInfo" @getuserinfo="getinfo()">点击授权登录</button>
 				</view>
 			</view>
 			<view class="member_box">
@@ -138,13 +136,6 @@
 				</view>
 				<text class="lg text-gray cuIcon-right"></text>
 			</view>
-			<view class="list" @click="toFenXiao()">
-				<view class="flex">
-					<image src="../../static/my/icon-about.png"></image>
-					<text class="text">分销</text>
-				</view>
-				<text class="lg text-gray cuIcon-right"></text>
-			</view>
 		</view>
 		<floatWindows :showFloat="true"></floatWindows>
 		
@@ -237,11 +228,9 @@
 </template>
 
 <script>
-	import floatWindows from '../../components/float-windows.vue'
-	
+
 	export default{
 		components:{
-			floatWindows
 		},
 		data(){
 			return{
@@ -358,12 +347,7 @@
 					url:'./address_list'
 				})
 			},
-			// 跳转分销
-			toFenXiao(){
-				uni.navigateTo({
-					url:'./distribution'
-				})
-			},
+	
 			
 			//获取分销状态
 			getMarketStatu(){
