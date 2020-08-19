@@ -29,16 +29,16 @@
 
 		<view class="main-contaner">
 			<view class="advertising">
-				<view class="ad-item left" @click="toSeason(1)">
+				<view class="ad-item left" @click="toSeason(0)">
 					<image src="../../static/home/spring-light.png"></image>
 				</view>
-				<view class="ad-item right" @click="toSeason(2)">
+				<view class="ad-item right" @click="toSeason(1)">
 					<image src="../../static/home/summer-light.png"></image>
 				</view>
-				<view class="ad-item left" @click="toSeason(3)">
+				<view class="ad-item left" @click="toSeason(2)">
 					<image src="../../static/home/autumn-light.png"></image>
 				</view>
-				<view class="ad-item right" @click="toSeason(4)">
+				<view class="ad-item right" @click="toSeason(3)">
 					<image src="../../static/home/wind-light.png"></image>
 				</view>
 			</view>

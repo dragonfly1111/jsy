@@ -168,7 +168,7 @@ export default{
 	},
 	methods: {
 		//跳转到商品详情
-		toDetails(id) {
+		toGoodDetail(id) {
 			uni.navigateTo({
 				url: '../commodity/goods_details?id=' + id
 			})
