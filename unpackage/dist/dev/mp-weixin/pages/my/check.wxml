@@ -1,1 +1,0 @@
-<view class="check_box"><cu-custom vue-id="02aafa30-1" bgColor="bg-gradual-blue" isBack="{{true}}" bind:__l="__l" vue-slots="{{['content']}}"><view slot="content">分销人员申请</view></cu-custom><image src="../../static/my/check.png" mode></image></view>
