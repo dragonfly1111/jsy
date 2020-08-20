@@ -27,7 +27,8 @@
     "pages/my/message_list",
     "pages/my/check",
     "pages/my/check_no",
-    "pages/season/seasonPage"
+    "pages/season/seasonPage",
+    "pages/my/menber_code"
   ],
   "subPackages": [],
   "window": {
@@ -46,20 +47,20 @@
       {
         "pagePath": "pages/home/home",
         "iconPath": "static/com/home.png",
-        "selectedIconPath": "static/com/home.png",
-        "text": ""
+        "selectedIconPath": "static/com/home_active.png",
+        "text": "首页"
       },
       {
         "pagePath": "pages/find/find",
         "iconPath": "static/com/food.png",
         "selectedIconPath": "./static/com/food.png",
-        "text": ""
+        "text": "食宜有道"
       },
       {
         "pagePath": "pages/my/my",
         "iconPath": "static/com/my.png",
-        "selectedIconPath": "static/com/my.png",
-        "text": ""
+        "selectedIconPath": "static/com/my_active.png",
+        "text": "我的"
       }
     ]
   },
@@ -67,5 +68,5 @@
     "cu-custom": "/colorui/components/cu-custom",
     "float-windows": "/components/float-windows"
   },
-  "sitemapLocation": "sitemap75.json"
+  "sitemapLocation": "sitemap15.json"
 }

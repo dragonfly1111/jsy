@@ -481,7 +481,12 @@ var _default =
         url: './seting' });
 
     },
+    //跳转到设置
+    toMemberCode: function toMemberCode() {
+      uni.navigateTo({
+        url: './menber_code' });
 
+    },
     //跳转到地址列表
     toAddressList: function toAddressList() {
       uni.navigateTo({

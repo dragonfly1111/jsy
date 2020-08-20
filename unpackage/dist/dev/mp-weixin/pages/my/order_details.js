@@ -429,20 +429,21 @@ var _default =
       this.ask("/app/order/getOrderById", "POST", data, function (res) {
         console.log(res);
         self.detailsObj = res.data.data;
-        self.getOrderExpress(self.detailsObj.couriercode);
+        self.getOrderExpress(self.detailsObj.couriercode, self.detailsObj.com);
         self.discountPrice = Math.floor(Number(self.detailsObj.totalprice) * (1 - self.discount / 10) * 100) / 100;
 
       });
     },
     //获取订单物流信息
-    getOrderExpress: function getOrderExpress(num) {
+    getOrderExpress: function getOrderExpress(num, com) {
       var self = this;
       var data = {
-        "num": num };
+        "num": num,
+        "com": com };
+
 
       this.ask("/api/express/expressInfo", "POST", data, function (res) {
         self.expressInfo = res.data.data;
-        console.log(self.expressInfo);
       });
     },
 

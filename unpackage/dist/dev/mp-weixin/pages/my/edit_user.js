@@ -227,6 +227,7 @@ var _default =
         sourceType: ['album', 'camera'],
         success: function success(chooseImageRes) {
           var tempFilePaths = chooseImageRes.tempFilePaths;
+          wx.showLoading("头像上传中");
           uni.uploadFile({
             url: self.comHttp + '/CMS/imgUpload/Upload',
             filePath: tempFilePaths[0],
@@ -235,10 +236,13 @@ var _default =
               'user': 'test' },
 
             success: function success(uploadFileRes) {
-              console.log(uploadFileRes);
+              self.hint("头像上传成功");
               self.avatar = self.imgHttp + JSON.parse(uploadFileRes.data).src;
               self.avatarUpdate = JSON.parse(uploadFileRes.data).src;
               console.log(self.avatar);
+            },
+            fail: function fail() {
+              self.hint("头像上传失败，请重新上传");
             } });
 
         } });

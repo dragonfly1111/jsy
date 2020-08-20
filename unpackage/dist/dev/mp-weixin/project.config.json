@@ -24,13 +24,29 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
+			"current": -1,
+			"list": []
+		},
+		"gamePlugin": {
 			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/commodity/goods_details",
+					"pathName": "pages/commodity/goods_details",
+					"query": "id=052dd4d56cb348bb880c021683a2f3d8",
+					"scene": null
+				}
+			]
 		}
 	}
 }

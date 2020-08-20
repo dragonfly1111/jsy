@@ -49,7 +49,7 @@
 			</view>
 			<view class="title_type">
 				<text class="title">不时不食</text>
-				<view class="title_sub" @click="toCommmodity(moreType1)">
+				<view class="title_sub">
 					<image src="../../static/home/arrow.png" mode=""></image>
 				</view>
 			</view>

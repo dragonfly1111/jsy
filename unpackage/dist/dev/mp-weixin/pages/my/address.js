@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var pickerAddress = function pickerAddress() {Promise.all(/*! require.ensure | components/liudx-pickerAddress/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/liudx-pickerAddress/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/liudx-pickerAddress/index.vue */ 293));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var pickerAddress = function pickerAddress() {Promise.all(/*! require.ensure | components/liudx-pickerAddress/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/liudx-pickerAddress/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/liudx-pickerAddress/index.vue */ 301));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -285,8 +285,11 @@ __webpack_require__.r(__webpack_exports__);
 
       this.ask('/app/address/creatrAddress', "POST", data, function (res) {
         self.hint(res.data.msg);
-        uni.navigateBack({
-          delta: 1 });
+        setTimeout(function () {
+          uni.navigateBack({
+            delta: 1 });
+
+        }, 500);
 
 
       });

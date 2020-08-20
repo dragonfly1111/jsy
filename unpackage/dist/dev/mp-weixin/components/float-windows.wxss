@@ -43,7 +43,7 @@
 }
 .post canvas.data-v-2783c840 {
   width: 80%;
-  height: 70%;
+  height: 75%;
   margin: 50px 10% 0 10%;
 }
 .post .post-foot.data-v-2783c840 {
@@ -74,11 +74,11 @@
 }
 .share-box.data-v-2783c840 {
   position: fixed;
-  bottom: -170rpx;
+  bottom: -220rpx;
   background-color: #FFFFFF;
   border-top-left-radius: 40rpx;
   border-top-right-radius: 40rpx;
-  height: 160rpx;
+  height: 220rpx;
   width: 100%;
   text-align: center;
   z-index: 10001;
@@ -101,7 +101,7 @@
 }
 @-webkit-keyframes showShare-data-v-2783c840 {
 0% {
-    bottom: -170rpx;
+    bottom: -220rpx;
 }
 100% {
     bottom: 0rpx;
@@ -109,7 +109,7 @@
 }
 @keyframes showShare-data-v-2783c840 {
 0% {
-    bottom: -170rpx;
+    bottom: -220rpx;
 }
 100% {
     bottom: 0rpx;

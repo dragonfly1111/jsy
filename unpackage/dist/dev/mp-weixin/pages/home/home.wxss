@@ -57,7 +57,7 @@
 .swiper_head {
   margin: 0 auto;
   width: 670rpx;
-  height: 850rpx;
+  height: 670rpx;
   position: relative;
 }
 .swiper_head swiper {
@@ -107,12 +107,12 @@
   width: 20%;
 }
 .head_nav image {
-  width: 80rpx;
-  height: 80rpx;
+  width: 70rpx;
+  height: 70rpx;
   margin-bottom: 15rpx;
 }
 .head_nav text {
-  color: #857827;
+  color: #60605F;
   font-size: 30rpx;
 }
 .font-bar {
@@ -120,8 +120,8 @@
   margin-bottom: 40rpx;
 }
 .font-bar image {
-  width: 60%;
-  height: 20rpx;
+  width: 70%;
+  height: 26rpx;
   margin: 0 auto;
   display: block;
 }

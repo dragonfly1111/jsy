@@ -200,7 +200,7 @@ page {
   font-weight: bold;
 }
 .main_block .header .more {
-  font-size: 20rpx;
+  font-size: 28rpx;
   color: A1A1A1;
   padding-right: 10rpx;
 }
@@ -217,7 +217,7 @@ page {
   height: 50rpx;
 }
 .main_block .body .icon-area .text {
-  font-size: 20rpx;
+  font-size: 28rpx;
   color: #6f6f6f;
   margin-top: 20rpx;
 }
@@ -241,11 +241,11 @@ page {
           align-items: center;
 }
 .main_block .list image {
-  width: 50rpx;
-  height: 50rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 .main_block .list .text {
-  font-size: 20rpx;
+  font-size: 28rpx;
   color: #a1a1a1;
   margin-left: 25rpx;
 }

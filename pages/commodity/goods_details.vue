@@ -63,7 +63,7 @@
 		<view class="choose_list" :class="showChoose ? 'list_show' : 'list_hide'">
 			<text class="text-gray cuIcon-close" @click="showChoose = false"></text>
 			<view class="goods_info">
-				<image :src="imgHttp + carousel[0]"></image>
+				<image :src="imgHttp + detailsObj.cover"></image>
 				<view class="goods-price">
 					<view v-if="vipprice" class="price-wrapper">
 						<text class="symbol">¥</text>
@@ -169,7 +169,7 @@
 				</view>
 			</view>
 		</view>
-		<floatWindows :showFloat="true"></floatWindows>
+		<floatWindows :showFloat="true" :goodsObj="detailsObj"></floatWindows>
 		
 		<view :class="sheetShow ? 'show-sheet' : ''" class="share-box">
 			<image src="../../static/details/quality.png" mode=""></image>
@@ -440,6 +440,6 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@import "./goods_details.scss";
 </style>

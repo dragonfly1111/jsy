@@ -67,7 +67,7 @@
 
 <script>
 	export default {
-		props: ['showFloat'],
+		props: ['showFloat', 'goodsObj'],
 		data() {
 			return {
 				showIcon: false,
@@ -87,10 +87,20 @@
 
 		methods: {
 			getQrCode: function() {
-				const params = {
-					sceneStr: encodeURI(uni.getStorageSync('customer').wechat_id),
-					pageUrl: 'pages/home/home',
+				let params
+				if (this.goodsObj) {
+					params = {
+						key: this.goodsObj.id,
+						sceneStr: encodeURI(uni.getStorageSync('customer').wechat_id),
+						pageUrl: 'pages/commodity/goods_details',
+					}
+				} else {
+					params = {
+						sceneStr: encodeURI(uni.getStorageSync('customer').wechat_id),
+						pageUrl: 'pages/home/home',
+					}
 				}
+
 				let that = this
 				this.ask("/api/share/createPoster", "POST", params, function(res) {
 					that.drawCanvas(res.data.file_url)
@@ -98,8 +108,18 @@
 			},
 			drawCanvas(url) {
 				wx.showLoading({
-					title: '加载中...',
+					title: '海报生成中...',
 				})
+				if (!this.goodsObj) {
+					this.drawCommon(url)
+				} else {
+					this.drawGoods(url)
+				}
+
+			},
+
+			// 普通海报逻辑
+			drawCommon(url) {
 				let that = this
 				const ctx = wx.createCanvasContext('canvas', that)
 				wx.downloadFile({
@@ -120,7 +140,7 @@
 									if (res.statusCode === 200) {
 										ctx.drawImage(res.tempFilePath, wx.getSystemInfoSync().windowWidth * 0.25, wx.getSystemInfoSync().windowHeight *
 											0.5, wx.getSystemInfoSync().windowWidth * 0.3, wx.getSystemInfoSync().windowWidth * 0.3)
-										ctx.draw(true,function(){
+										ctx.draw(true, function() {
 											console.log('画完了')
 											wx.canvasToTempFilePath({
 												canvasId: 'canvas',
@@ -132,9 +152,9 @@
 													wx.hideLoading()
 													console.log(res);
 												}
-											},that);
+											}, that);
 										})
-										
+
 
 									}
 								},
@@ -152,7 +172,105 @@
 				})
 
 
+			},
 
+			// 商品海报逻辑
+			drawGoods(url) {
+				let that = this
+				let rate = 0.5
+
+				const ctx = wx.createCanvasContext('canvas', that)
+				wx.hideLoading()
+				ctx.fillStyle = '#FFFFFF' //白色背景
+				ctx.fillRect(0, 0, wx.getSystemInfoSync().windowWidth, wx.getSystemInfoSync().windowHeight)
+				wx.downloadFile({
+					url: this.imgHttp + this.goodsObj.cover,
+					success: (res) => {
+						console.log(res)
+						if (res.statusCode === 200) {
+							// 商品图部分
+							let coverX = wx.getSystemInfoSync().windowWidth * 0.8 * 0.05
+							let coverY = wx.getSystemInfoSync().windowWidth * 0.8 * 0.1
+							ctx.beginPath();
+							ctx.save();
+							let width = wx.getSystemInfoSync().windowWidth * 0.8 * 0.9 - 10
+							let radius = 8 * rate
+							let angleLine = 10 * rate
+							ctx.setLineWidth(1)
+							ctx.setStrokeStyle('#E9E9E9')
+							ctx.moveTo(coverX + angleLine, coverY); // 创建开始点
+							ctx.lineTo(coverX + angleLine + width, coverY); // 创建水平线
+							ctx.arcTo(coverX + angleLine * 2 + width, coverY, coverX + angleLine * 2 + width, coverY +
+								angleLine, radius); // 创建弧
+							ctx.lineTo(coverX + angleLine + width + angleLine, coverY + angleLine + width); // 创建垂直线
+							ctx.arcTo(coverX + angleLine * 2 + width, coverY + angleLine * 2 + width, coverX + angleLine + width,
+								coverY + angleLine * 2 + width, radius); // 创建弧
+							ctx.lineTo(coverX + angleLine, coverY + angleLine * 2 + width); // 创建水平线
+							ctx.arcTo(coverX, coverY + angleLine * 2 + width, coverX, coverY + angleLine + width, radius); // 创建弧
+							ctx.lineTo(coverX, coverY + angleLine); // 创建垂直线
+							ctx.arcTo(coverX, coverY, coverX + angleLine, coverY, radius); // 创建弧
+							ctx.stroke(); // 这个具体干什么用的？
+							ctx.clip();
+							ctx.drawImage(res.tempFilePath, coverX, coverY, width + 20, width + 20);
+							ctx.restore();
+							ctx.draw()
+
+							// 商品描述部分
+							// 商品名
+							ctx.font = `16px Arial`
+							ctx.fillStyle = '#000000'
+							ctx.textBaseline = 'middle'
+							ctx.fillText(that.goodsObj.name, coverX, width + coverY + 50);
+
+							// 价格前的小符号
+							ctx.font = `14px Arial`
+							ctx.fillStyle = '#7b7634'
+							ctx.textBaseline = 'middle'
+							ctx.fillText('¥', coverX, width + coverY + 80);
+
+
+							// 价格
+							ctx.font = `18px Arial`
+							ctx.fillStyle = '#7b7634'
+							ctx.textBaseline = 'middle'
+							ctx.fillText(parseFloat(that.goodsObj.sellingprice), coverX + 14, width + coverY + 80);
+
+
+							// 原价格
+							ctx.font = `12px Arial`
+							ctx.fillStyle = '#999999';
+							ctx.textBaseline = 'middle'
+							ctx.fillText('原价：¥' + that.goodsObj.marketprice, coverX, width + coverY + 100);
+							ctx.draw(true)
+
+
+							// 二维码
+							wx.downloadFile({
+								url: url,
+								success: (res) => {
+									console.log(res)
+									if (res.statusCode === 200) {
+										const x = wx.getSystemInfoSync().windowWidth * 0.8 * 0.5
+										const y = wx.getSystemInfoSync().windowHeight * 0.75 - x - 100
+										const height = wx.getSystemInfoSync().windowWidth * 0.3
+										console.log(x,y,height)
+										ctx.drawImage(res.tempFilePath,x,y,height,height);
+										ctx.restore();
+										
+										ctx.draw(true)
+
+									}
+								}
+							})
+						}
+					},
+					fail: (res) => {
+						console.log(res)
+
+					}
+				})
+
+				// console.log(this.goodsObj)
 			},
 
 			savePost() {
@@ -174,7 +292,7 @@
 					this.openShareSheet = false
 					this.showPost = true
 					this.getQrCode()
-				} else{
+				} else {
 					this.hint('请先登录再生成海报')
 				}
 			},
@@ -260,7 +378,7 @@
 
 		canvas {
 			width: 80%;
-			height: 70%;
+			height: 75%;
 			margin: 50px 10% 0 10%;
 		}
 
@@ -296,11 +414,11 @@
 
 	.share-box {
 		position: fixed;
-		bottom: -200rpx;
+		bottom: -220rpx;
 		background-color: #FFFFFF;
 		border-top-left-radius: 40rpx;
 		border-top-right-radius: 40rpx;
-		height: 200rpx;
+		height: 220rpx;
 		width: 100%;
 		text-align: center;
 		z-index: 10001;
@@ -326,7 +444,7 @@
 
 	@keyframes showShare {
 		0% {
-			bottom: -200rpx;
+			bottom: -220rpx;
 		}
 
 		100% {
