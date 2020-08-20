@@ -6,7 +6,7 @@
 		<view class="my_top" :style="{top:headerTop,height: headHeight}">
 		</view>
 		<view class="my_head">
-			<view class="user_no">
+			<view class="user_no" v-if="userObj.nickname" @click="toMemberCode()">
 				会员码
 			</view>
 			<view class="info-block">
@@ -340,7 +340,12 @@
 					url:'./seting'
 				})
 			},
-			
+			//跳转到设置
+			toMemberCode(){
+				uni.navigateTo({
+					url:'./menber_code'
+				})
+			},
 			//跳转到地址列表
 			toAddressList(){
 				uni.navigateTo({

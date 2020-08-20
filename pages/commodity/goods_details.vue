@@ -33,7 +33,7 @@
 		
 		<view class="grep_bar"></view>
 		
-		<view class="attr-line">
+		<view class="attr-line" @click="openSheet()">
 			品质保证
 		</view>
 		<view class="grep_bar"></view>
@@ -171,6 +171,11 @@
 		</view>
 		<floatWindows :showFloat="true"></floatWindows>
 		
+		<view :class="sheetShow ? 'show-sheet' : ''" class="share-box">
+			<image src="../../static/details/quality.png" mode=""></image>
+			<view class="but" @click="sheetShow = false">我 知 道 了</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -201,10 +206,15 @@
 				"userObj":{},
 				"token":'',
 				"collectType": false,
-				"showChoose": false
+				"showChoose": false,
+				"sheetShow": false
 			}
 		},
 		methods:{
+			openSheet(){
+				this.sheetShow = true
+			},
+			
 			toHome(){
 				uni.switchTab({
 					url:"../home/home"

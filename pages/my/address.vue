@@ -153,9 +153,12 @@
 				}
 				this.ask('/app/address/creatrAddress',"POST",data,function(res){
 					self.hint(res.data.msg)
-					uni.navigateBack({
-						delta:1
-					})
+					setTimeout(()=>{
+						uni.navigateBack({
+							delta:1
+						})
+					},500)
+	
 					
 				})
 			}

@@ -23,6 +23,7 @@
 		</view>
 		
 		<goodsRecommend :terms="curSeasonList[currentNav]"></goodsRecommend>
+		<floatWindows :showFloat="true"></floatWindows>
 		
 	</view>
 </template>

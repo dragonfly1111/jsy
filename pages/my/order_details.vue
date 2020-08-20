@@ -9,7 +9,7 @@
 			</view>
 			<view class="center" >
 				<text class="title">物流信息</text>
-				<text class="name">已揽件</text>
+				<text class="name">{{expressInfo[0].context}}</text>
 			</view>
 			<view class="right">
 				<image src="../../static/details/arrow.png" mode=""></image>
@@ -286,20 +286,21 @@
 				this.ask("/app/order/getOrderById","POST",data,function(res){
 					console.log(res)
 					self.detailsObj = res.data.data;
-					self.getOrderExpress(self.detailsObj.couriercode)
+					self.getOrderExpress(self.detailsObj.couriercode,self.detailsObj.com)
 					self.discountPrice = Math.floor(Number(self.detailsObj.totalprice) * (1 - self.discount / 10) *100) / 100;
 					
 				})
 			},
 			//获取订单物流信息
-			getOrderExpress(num){
+			getOrderExpress(num,com){
 				let self = this;
 				let data = {
 					"num":num,
+					"com":com,
 				}
+
 				this.ask("/api/express/expressInfo","POST",data,function(res){
 					self.expressInfo = res.data.data;
-					console.log(self.expressInfo)
 				})
 			},
 			

@@ -426,3 +426,45 @@
 	}
 }
 
+.share-box {
+	position: fixed;
+	bottom: -950rpx;
+	background-color: #FFFFFF;
+	border-top-left-radius: 40rpx;
+	border-top-right-radius: 40rpx;
+	height: 900rpx;
+	width: 100%;
+	text-align: center;
+	z-index: 10001;
+	box-shadow: 0 5rpx 20rpx 10rpx #999999;
+	image{
+		width: 80%;
+		height: 579rpx;
+		margin: 50rpx auto 0 auto;
+	}
+	.but{
+		width: 80%;
+		border-radius: 40rpx;
+		color: #FFFFFF;
+		background-color: #7b7634;
+		line-height: 60rpx;
+		height: 60rpx;
+		text-align: center;
+		margin: 100rpx auto 0 auto;
+	}
+}
+
+
+.show-sheet {
+	animation: showShare 0.2s forwards;
+}
+
+@keyframes showShare {
+	0% {
+		bottom: -950rpx;
+	}
+
+	100% {
+		bottom: 0rpx;
+	}
+}

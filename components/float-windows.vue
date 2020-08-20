@@ -56,10 +56,10 @@
 		</view>
 
 		<view :class="openShareSheet ? 'show-share' : ''" class="share-box">
-			<view style="height: 30rpx;width: 100%;"></view>
+			<view style="height: 50rpx;width: 100%;"></view>
 			<button open-type="share">发送给朋友</button>
 
-			<view style="height: 30rpx;width: 100%;"></view>
+			<view style="height: 45rpx;width: 100%;"></view>
 			<view @click="generatePoster()">生成海报</view>
 		</view>
 	</view>
@@ -88,8 +88,7 @@
 		methods: {
 			getQrCode: function() {
 				const params = {
-					// sceneStr: "userId=" + encodeURI(uni.getStorageSync('customer').userid),
-					sceneStr: "1234hello",
+					sceneStr: encodeURI(uni.getStorageSync('customer').wechat_id),
 					pageUrl: 'pages/home/home',
 				}
 				let that = this
@@ -104,8 +103,8 @@
 				let that = this
 				const ctx = wx.createCanvasContext('canvas', that)
 				wx.downloadFile({
-					// url: this.imgHttp + '/marketResources/upload/2007/share.png',
-					url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/Activity/%E9%A6%96%E9%A1%B5-%E5%88%86%E4%BA%AB%E9%A1%B5%E9%9D%A2.png',
+					url: this.imgHttp + '/marketResources/upload/2007/share.png',
+					// url: 'http://bcjtfiles.oss-cn-shenzhen.aliyuncs.com/Activity/%E9%A6%96%E9%A1%B5-%E5%88%86%E4%BA%AB%E9%A1%B5%E9%9D%A2.png',
 					success: (res) => {
 						console.log(res)
 						if (res.statusCode === 200) {
@@ -297,11 +296,11 @@
 
 	.share-box {
 		position: fixed;
-		bottom: -170rpx;
+		bottom: -200rpx;
 		background-color: #FFFFFF;
 		border-top-left-radius: 40rpx;
 		border-top-right-radius: 40rpx;
-		height: 160rpx;
+		height: 200rpx;
 		width: 100%;
 		text-align: center;
 		z-index: 10001;
@@ -327,7 +326,7 @@
 
 	@keyframes showShare {
 		0% {
-			bottom: -170rpx;
+			bottom: -200rpx;
 		}
 
 		100% {

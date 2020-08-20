@@ -178,9 +178,13 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/my/menber_code",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
 		}
-		
-		
 		
 		
 
@@ -200,8 +204,8 @@
 		"list": [{
 				"pagePath": "pages/home/home",
 				"iconPath": "static/com/home.png",
-				"selectedIconPath": "static/com/home.png",
-				"text": ""
+				"selectedIconPath": "static/com/home_active.png",
+				"text": "首页"
 			},
 			// {
 			// 	"pagePath": "pages/commodity/commodity",
@@ -213,14 +217,14 @@
 				"pagePath": "pages/find/find",
 				"iconPath": "static/com/food.png",
 				"selectedIconPath": "./static/com/food.png",
-				"text": ""
+				"text": "食宜有道"
 			},
 			
 			{
 				"pagePath": "pages/my/my",
 				"iconPath": "static/com/my.png",
-				"selectedIconPath": "static/com/my.png",
-				"text": ""
+				"selectedIconPath": "static/com/my_active.png",
+				"text": "我的"
 			}
 		]
 	}

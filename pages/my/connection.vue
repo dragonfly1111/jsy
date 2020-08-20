@@ -11,7 +11,7 @@
 				<view class="address_msg">
 					<text class="company_name">广西金三源农业科技有限公司</text>
 					<text>联系电话：5632198</text>
-					<text>联系地址：广西南宁市兴宁区兴东路61号5#楼朝西办公室</text>
+					<text>联系地址：广西南宁市兴宁区兴东路61号5#楼</text>
 				</view>
 			</view>
 			<view class="row" @click="openMap()" v-for="(item,index) in addresObj" :key='index'>

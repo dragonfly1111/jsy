@@ -9,10 +9,9 @@
 					<view class="left">
 						<image :src="imgHttp + item.cover" mode="" @click="to_details(item.id)"></image>
 					</view>
-
 					<view class="center">
-						<text class="title">{{item.name}}</text>
-						<text class="sub_title">{{item.keyword.replace(",",' ')}}</text>
+						<text class="title">{{item.name}}</text>						
+						<text class="sub_title">{{item.keyword || ''}}</text>
 						<view class="num">
 							<text class="price_unit">￥</text>
 							<text class="price">{{item.sellingprice}}</text>
