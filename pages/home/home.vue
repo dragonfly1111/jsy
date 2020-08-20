@@ -31,20 +31,20 @@
 		<view class="main-contaner">
 			<view class="advertising">
 				<view class="ad-item left" @click="toSeason(0)">
-					<image v-if="curSeason == 0" src="../../static/home/spring-dark.png"></image>
-					<image v-else src="../../static/home/spring-light.png"></image>
+					<image v-if="curSeason == 0" src="../../static/home/spring-dark.png" mode="aspectFit"></image>
+					<image v-else src="../../static/home/spring-light.png" mode="aspectFit"></image>
 				</view>
 				<view class="ad-item right" @click="toSeason(1)">
-					<image v-if="curSeason == 1" src="../../static/home/summer-dark.png"></image>
-					<image v-else src="../../static/home/summer-light.png"></image>
+					<image v-if="curSeason == 1" src="../../static/home/summer-dark.png" mode="aspectFit"></image>
+					<image v-else src="../../static/home/summer-light.png" mode="aspectFit"></image>
 				</view>
 				<view class="ad-item left" @click="toSeason(2)">
-					<image v-if="curSeason == 2" src="../../static/home/autumn-dark.png"></image>
-					<image v-else src="../../static/home/autumn-light.png"></image>
+					<image v-if="curSeason == 2" src="../../static/home/autumn-dark.png" mode="aspectFit"></image>
+					<image v-else src="../../static/home/autumn-light.png" mode="aspectFit"></image>
 				</view>
 				<view class="ad-item right" @click="toSeason(3)">
-					<image v-if="curSeason == 3" src="../../static/home/wind-dark.png"></image>
-					<image v-else src="../../static/home/wind-light.png"></image>
+					<image v-if="curSeason == 3" src="../../static/home/wind-dark.png" mode="aspectFit"></image>
+					<image v-else src="../../static/home/wind-light.png" mode="aspectFit"></image>
 				</view>
 			</view>
 			<view class="title_type">

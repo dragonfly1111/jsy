@@ -63,8 +63,10 @@ page {
 		margin-left: 30rpx;
 		margin-right: 30rpx;
 		.basis-df {
+			width: 143rpx;
+			padding-right: 20rpx;
 			.image-wrapper{
-				width: calc(100% - 20rpx);
+				// width: calc(100% - 20rpx);
 				height: 240rpx;
 				// padding-bottom:100%;
 				background: #eee;
@@ -77,8 +79,16 @@ page {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				.info-wrapper {
+					width: calc(100% - 50rpx);
+				}
 				.goods-name {
-					font-size: 20rpx;
+					width: 100%;
+					font-size: 28rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					// font-size: 20rpx;
 					color: #81772b;
 					font-weight: bold;
 					margin-top: 20rpx;
@@ -86,7 +96,7 @@ page {
 				}
 				.goods-price {
 					text-align: left;
-					font-size: 17rpx;
+					font-size: 24rpx;
 					color: #9f9e9f;
 					margin-bottom: 40rpx;
 				}
@@ -96,15 +106,16 @@ page {
 					padding-right: 20rpx;
 				}
 			}
-			/* .basis-df:nth-child(even) {
-				text-align: right !important;
-			} */
-			.text-right {
-				text-align: right;
+			// .basis-df:nth-child(even) {
+			// 	padding-right: 10rpx;
+			// }
+			.right {
+				padding-left: 10rpx;
+				padding-right: 0 !important;
 			}
 			.move-right {
-				position: relative;
-				left: 20rpx;
+				// position: relative;
+				// left: 20rpx;
 			}
 		}
 	}

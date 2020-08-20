@@ -23,12 +23,12 @@
 			</view>
 			<view class="goods-wrapper">
 				<view class="flex flex-wrap">
-					<view class="basis-df" @click="toGoodDetail(item.id)" v-for="(item, index) in goods[breedActive].arr" :class="{'text-right': index % 2 != 0}">
+					<view class="basis-df" @click="toGoodDetail(item.id)" v-for="(item, index) in goods[breedActive].arr" :class="{'right': index % 2 != 0}">
 						<view class="image-wrapper">
 							<image :src="imgHttp + item.cover"></image>
 						</view>
-						<view class="info" :class="{'move-right': index % 2 != 0}">
-							<view>
+						<view class="info">
+							<view class="info-wrapper">
 								<view class="goods-name">
 									{{ item.name }}
 								</view>
