@@ -473,9 +473,6 @@
 			chooseNav(num) {
 				this.currentNav = num;
 				this.state = num + '';
-				if (this.state == '-1') {
-					this.state = '';
-				}
 
 				if (this.currentNav == 0 && this.arrearage.length == 0) {
 					this.state = '0';
@@ -487,7 +484,7 @@
 					this.state = '2';
 					this.getOrderList(true);
 				} else if (this.currentNav == "-1" && this.allArr.length == 0) {
-					this.state = '';
+					this.state = '-1';
 					this.getOrderList(true);
 				}
 			},

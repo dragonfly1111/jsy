@@ -1,5 +1,5 @@
 <template>
-	<view class="main-contaner" v-cloak>
+	<view class="main-contaner">
 		<cu-custom bgColor="none-bg" :isBack="true">
 			<block slot="content">{{clssName}}</block>
 		</cu-custom>
@@ -7,6 +7,7 @@
 			<image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image>
 		</view>
 		<view class="search">
+			<image src="../../static/icon/search.png"></image>
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
 		<view class="content">
@@ -42,6 +43,8 @@
 				</view>
 			</view>
 		</view>
+		<floatWindows :showFloat="true"></floatWindows>
+		
 	</view>
 	<!-- <view class="page" v-cloak>
 		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
@@ -248,6 +251,6 @@ export default{
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@import "./commodity.scss"
 </style>

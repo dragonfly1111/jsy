@@ -18,24 +18,29 @@ page {
 	left: 0;
 	z-index: 9999;
 	display: flex;
-	justify-content: center;
+	// justify-content: center;
 	align-items: center;
-	margin-top: 10rpx;
-	margin-bottom: 36rpx;
+	background-color: #F1F1F1;
+	width: 640rpx;
+	border-radius: 40rpx;
+	margin: 0 auto 20rpx auto;
+	// padding-left: 30rpx;
+	// height: 40rpx;
+	line-height: 40rpx;
+	font-size: 22rpx;
+	height: 40rpx;
+	
 	input{
-		background-color: #F1F1F1;
-		width: calc(100% - 60rpx);
-		border-radius: 40rpx;
-		margin: 0 20rpx;
-		padding-left: 30rpx;
-		// height: 40rpx;
-		line-height: 40rpx;
+		width: 500rpx;
+		height: 100%;
 	}
 	image{
-		width: 50rpx;
-		height: 50rpx;
+		width: 30rpx;
+		height: 30rpx;
+		margin: 0 20rpx;
 	}
 }
+	
 	
 .content {
 	display: flex;

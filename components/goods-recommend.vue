@@ -20,6 +20,7 @@
 							</view>
 						</view>
 						<text class="lg cuIcon-cart"></text>
+						<!-- <image class="cart" src="../static/cart.png" mode=""></image> -->
 					</view>
 				</view>
 			</view>
@@ -144,7 +145,7 @@
 				justify-content: space-between;
 				align-items: center;
 				.goods-name {
-					font-size: 20rpx;
+					font-size: 28rpx;
 					color: #81772b;
 					font-weight: bold;
 					margin-top: 20rpx;
@@ -152,7 +153,7 @@
 				}
 				.goods-price {
 					text-align: left;
-					font-size: 17rpx;
+					font-size: 26rpx;
 					color: #9f9e9f;
 					margin-bottom: 40rpx;
 				}
@@ -160,6 +161,10 @@
 					color: #81772b;
 					margin-top: -40rpx;
 					padding-right: 20rpx;
+				}
+				.cart{
+					height: 40rpx;
+					width: 40rpx;
 				}
 			}
 			/* .basis-df:nth-child(even) {

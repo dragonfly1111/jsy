@@ -26,8 +26,8 @@
 						<!-- <text class="sub_title">{{item.keyword.replace(","," ")}}</text> -->
 					</view>
 					
-					<view @click="openSheet()" class="specification">
-						<text>一斤装*3草草草草草</text>
+					<view class="specification">
+						<text>{{item.combination}}</text>
 						<image src="../../static/my/icon-down.png"></image>
 					</view>
 					<view class="price">￥<text class="num">{{item.sellingprice}}</text></view>

@@ -9,7 +9,7 @@
 			</view>
 			<view class="center" >
 				<text class="title">物流信息</text>
-				<text class="name">{{expressInfo[0].context}}</text>
+				<text class="name">{{expressInfo[0].context || '暂无信息'}}</text>
 			</view>
 			<view class="right">
 				<image src="../../static/details/arrow.png" mode=""></image>

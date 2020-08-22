@@ -16,8 +16,8 @@
 				</view>
 				<view class="icon_item">
 					<button open-type='contact'>
-						<image src="../static/floaWindow/service.png"></image>
 					</button>
+					<image src="../static/floaWindow/service.png"></image>
 					<view>客服</view>
 
 				</view>
@@ -45,14 +45,16 @@
 
 		</view>
 
-		<view class="post" v-show="showPost">
-			<canvas canvas-id="canvas" width="80%" height="75%"></canvas>
-			<!-- <image :src="imgHttp+'/marketResources/upload/2007/share.png'" mode=""></image> -->
-			<view class="post-foot">
-
-				<view class="close-post" @click="showPost = false">关闭</view>
-				<view class="save-post" @click="savePost()">保存图片</view>
+		<view class="post" v-if="showPost">
+			<view>
+				<canvas canvas-id="canvas"></canvas>
+				<view class="post-foot">
+				
+					<view class="close-post" @click="showPost = false">关闭</view>
+					<view class="save-post" @click="savePost()">保存图片</view>
+				</view>
 			</view>
+
 		</view>
 
 		<view :class="openShareSheet ? 'show-share' : ''" class="share-box">
@@ -77,13 +79,19 @@
 				showPost: false,
 				imgHttp: '', //图片接口前缀
 				loadImagePath: '', //生成的图片临时路径
+				canvasScal: null,
+				userObj:{}
 
 			}
 		},
 		mounted() {
 			this.imgHttp = this.comHttp;
+			this.userObj = uni.getStorageSync('customer');
 		},
 
+		created() {
+			
+		},
 
 		methods: {
 			getQrCode: function() {
@@ -128,8 +136,11 @@
 					success: (res) => {
 						console.log(res)
 						if (res.statusCode === 200) {
-							ctx.drawImage(res.tempFilePath, 0, 0, wx.getSystemInfoSync().windowWidth * 0.8, wx.getSystemInfoSync().windowHeight *
-								0.75)
+							// width: 250px;
+							// height: 445px;
+							// margin: 125rpx auto 0 auto;
+							//   7.5  235  7.5     285/2 142.5
+							ctx.drawImage(res.tempFilePath, 0, 0, 250, 450)
 							ctx.draw(true)
 							wx.downloadFile({
 								url: url,
@@ -138,10 +149,8 @@
 								success: (res) => {
 									console.log(res)
 									if (res.statusCode === 200) {
-										ctx.drawImage(res.tempFilePath, wx.getSystemInfoSync().windowWidth * 0.25, wx.getSystemInfoSync().windowHeight *
-											0.5, wx.getSystemInfoSync().windowWidth * 0.3, wx.getSystemInfoSync().windowWidth * 0.3)
+										ctx.drawImage(res.tempFilePath, 75, 320, 100, 100)
 										ctx.draw(true, function() {
-											console.log('画完了')
 											wx.canvasToTempFilePath({
 												canvasId: 'canvas',
 												success: function(res) {
@@ -180,20 +189,23 @@
 				let rate = 0.5
 
 				const ctx = wx.createCanvasContext('canvas', that)
-				wx.hideLoading()
 				ctx.fillStyle = '#FFFFFF' //白色背景
-				ctx.fillRect(0, 0, wx.getSystemInfoSync().windowWidth, wx.getSystemInfoSync().windowHeight)
+				// width: 250px;
+				// height: 445px;
+				// margin: 125rpx auto 0 auto;
+				//   7.5  235  7.5     285/2 142.5
+				ctx.fillRect(0, 0, 250, 445)
 				wx.downloadFile({
 					url: this.imgHttp + this.goodsObj.cover,
 					success: (res) => {
 						console.log(res)
 						if (res.statusCode === 200) {
 							// 商品图部分
-							let coverX = wx.getSystemInfoSync().windowWidth * 0.8 * 0.05
-							let coverY = wx.getSystemInfoSync().windowWidth * 0.8 * 0.1
+							let coverX = 7.5
+							let coverY = 17.5
 							ctx.beginPath();
 							ctx.save();
-							let width = wx.getSystemInfoSync().windowWidth * 0.8 * 0.9 - 10
+							let width = 235 - 10
 							let radius = 8 * rate
 							let angleLine = 10 * rate
 							ctx.setLineWidth(1)
@@ -216,33 +228,42 @@
 							ctx.draw()
 
 							// 商品描述部分
-							// 商品名
-							ctx.font = `16px Arial`
+							ctx.font = `12px Arial`
 							ctx.fillStyle = '#000000'
 							ctx.textBaseline = 'middle'
-							ctx.fillText(that.goodsObj.name, coverX, width + coverY + 50);
+							// let row = that.transformContentToMultiLineText(ctx,that.goodsObj.name,210,2)
+							let row = that.transformContentToMultiLineText(ctx,that.goodsObj.name,210,1)
+							let contentTextY = 0; // 这段文字起始的y位置
+							let leftSpace = 0; // 这段文字起始的X位置
+							let textLineHeight = 20; // 一行文字加一行行间距
+							for (var b = 0; b < row.length; b++) {
+							  ctx.fillText(row[b], coverX * 2, width + coverY + 40 + textLineHeight * b, 210);   // 内容y=155
+							}
+							
+							// 商品名
+			
+							// ctx.fillText(that.goodsObj.name, , );
 
 							// 价格前的小符号
-							ctx.font = `14px Arial`
+							ctx.font = `9px Arial`
 							ctx.fillStyle = '#7b7634'
 							ctx.textBaseline = 'middle'
-							ctx.fillText('¥', coverX, width + coverY + 80);
+							ctx.fillText('¥', coverX * 2, width + coverY + 55 + 15);
 
 
 							// 价格
-							ctx.font = `18px Arial`
+							ctx.font = `13px Arial`
 							ctx.fillStyle = '#7b7634'
 							ctx.textBaseline = 'middle'
-							ctx.fillText(parseFloat(that.goodsObj.sellingprice), coverX + 14, width + coverY + 80);
+							ctx.fillText(that.goodsObj.sellingprice, coverX * 2 + 6, width + coverY + 55 + 15);
 
 
 							// 原价格
-							ctx.font = `12px Arial`
+							ctx.font = `9px normal`
 							ctx.fillStyle = '#999999';
 							ctx.textBaseline = 'middle'
-							ctx.fillText('原价：¥' + that.goodsObj.marketprice, coverX, width + coverY + 100);
+							ctx.fillText('原价：¥' + that.goodsObj.marketprice, coverX * 2, width + coverY + 68 + 15);
 							ctx.draw(true)
-
 
 							// 二维码
 							wx.downloadFile({
@@ -250,27 +271,132 @@
 								success: (res) => {
 									console.log(res)
 									if (res.statusCode === 200) {
-										const x = wx.getSystemInfoSync().windowWidth * 0.8 * 0.5
-										const y = wx.getSystemInfoSync().windowHeight * 0.75 - x - 100
-										const height = wx.getSystemInfoSync().windowWidth * 0.3
-										console.log(x,y,height)
-										ctx.drawImage(res.tempFilePath,x,y,height,height);
+										const x = width / 2
+										const y = width + coverY + 60
+										const height = 100
+										console.log(x, y, height)
+										ctx.drawImage(res.tempFilePath, x, y, height, height);
 										ctx.restore();
-										
+
 										ctx.draw(true)
+										// 用户头像
+										wx.downloadFile({
+											url: that.userObj.avatar,
+											success: (res) => {
+												console.log(res)
+												let userX = 20
+												let userY = 420
+												let userRadio = 9
+												if (res.statusCode === 200) {
+													ctx.save()
+													ctx.beginPath()
+													ctx.arc(userX, userY, userRadio, 0, 2*Math.PI)
+													ctx.clip()
+													ctx.drawImage(res.tempFilePath, userX - userRadio, userY - userRadio, 2*userRadio,2*userRadio)
+													ctx.restore()
+													ctx.draw(true)
+													// 用户名字
+													ctx.font = `9px Arial`
+													ctx.fillStyle = '#7b7634'
+													ctx.textBaseline = 'middle'
+													ctx.fillText(that.userObj.nickname, userX + 2*userRadio,422);
+													ctx.draw(true)
+													
+													// 推荐
+													ctx.font = `9px Arial`
+													ctx.fillStyle = '#999999'
+													ctx.textBaseline = 'middle'
+													ctx.fillText('向你推荐好物', userX + 2*userRadio + ctx.measureText(that.userObj.nickname).width,422);													
+													console.log('尼玛死了')
+													console.log(that)
+													ctx.draw(true)
+													wx.canvasToTempFilePath({
+														canvasId: 'canvas',
+														success: function(res) {
+															wx.hideLoading()
+															that.loadImagePath = res.tempFilePath
+														},
+														fail: function(res) {
+															wx.hideLoading()
+															console.log(res);
+														}
+													}, that);
+													
+
+
+												}
+											},
+											fail: (res) => {
+												wx.hideLoading()
+												wx.showToast('生成失败，请重试')
+											}
+										})
 
 									}
+								},
+								fail: (res) => {
+									wx.hideLoading()
+									wx.showToast('生成失败，请重试')
 								}
 							})
+						
+							
+							
+							
 						}
 					},
 					fail: (res) => {
-						console.log(res)
-
+						wx.hideLoading()
+						wx.showToast('生成失败，请重试')
 					}
 				})
 
 				// console.log(this.goodsObj)
+			},
+			
+			transformContentToMultiLineText(ctx, text, contentWidth, lineNumber) {
+				var textArray = text.split(""); // 分割成字符串数组
+				console.log(textArray)
+				var temp = "";
+				var row = [];
+
+				for (var i = 0; i < textArray.length; i++) {
+					if (ctx.measureText(temp).width < contentWidth) {
+						temp += textArray[i];
+					} else {
+						i--; // 这里添加i--是为了防止字符丢失
+						row.push(temp);
+						temp = "";
+					}
+				}
+				row.push(temp);
+				console.log(row)
+				// 如果数组长度大于2，则截取前两个
+				if (row.length > lineNumber) {
+					var rowCut = row.slice(0, lineNumber);
+					console.log(rowCut)
+					
+					var rowPart = rowCut[1];
+					console.log(rowPart)
+					
+		// 			var test = "";
+		// 			var empty = [];
+		// 			if(rowPart){
+		// 				for (var a = 0; a < rowPart.length; a++) {
+		// 					if (ctx.measureText(test).width < contentWidth) {
+		// 						test += rowPart[a];
+		// 					} else {
+		// 						break;
+		// 					}
+		// 				}
+		// 			}
+		
+		// 			empty.push(test); // 处理后面加省略号
+					var group = rowCut[0] + '...'
+					rowCut.splice(lineNumber - 1, 1, group);
+					row = rowCut;
+				}
+				return row;
 			},
 
 			savePost() {
@@ -375,38 +501,40 @@
 		position: fixed;
 		z-index: 10000;
 		background-color: rgba(0, 0, 0, 0.7);
-
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
 		canvas {
-			width: 80%;
-			height: 75%;
-			margin: 50px 10% 0 10%;
+			width: 250px;
+			height: 445px;
+			margin: 125rpx auto 0 auto;
 		}
 
 
 		.post-foot {
 			display: flex;
-			margin: 50rpx 10% 0 10%;
+			margin: 50rpx auto 0 auto;
 			width: 100%;
-
+			display: flex;
+			font-size: 28rpx;
 			.close-post {
-				width: 35%;
+				width: 50%;
 				height: 80rpx;
 				text-align: center;
 				line-height: 80rpx;
 				background-color: #FFFFFF;
-				border: 1px solid #000000;
+				// border: 1px solid #FFFFFF;
 			}
 
 			.save-post {
-				margin-bottom: 10%;
-				width: 35%;
+				width: 50%;
 				height: 80rpx;
 				text-align: center;
 				line-height: 80rpx;
 				margin-left: 10%;
 				background-color: #857827;
 				color: #FFFFFF;
-				font-size: 32rpx;
 			}
 		}
 
@@ -414,7 +542,7 @@
 
 	.share-box {
 		position: fixed;
-		bottom: -220rpx;
+		bottom: -250rpx;
 		background-color: #FFFFFF;
 		border-top-left-radius: 40rpx;
 		border-top-right-radius: 40rpx;
@@ -444,7 +572,7 @@
 
 	@keyframes showShare {
 		0% {
-			bottom: -220rpx;
+			bottom: -250rpx;
 		}
 
 		100% {
@@ -469,22 +597,22 @@
 	}
 
 	.add_image {
-		width: 80%;
-		height: 80%;
+		width: 60%;
+		height: 60%;
 		background: url(../static/floaWindow/add.png) 50% 50% no-repeat;
 		background-size: 100%;
 		animation: changeIcon1 0.2s forwards;
 	}
 
 	.close_image {
-		width: 80%;
-		height: 80%;
+		width: 50%;
+		height: 50%;
 		animation: changeIcon 0.2s forwards;
 	}
 
 	.icon_list {
 		background-color: rgba($color: #000000, $alpha: 0.8);
-		padding: 20rpx;
+		padding: 20rpx 50rpx;
 		position: fixed;
 		bottom: 100rpx;
 		right: 0rpx;
@@ -496,7 +624,7 @@
 		animation: showList 0.2s forwards;
 
 		image {
-			margin: 20rpx;
+			margin: 20rpx 20rpx 5rpx 20rpx;
 			width: 80rpx;
 			height: 80rpx;
 		}
@@ -508,13 +636,25 @@
 			.icon_item {
 				text-align: center;
 				color: #FFFFFF;
+				position: relative;
+				margin: 0 10rpx;
 			}
+
+			button {
+				position: absolute;
+			}
+		}
+
+		.icon_row+.icon_row {
+			margin-top: 20rpx;
 		}
 	}
 
 	button {
-		height: 100rpx;
-		width: 100rpx;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
 		padding: 0;
 		margin: 0;
 		line-height: unset;
@@ -523,10 +663,6 @@
 		// width: 100rpx;
 		// height: 100rpx;
 		display: inline;
-
-		image {
-			margin-bottom: 12rpx;
-		}
 	}
 
 	button::after {
@@ -575,7 +711,7 @@
 
 		100% {
 			transform: rotate(90deg);
-			background: url(../static/floaWindow/add_white.png) 50% 50% no-repeat;
+			background: url(../static/floaWindow/add_white1.png) 50% 50% no-repeat;
 			background-size: 100%;
 		}
 	}

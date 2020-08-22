@@ -30,8 +30,8 @@
 					</view>
 				</view>
 				<view class="body-group">
-					<view class="date">04月21日</view>
-					<view class="block">
+					<!-- <view class="date">04月21日</view> -->
+					<view class="block" v-for="item in brokerageList" :key="item.ordercode">
 						<view class="info">
 							<image src="../../static/my/no-header.png"></image>
 							<view>
@@ -44,67 +44,15 @@
 								</view>
 								<view>
 									<text class="label">单号：</text>
-									<text class="value">mm15990099933399522122222</text>
+									<text class="value">{{item.ordercode}}</text>
 								</view>
 							</view>
 						</view>
 						<view class="status">
-							<text>冻结</text>
-						</view>
-					</view>
-					<view class="block">
-						<view class="info">
-							<image src="../../static/my/no-header.png"></image>
-							<view>
-								<view class="rows">
-									<text class="label">金额：</text>
-									<text class="value">103元</text>
-									<text class="line">|</text>
-									<text class="label">佣金：</text>
-									<text class="value">5元</text>
-								</view>
-								<view>
-									<text class="label">单号：</text>
-									<text class="value">mm15990099933399522122222</text>
-								</view>
-							</view>
-						</view>
-						<view class="status">
-							<text class="text-red">未提现</text>
-						</view>
-					</view>
-				</view>
-				<view class="body-group">
-					<view class="date">04月21日</view>
-					<view class="block">
-						<view class="info">
-							<image src="../../static/my/no-header.png"></image>
-			<!-- 				        "id": "f6a7e19708294943bbd022270a42c59d",
-							        "ordercode": "mm1594282170384163316",
-							        "orderid": "10df13e2-8e00-ff33-7bb5-cef899a7dd57",
-							        "orderprice": "100.0",
-							        "owner": "43d1a99e-c944-c489-d38f-63869d604c5c",
-							        "ownertype": "销售",
-							        "payprice": "85.0",
-							        "sender": "0ee17383-98b1-5df2-c4fa-ca8ef10de124",
-							        "status": "0",
-							        "totalbrokerage": 1.0 -->
-							<view>
-								<view class="rows">
-									<text class="label">金额：</text>
-									<text class="value">103元</text>
-									<text class="line">|</text>
-									<text class="label">佣金：</text>
-									<text class="value">5元</text>
-								</view>
-								<view>
-									<text class="label">单号：</text>
-									<text class="value">mm15990099933399522122222</text>
-								</view>
-							</view>
-						</view>
-						<view class="status">
-							<text class="text-red">未提现</text>
+							<text class="text-red" v-if="item.type == '0'">冻结</text>
+							<text v-if="item.type == '1'">未提现</text>
+							<text v-if="item.type == '2'">提现申请</text>
+							<text v-if="item.type == '3'">已提现</text>
 						</view>
 					</view>
 				</view>

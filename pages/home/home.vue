@@ -4,6 +4,7 @@
 			<block slot="content">金三源</block>
 		</cu-custom>
 		<view class="search">
+			<image src="../../static/icon/search.png"></image>
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
 		</view>
 		<view class="swiper_head">
@@ -47,6 +48,7 @@
 					<image v-else src="../../static/home/wind-light.png" mode="aspectFit"></image>
 				</view>
 			</view>
+			
 			<view class="title_type">
 				<text class="title">不时不食</text>
 				<view class="title_sub">

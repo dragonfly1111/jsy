@@ -155,7 +155,9 @@
 			this.getNewsList(1)
 		},
 		onReachBottom() {
-			if(this.newsObj.length == this.count) return
+			if(this.currentNav == 'swmx' && this.newsObjSw.length == this.count) return
+			if(this.currentNav == 'shcs' && this.newsObjSh.length == this.count) return
+			if(this.currentNav == 'kjsl' && this.newsObjKj.length == this.count) return
 			this.index++
 			this.getNewsList(this.index)
 		}

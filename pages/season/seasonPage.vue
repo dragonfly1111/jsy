@@ -4,25 +4,25 @@
 			<block slot="content">{{title}}</block>
 		</cu-custom>
 		<view class="search">
+			<image src="../../static/icon/search.png"></image>
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()'/>
 		</view>
 		<view class="find_head">
 			<text v-for="(item,index) in curSeasonList" :class="{act_nav: currentNav  == index}" @click="chooseNav(index)">{{item}}</text>
 		</view>
-		<view class="banner"></view>
-		<view class="info">
-			<view class="text">每日食材 &nbsp;&nbsp;&nbsp;&nbsp;正当时令</view>
-			<view class="time">2月3日-5日交节</view>
-		</view>
+		<image class="banner" :src="imgHttp + seasonObj.terms_img"></image>
 		<view class="food_ad">
 			<image src="../../static/food_ad.png"  mode="aspectFit"></image>
 		</view>
-		<view class="recommend_wrapper">
-			<view class="name">浙江春笋</view>
-			<image></image>
+		<view class="iframe-view">
+			<rich-text v-html="seasonObj.desc"></rich-text>
+			
 		</view>
+
 		
 		<goodsRecommend :terms="curSeasonList[currentNav]"></goodsRecommend>
+		<view style="height: 100rpx;width: 100%;">
+		</view>
 		<floatWindows :showFloat="true"></floatWindows>
 		
 	</view>
@@ -43,6 +43,7 @@
 				currentNav: 0,
 				type: 1,
 				title: 1,
+				seasonObj: '', // 文章详情
 				scrollTop:0 ,// 当linear为true的时候需要通过onpagescroll传递参数
 				scrollMaxHeight:200, //滑动的高度限制，超过这个高度即背景全部显示
 				seasonList:[
@@ -51,7 +52,9 @@
 					["立秋","处暑","白露","秋分","寒露","霜降"],
 					["立冬","小雪","大雪","冬至","小寒","大寒"]
 				],
-				curSeasonList:[]
+				curSeasonList:[],
+				imgHttp: '', //图片接口前缀
+				
 			}
 		},
 		methods:{
@@ -68,10 +71,22 @@
 			},
 			chooseNav(index){
 				this.currentNav = index
+				this.getSeasonArt(this.curSeasonList[this.currentNav])
 			},
+			getSeasonArt(terms){
+				let params = {
+					terms: terms
+				}
+				let self = this
+				this.ask("/app/index/getTermsContent", "GET", params, function(res) {
+					self.seasonObj = res.data.data
+				})
+			}
 		},
 		onLoad(option) {
 			this.type = option.type
+			this.imgHttp = this.comHttp;
+			
 			switch (this.type) {
 				case '0':
 				this.title = '春生'
@@ -93,6 +108,7 @@
 				
 				break
 			}
+			this.getSeasonArt(this.curSeasonList[this.currentNav])
 		},
 		onShow() {
 			
@@ -112,24 +128,36 @@
 		left: 0;
 		z-index: 9999;
 		display: flex;
-		justify-content: center;
+		// justify-content: center;
 		align-items: center;
-		margin-top: 10rpx;
-		margin-bottom: 36rpx;
+		background-color: #F1F1F1;
+		width: 640rpx;
+		border-radius: 40rpx;
+		margin: 0 auto 20rpx auto;
+		// padding-left: 30rpx;
+		// height: 40rpx;
+		line-height: 40rpx;
+		font-size: 22rpx;
+		height: 40rpx;
+		
 		input{
-			background-color: #F1F1F1;
-			width: calc(100% - 60rpx);
-			border-radius: 40rpx;
-			margin: 0 20rpx;
-			padding-left: 30rpx;
-			// height: 40rpx;
-			line-height: 40rpx;
+			width: 500rpx;
+			height: 100%;
 		}
 		image{
-			width: 50rpx;
-			height: 50rpx;
+			width: 30rpx;
+			height: 30rpx;
+			margin: 0 20rpx;
 		}
 	}
+	
+	.iframe-view{
+		width: calc(100% - 60rpx);
+		margin: 0 auto;
+		margin-bottom: 40rpx;
+	}
+	
+	
 		
 	.find_head{
 		width: 100%;
@@ -167,8 +195,8 @@
 		}
 	}
 	.banner {
-		width: 100%;
-		height: 380rpx;
+		width: 100vw;
+		height: 73vw;
 		background: #eee;
 		margin-top: 20rpx;
 	}

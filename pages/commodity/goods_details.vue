@@ -139,7 +139,7 @@
 			</view>
 			
 		</view>
-		<view class="cu-modal " :class="modalName=='doLoginModal'?'show':''">
+		<view class="cu-modal" :class="modalName=='doLoginModal'?'show':''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">授权提醒</view>
@@ -321,7 +321,11 @@
 				let self = this;
 				this.isLogin2(function(){
 					if(self.currentType == -1 && self.detailsObj.specification_detail.length !=0){
-						self.hint('请选择规格')
+						if(self.showChoose){
+							self.hint('请选择规格')
+						} else{
+							self.openChooseList()
+						}
 					} else{
 						let data = {
 							"token":uni.getStorageSync('token'),
@@ -350,7 +354,11 @@
 					
 					//判断是否选择规格
 					if(self.currentType == -1 && self.detailsObj.specification_detail.length !=0){
-						self.hint('请选择规格')
+						if(self.showChoose){
+							self.hint('请选择规格')
+						} else{
+							self.openChooseList()
+						}
 					} else{
 						let goodsObj = [{
 								"itemid":self.key,
@@ -418,10 +426,17 @@
 			if(uni.getStorageSync('token') != '' && uni.getStorageSync('customer') != ''){
 				this.isCollect();
 			}
+			// 直接微信分享进入
 			if(option.type == 'share'){
 				console.log(33333)
 				uni.setStorageSync('sender', option.userid)
-			
+			}
+			// 二维码分享进入
+			if (option.scene) {
+				// 处理二维码传进参数
+				let scene = decodeURIComponent(option.scene)
+				scene = decodeURIComponent(scene)
+				uni.setStorageSync('sender', scene)
 			}
 		},
 		onShareAppMessage(res) {
@@ -431,7 +446,7 @@
 			})
 			return {
 			      title: this.detailsObj.name,
-			      path: '/pages/commodity/goods_details?id=' +  this.key + '&&type=share' + '&&userid=' + uni.getStorageSync('customer').userid,
+			      path: '/pages/commodity/goods_details?id=' +  this.key + '&&type=share' + '&&userid=' + uni.getStorageSync('customer').wechat_id,
 			    }
 		},
 		onShow() {
