@@ -46,7 +46,8 @@
 			},
 			//清除用户缓存
 			clearUserMsg(){
-				uni.clearStorage();
+				uni.removeStorageSync("token");
+				uni.removeStorageSync("customer");
 				uni.reLaunch({
 					url:'../home/home'
 				})

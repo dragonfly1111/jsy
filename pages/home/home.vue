@@ -330,11 +330,34 @@
 			//跳转到分类
 			toCommmodity(type) {
 				console.log(type)
-				uni.setStorageSync('actNav', type);
+
+				// 正常的商品分类
+				if(type !== '58caeee0375a448490b2b3857282ed8c'){
+					uni.setStorageSync('actNav', type);
+					uni.navigateTo({
+						url: '../commodity/commodity?type=' + type
+					})
+				}else{
+					// 康养度假 跳转到一个文章页面
+					let self = this;
+					let data = {
+						page: 1, 
+						pagesize: 10,
+						type: 'syzp'
+					};
+					self.ask('/app/content/getContentList','POST',data,function(res){
+						self.toArcDetails(res.data.data[0].id)
+					})
+				}
+			},
+			
+			//跳转到文章详情 （康养度假）
+			toArcDetails(id){
 				uni.navigateTo({
-					url: '../commodity/commodity?type=' + type
+					url:"../find/find_details?id=" + id + '&&title=康养度假'
 				})
 			},
+			
 			//跳转到商品详情
 			toDetails: function(id) {
 				uni.navigateTo({

@@ -196,7 +196,7 @@
 	}
 	.banner {
 		width: 100vw;
-		height: 73vw;
+		height: 100vw;
 		background: #eee;
 		margin-top: 20rpx;
 	}

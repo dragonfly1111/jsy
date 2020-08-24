@@ -30,7 +30,7 @@
 					<view class="center">
 						<text class="title">{{val.title}}</text>
 						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
-						<text class="sub_title">规格字段</text>
+						<text class="sub_title">{{val.attr || ''}}</text>
 					</view>
 					<view class="right">
 						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
@@ -105,7 +105,7 @@
 					<view class="center">
 						<text class="title">{{val.title}}</text>
 						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
-						<text class="sub_title">规格字段</text>
+						<text class="sub_title">{{val.attr || ''}}</text>
 					</view>
 					<view class="right">
 						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
@@ -158,7 +158,7 @@
 					<view class="center">
 						<text class="title">{{val.title}}</text>
 						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
-						<text class="sub_title">规格字段</text>
+						<text class="sub_title">{{val.attr || ''}}</text>
 					</view>
 					<view class="right">
 						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>
@@ -215,7 +215,7 @@
 					<view class="center">
 						<text class="title">{{val.title}}</text>
 						<!-- <text class="sub_title">单价:￥{{val.price}}{{ item.order_number.indexOf('openMember') != -1 ? '' : '/' +val.unit}}</text> -->
-						<text class="sub_title">规格字段</text>
+						<text class="sub_title">{{val.attr || ''}}</text>
 					</view>
 					<view class="right">
 						<viev class="title">￥<text class="big_num">{{val.price * val.itemnum | numberFilter}}</text><text>{{val.price * val.itemnum | numberFilter1}}</text></viev>

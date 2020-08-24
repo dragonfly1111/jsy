@@ -1,7 +1,7 @@
 <template>
 	<view class="details_box">
 		<cu-custom bgColor="none-bg" :isBack="true">
-			<block slot="content"></block>
+			<block slot="content">{{detailsTitle}}</block>
 		</cu-custom>
 		
 		<view class="head_img">
@@ -12,16 +12,6 @@
 		</view>
 		<view class="top_title" v-if="detailsObj != '' ">
 		</view>
-<!-- 		<view class="details_head" v-if="detailsObj != '' ">
-			<image src="../../static/details/source.png"></image>
-			<view class="source">
-				<text class="title">{{detailsObj.audit_user}}</text>
-				<text class="sub_title">{{detailsObj.audit_time}}</text>
-			</view>
-			<view class="browse">
-				<text>阅读：{{detailsObj.hits}}</text>
-			</view>
-		</view> -->
 		<view class="details_text">
 		   <rich-text v-html="detailsObj.content"></rich-text>
 		</view>
@@ -59,7 +49,9 @@
 			console.log(option)
 			this.imgHttp = this.comHttp;
 			this.detailsId = option.id;
-			this.detailsTitle = option.title;
+			if(option.title == '会员推荐'){
+				this.detailsTitle = option.title;
+			}
 			this.getNewsDetails()
 			
 		}

@@ -28,7 +28,7 @@
 					
 					<view class="specification">
 						<text>{{item.combination}}</text>
-						<image src="../../static/my/icon-down.png"></image>
+						<!-- <image src="../../static/my/icon-down.png"></image> -->
 					</view>
 					<view class="price">￥<text class="num">{{item.sellingprice}}</text></view>
 					<!-- <text class="unit">/{{item.unit}}</text> -->

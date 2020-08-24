@@ -30,31 +30,34 @@
 					</view>
 				</view>
 				<view class="body-group">
-					<!-- <view class="date">04月21日</view> -->
-					<view class="block" v-for="item in brokerageList" :key="item.ordercode">
-						<view class="info">
-							<image src="../../static/my/no-header.png"></image>
-							<view>
-								<view class="rows">
-									<text class="label">金额：</text>
-									<text class="value">103元</text>
-									<text class="line">|</text>
-									<text class="label">佣金：</text>
-									<text class="value">5元</text>
-								</view>
+					<view  v-for="item in brokerageList" :key="item.orderDate">
+						<view class="date">{{item.orderDate}}</view>
+						<view class="block" v-for="item1 in item.orderData" :key="item1.ordercode">
+							<view class="info">
+								<image src="../../static/my/no-header.png"></image>
 								<view>
-									<text class="label">单号：</text>
-									<text class="value">{{item.ordercode}}</text>
+									<view class="rows">
+										<text class="label">金额：</text>
+										<text class="value">{{item1.payprice}}元</text>
+										<text class="line">|</text>
+										<text class="label">佣金：</text>
+										<text class="value">{{item1.totalbrokerage}}元</text>
+									</view>
+									<view>
+										<text class="label">单号：</text>
+										<text class="value">{{item1.ordercode}}</text>
+									</view>
 								</view>
 							</view>
-						</view>
-						<view class="status">
-							<text class="text-red" v-if="item.type == '0'">冻结</text>
-							<text v-if="item.type == '1'">未提现</text>
-							<text v-if="item.type == '2'">提现申请</text>
-							<text v-if="item.type == '3'">已提现</text>
+							<view class="status">
+								<text class="text-red" v-if="item1.type == '0'">冻结</text>
+								<text v-if="item1.type == '1'">未提现</text>
+								<text v-if="item1.type == '2'">提现申请</text>
+								<text v-if="item1.type == '3'">已提现</text>
+							</view>
 						</view>
 					</view>
+					
 				</view>
 			</view>
 			<view v-if="currentType == 1">

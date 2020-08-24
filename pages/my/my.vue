@@ -208,7 +208,7 @@
 			</view>
 		</view> -->
 		
-		<!-- <view class="cu-modal " :class="modalName=='doLoginModal'?'show':''">
+		<view class="cu-modal " :class="modalName=='doLoginModal'?'show':''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">授权提醒</view>
@@ -223,7 +223,7 @@
 					<button class="cu-btn bg-golden margin-tb-sm lg" open-type="getUserInfo" @getuserinfo="getinfo()">去授权</button>
 				</view>
 			</view>
-		</view> -->
+		</view>
 	</view>
 </template>
 

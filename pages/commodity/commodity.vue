@@ -3,9 +3,17 @@
 		<cu-custom bgColor="none-bg" :isBack="true">
 			<block slot="content">{{clssName}}</block>
 		</cu-custom>
-		<view class="banner">
-			<image src="http://rdp.wars.cat:3902/MicroMarket/marketResources/upload/2008/2008948a5590335d49bc9bae21a232d58ef2.png"></image>
+		<view class="swiper_head banner">
+			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true" :autoplay="true" interval="5000"
+			 duration="500">
+				<swiper-item v-for="(item,index) in headSwiper" :key='index'>
+					<view class="swiper-item" @click="toSwiper(item.type,item.imgurl)">
+						<image :src="imgHttp+item.imgsrc" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
 		</view>
+		
 		<view class="search">
 			<image src="../../static/icon/search.png"></image>
 			<input type="text" v-model="searchKey" placeholder="搜索商品" @confirm='toSearch()' />
@@ -157,7 +165,8 @@ export default{
 			scrollTop:0 ,// 当linear为true的时候需要通过onpagescroll传递参数
 			scrollMaxHeight:200, //滑动的高度限制，超过这个高度即背景全部显示
 			breedList: [],
-			breedActive: 0
+			breedActive: 0,
+			headSwiper: []
 		};
 	},
 
@@ -170,6 +179,37 @@ export default{
 		}
 	},
 	methods: {
+		//获取顶部轮播图
+		getSwiperTop: function() {
+			let self = this;
+			this.ask("/app/index/getIndexCarousel", "GET", {
+				pid: 'productType'
+			}, function(res) {
+				self.headSwiper = res.data.data;
+		
+			})
+		},
+		//轮播图跳转
+		toSwiper(type, id) {
+			if (type == 1) {
+				uni.navigateTo({
+					url: "../commodity/goods_details?id=" + id
+				})
+			} else if (type == 2) {
+				uni.navigateTo({
+					url: "./web_view?id=" + id
+				})
+			} else if (type == 3) {
+				uni.navigateTo({
+					url: "../find/find_details?id=" + id
+				})
+			} else if (type == 4) {
+				uni.navigateTo({
+					url: "./web_view?id=" + id
+				})
+			}
+		},
+		
 		//跳转到商品详情
 		toGoodDetail(id) {
 			uni.navigateTo({
@@ -235,6 +275,8 @@ export default{
 	onLoad(option) {
 		this.classId = option.type
 		this.getClassify()
+		this.getSwiperTop()
+		
 		this.imgHttp = this.comHttp
 		console.log(this.imgHttp + "/marketResources/upload/2008/20088c7d0a15d26841dabdfa3743d6386be7.png")
 	},

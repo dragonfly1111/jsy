@@ -18,9 +18,12 @@
 				</view>
 				<view class="find_head_line">
 					<text class="title">{{item.title}}</text>
+				</view>
+				<view class="find_sub_line">
+					<view class="sub_title" v-html="item.explain"></view>
 					<text class="time">{{item.audit_time | timeFilter}}</text>
 				</view>
-				<view class="sub_title" v-html="item.explain"></view>
+				
 			</view>
 			<view class="no_more" v-if="newsObjSw.length == count">
 				没有更多了

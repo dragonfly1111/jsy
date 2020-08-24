@@ -384,6 +384,8 @@
 	.specs-list {
 		display: flex;
 		align-items: center;
+		border-bottom: 1rpx solid #eee;
+		padding-bottom: 30rpx;
 		.item {
 			font-size: 30rpx;
 			color: #000;
@@ -466,5 +468,46 @@
 
 	100% {
 		bottom: 0rpx;
+	}
+}
+
+.item-num{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 30rpx;
+}
+
+.add-reduce {
+	height: 100%;
+	display: flex;
+	min-width: 120rpx;
+	align-items: flex-end;
+	// justify-content: center;
+	margin-right: 20rpx;
+	font-size: 24rpx;
+	view{
+		border: 1rpx solid #e1e1e1;
+		width: 50rpx;
+		height: 50rpx;
+		line-height: 50rpx;
+		text-align: center;
+		// display: flex;
+		// align-items: center;
+		// justify-content: center;
+		margin-bottom: 30rpx;
+	}
+	.reduce{
+		border-radius: 5rpx 0 0 5rpx;
+		background-color: #F2F2F2;
+	}
+	.add{
+		border-radius: 0 5rpx 5rpx 0;
+		background-color: #F2F2F2;			
+	}
+	.num{
+		width: 70rpx;
+		font-weight: bold;
+		background-color: #F2F2F2;				
 	}
 }

@@ -32,7 +32,7 @@
 					<image src="../static/floaWindow/member.png"></image>
 					<view>会员</view>
 				</view>
-				<view class="icon_item">
+				<view class="icon_item" @click="toRecommend()">
 					<image src="../static/floaWindow/goods.png"></image>
 					<view>推荐</view>
 				</view>
@@ -299,7 +299,7 @@
 													ctx.font = `9px Arial`
 													ctx.fillStyle = '#7b7634'
 													ctx.textBaseline = 'middle'
-													ctx.fillText(that.userObj.nickname, userX + 2*userRadio,422);
+													ctx.fillText(decodeURI(that.userObj.nickname), userX + 2*userRadio,422);
 													ctx.draw(true)
 													
 													// 推荐
@@ -307,8 +307,7 @@
 													ctx.fillStyle = '#999999'
 													ctx.textBaseline = 'middle'
 													ctx.fillText('向你推荐好物', userX + 2*userRadio + ctx.measureText(that.userObj.nickname).width,422);													
-													console.log('尼玛死了')
-													console.log(that)
+										
 													ctx.draw(true)
 													wx.canvasToTempFilePath({
 														canvasId: 'canvas',
@@ -465,6 +464,22 @@
 
 				uni.navigateTo({
 					url: "../my/member"
+				})
+			},
+			
+			//去会员推荐
+			toRecommend(){
+				// 康养度假 跳转到一个文章页面
+				let self = this;
+				let data = {
+					page: 1, 
+					pagesize: 10,
+					type: 'hytj'
+				};
+				this.ask('/app/content/getContentList','POST',data,function(res){
+					uni.navigateTo({
+						url:"../find/find_details?id=" + res.data.data[0].id + '&&title=会员推荐'
+					})
 				})
 			},
 

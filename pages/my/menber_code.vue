@@ -23,14 +23,13 @@
 		},
 		data(){
 			return{
-			
+				imgHttp: '',
 			}
 		},
 		methods:{
 			getQrCode: function() {
 				const params = {
 					sceneStr: encodeURI(uni.getStorageSync('customer').wechat_id),
-					// sceneStr: "1234hello",
 					pageUrl: 'pages/home/home',
 				}
 				let that = this
@@ -66,7 +65,7 @@
 						console.log(res)
 						if (res.statusCode === 200) {
 							ctx.drawImage(res.tempFilePath, 0, 0, wx.getSystemInfoSync().windowWidth * 0.8, wx.getSystemInfoSync().windowHeight *
-								0.75)
+								0.7)
 							ctx.draw(true)
 							wx.downloadFile({
 								url: url,
@@ -111,6 +110,7 @@
 			
 		},
 		onLoad(option) {
+			this.imgHttp = this.comHttp
 			this.getQrCode()
 		},
 		onShow() {
@@ -144,22 +144,12 @@
 			margin-top: 50rpx;
 			width: 100%;
 	
-			.close-post {
-				width: 35%;
-				height: 80rpx;
-				text-align: center;
-				line-height: 80rpx;
-				background-color: #FFFFFF;
-				border: 1px solid #000000;
-			}
-	
 			.save-post {
 				margin-bottom: 10%;
 				width: 100%;
 				height: 80rpx;
 				text-align: center;
 				line-height: 80rpx;
-				margin-left: 10%;
 				background-color: #857827;
 				color: #FFFFFF;
 				font-size: 32rpx;
