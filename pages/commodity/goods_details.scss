@@ -287,17 +287,18 @@
 	}
 	.operating_item{
 		color: #9D9D9F;
-		font-size: 28rpx;
+		font-size: 24rpx;
 		text-align: center;
+		width: 33.33%;
 		image{
-			width: 45rpx;
-			height: 45rpx;
+			width: 40rpx;
+			height: 40rpx;
 		}
 		
 	}
 	.btn_box{
 		width: 450rpx;
-		height: 100%;
+		height: 70%;
 		
 		display: flex;
 		font-size: 36rpx;
@@ -312,9 +313,14 @@
 		}
 		.add{
 			background-color:#9C9969;
+			border-top-left-radius: 50rpx;
+			border-bottom-left-radius: 50rpx;
 		}
 		.buy{
 			background-color: #7B7634;
+			border-top-right-radius: 50rpx;
+			border-bottom-right-radius: 50rpx;
+			margin-right: 10rpx;
 		}
 	}
 }

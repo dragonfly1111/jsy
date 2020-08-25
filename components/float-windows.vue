@@ -279,57 +279,56 @@
 										ctx.restore();
 
 										ctx.draw(true)
-										// 用户头像
-										wx.downloadFile({
-											url: that.userObj.avatar,
-											success: (res) => {
-												console.log(res)
-												let userX = 20
-												let userY = 420
-												let userRadio = 9
-												if (res.statusCode === 200) {
-													ctx.save()
-													ctx.beginPath()
-													ctx.arc(userX, userY, userRadio, 0, 2*Math.PI)
-													ctx.clip()
-													ctx.drawImage(res.tempFilePath, userX - userRadio, userY - userRadio, 2*userRadio,2*userRadio)
-													ctx.restore()
-													ctx.draw(true)
-													// 用户名字
-													ctx.font = `9px Arial`
-													ctx.fillStyle = '#7b7634'
-													ctx.textBaseline = 'middle'
-													ctx.fillText(decodeURI(that.userObj.nickname), userX + 2*userRadio,422);
-													ctx.draw(true)
-													
-													// 推荐
-													ctx.font = `9px Arial`
-													ctx.fillStyle = '#999999'
-													ctx.textBaseline = 'middle'
-													ctx.fillText('向你推荐好物', userX + 2*userRadio + ctx.measureText(that.userObj.nickname).width,422);													
-										
-													ctx.draw(true)
-													wx.canvasToTempFilePath({
-														canvasId: 'canvas',
-														success: function(res) {
-															wx.hideLoading()
-															that.loadImagePath = res.tempFilePath
-														},
-														fail: function(res) {
-															wx.hideLoading()
-															console.log(res);
-														}
-													}, that);
-													
-
-
-												}
-											},
-											fail: (res) => {
+										wx.canvasToTempFilePath({
+											canvasId: 'canvas',
+											success: function(res) {
 												wx.hideLoading()
-												wx.showToast('生成失败，请重试')
+												that.loadImagePath = res.tempFilePath
+											},
+											fail: function(res) {
+												wx.hideLoading()
+												console.log(res);
 											}
-										})
+										}, that);
+
+
+										// 用户头像
+										// wx.downloadFile({
+										// 	url: that.userObj.avatar,
+										// 	success: (res) => {
+										// 		console.log(res)
+										// 		let userX = 20
+										// 		let userY = 420
+										// 		let userRadio = 9
+										// 		if (res.statusCode === 200) {
+										// 			ctx.save()
+										// 			ctx.beginPath()
+										// 			ctx.arc(userX, userY, userRadio, 0, 2*Math.PI)
+										// 			ctx.clip()
+										// 			ctx.drawImage(res.tempFilePath, userX - userRadio, userY - userRadio, 2*userRadio,2*userRadio)
+										// 			ctx.restore()
+										// 			ctx.draw(true)
+										// 			// 用户名字
+										// 			ctx.font = `9px Arial`
+										// 			ctx.fillStyle = '#7b7634'
+										// 			ctx.textBaseline = 'middle'
+										// 			ctx.fillText(decodeURI(that.userObj.nickname), userX + 2*userRadio,422);
+										// 			ctx.draw(true)
+										//
+										// 			// 推荐
+										// 			ctx.font = `9px Arial`
+										// 			ctx.fillStyle = '#999999'
+										// 			ctx.textBaseline = 'middle'
+										// 			ctx.fillText('向你推荐好物', userX + 2*userRadio + ctx.measureText(that.userObj.nickname).width,422);
+										//
+										//
+										// 		}
+										// 	},
+										// 	fail: (res) => {
+										// 		wx.hideLoading()
+										// 		wx.showToast('生成失败，请重试')
+										// 	}
+										// })
 
 									}
 								},
@@ -626,7 +625,7 @@
 	}
 
 	.icon_list {
-		background-color: rgba($color: #000000, $alpha: 0.8);
+		background-color: rgba($color: #000000, $alpha: 0.5);
 		padding: 20rpx 50rpx;
 		position: fixed;
 		bottom: 100rpx;

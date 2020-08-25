@@ -26,7 +26,8 @@
 		</view>
 
 		<view class="font-bar">
-			<image src="../../static/home/font-bar.png"></image>
+			<!-- <image src="../../static/home/font-bar.png"></image> -->
+			食宜有道·不时不食
 		</view>
 
 		<view class="main-contaner">
@@ -49,28 +50,28 @@
 				</view>
 			</view>
 			
-			<view class="title_type">
-				<text class="title">不时不食</text>
-				<view class="title_sub">
-					<image src="../../static/home/arrow.png" mode=""></image>
-				</view>
-			</view>
 
-			<view class="goods_list">
-				<view class="goods" v-if="index <= 6" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
-					<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
+		</view>
+		<view class="title_type">
+			<text class="title">不时不食</text>
+		</view>
+		<view class="goods_list">
+			<view class="goods" v-if="index <= 8" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
+				<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
+				<view style="padding: 10rpx;">
 					<view class="goods_name">
 						<text class="title">{{item.name}}</text>
-						<image class="cart" src="../../static/home/cart.png" mode=""></image>
 					</view>
-
+							
 					<view class="price_box">
 						<view class="price_left">
 							<text class="price">￥{{item.sellingprice}}</text>
-							<text class="unit">/{{item.unit}}</text>
+							<!-- <text class="unit">/{{item.unit}}</text> -->
 						</view>
+						<image class="cart" src="../../static/home/cart.png" mode=""></image>
 					</view>
 				</view>
+				
 			</view>
 		</view>
 
@@ -338,16 +339,12 @@
 						url: '../commodity/commodity?type=' + type
 					})
 				}else{
-					// 康养度假 跳转到一个文章页面
-					let self = this;
-					let data = {
-						page: 1, 
-						pagesize: 10,
-						type: 'syzp'
-					};
-					self.ask('/app/content/getContentList','POST',data,function(res){
-						self.toArcDetails(res.data.data[0].id)
+					// 康养度假 
+					uni.navigateTo({
+						url: '../commodity/vacation'
 					})
+					
+
 				}
 			},
 			

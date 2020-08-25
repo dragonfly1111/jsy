@@ -1486,6 +1486,7 @@ button.cuIcon.lg {
 	align-items: center;
 	min-height: 100upx;
 	justify-content: space-between;
+	background-color: #FFFFFF;
 }
 
 .cu-bar .action {

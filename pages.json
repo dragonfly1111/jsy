@@ -184,6 +184,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/commodity/vacation",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
 		}
 		
 		
