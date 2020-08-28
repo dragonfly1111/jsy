@@ -31,7 +31,10 @@
 
 		<view>
 			<view class="advertising">
-				<view class="ad-item left" @click="toSeason(0)">
+				<view class="ad-item" :class="index%2 == 0 ? 'left' : 'right'" v-for="(item,index) in sesonAd" @click="toSeason(index)">
+					<image :src="imgHttp+item.icon" mode="scaleToFill"></image>
+				</view>				
+<!-- 				<view class="ad-item left" @click="toSeason(0)">
 					<image v-if="curSeason == 0" src="../../static/home/spring-dark.png" mode="scaleToFill"></image>
 					<image v-else src="../../static/home/spring-light.png" mode="scaleToFill"></image>
 				</view>
@@ -46,13 +49,13 @@
 				<view class="ad-item right" @click="toSeason(3)">
 					<image v-if="curSeason == 3" src="../../static/home/wind-dark.png" mode="scaleToFill"></image>
 					<image v-else src="../../static/home/wind-light.png" mode="scaleToFill"></image>
-				</view>
+				</view> -->
 			</view>
 			
 
 		</view>
 		<view class="title_type">
-			<text class="title">不时不食</text>
+			<text class="title">原产地·原生态·原本味</text>
 		</view>
 		<view class="goods_list">
 			<view class="goods" v-if="index <= 8" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
@@ -218,6 +221,7 @@
 				moreType2: '',
 				showFloat: false,
 				term: '', //当前节气
+				sesonAd: '', //季节广告牌
 				seasonList: [
 					["立春", "雨水", "惊蛰", "春分", "清明", "谷雨"],
 					["立夏", "小满", "芒种", "夏至", "小暑", "大暑"],
@@ -251,6 +255,12 @@
 			this.headHeight = this.CustomBar + 'px';
 		},
 		methods: {
+			getSeasonAd(){
+				let self = this;
+				this.ask("/app/index/getSeasonsIcon	", "GET", {}, function(res) {
+					self.sesonAd = res.data.data
+				})
+			},
 			getSeason() {
 				let index
 				this.seasonList.forEach((item, index1) => {
@@ -428,7 +438,7 @@
 			this.getSwiperTop();
 			this.getHeadNav();
 			this.getGoods();
-			// this.getRecommend();
+			this.getSeasonAd();
 			this.imgHttp = this.comHttp;
 
 		},

@@ -5,7 +5,7 @@
 		</view>
 		
 		<view class="goods_list">
-			<view class="goods" v-for="(item,index) in goodsList" :key='index' @click="toDetails(item.id)">
+			<view class="goods" v-for="(item,index) in goodsList" :key='index' @click="toGoods(item.id)">
 				<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
 				<view style="padding: 15rpx 12rpx;">
 					<view class="goods_name">
@@ -17,7 +17,7 @@
 							<text class="symbol">￥</text><text class="price">{{item.sellingprice}}</text>
 							<!-- <text class="unit">/{{item.unit}}</text> -->
 						</view>
-						<image class="cart" src="../../static/home/cart.png" mode=""></image>
+						<image class="cart" src="../static/home/cart.png" mode=""></image>
 					</view>
 				</view>
 				
@@ -145,7 +145,7 @@
 		height: 461rpx;
 	    // border-radius: 10rpx;
 		background-color: #FFFFFF;
-		
+		position: relative;
 		.goods_img{
 			width: 335rpx;
 		    height: 335rpx;			
@@ -157,21 +157,28 @@
 		.goods_name{
 			margin-bottom: 30rpx;
 			width: 325rpx;
-			.goods_name_title{
+			.title{
 				width: 325rpx;
 				font-size: 24rpx;
-				overflow : hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
 				color: #333333;
+		
+				display: -webkit-box;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				word-wrap: break-word;
+				white-space: normal !important;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
 			}
 		}
-	
+		
 		.price_box{
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			width: 100%;
+			position: absolute;
+			bottom: 10rpx;
+			width: calc(100% - 20rpx);
 			font-size: 26rpx;
 			.price_left{
 				display: flex;
@@ -195,6 +202,7 @@
 				width: 27rpx;
 			}
 		}
+		
 		
 	}
 	.go-shop{
