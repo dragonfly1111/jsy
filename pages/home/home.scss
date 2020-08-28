@@ -14,8 +14,8 @@
 		margin: 0 auto 20rpx auto;
 		// padding-left: 30rpx;
 		// height: 40rpx;
-		line-height: 40rpx;
-		height: 40rpx;
+		line-height: 50rpx;
+		height: 50rpx;
 		font-size: 22rpx;
 		
 		input{
@@ -81,14 +81,15 @@
 	
 	.font-bar{
 		width: 100%;
-		margin-bottom: 30rpx;
-		padding-left: 150rpx;
-		padding-right: 150rpx;
-		text-align: center;
-		font-size: 26rpx;
+		display: flex;
+		justify-content: center;
+		margin: 0 auto 30rpx auto;
+		// text-align: center;
+		font-size: 24rpx;
 		font-weight: 500;
 		font-family: "SimHei";
-		letter-spacing: 25rpx
+		letter-spacing: 25rpx;
+		text-indent: 25rpx;
 	}
 	
 	.main-contaner{
@@ -99,16 +100,16 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		padding-bottom: 127rpx;
+		padding-bottom: 40rpx;
 		.ad-item{
 			// width: 50%;
 			width: 300rpx;
 			height: 150rpx;
-			// margin-bottom: 13rpx;
+			margin-bottom: 40rpx;
 		}
 		
 		.right{
-			margin-left: 17rpx;
+			margin-left: 40rpx;
 			// text-align: right;
 		}
 		
@@ -125,7 +126,7 @@
 		}
 	}
 	.title_type{
-		width: calc(100% - 160rpx);
+		width: 100%;
 		margin: 0 auto;
 		color: #857827;
 		display: flex;
@@ -140,12 +141,12 @@
 			line-height: 28rpx;
 			// font-weight: bold;
 			position: relative;
-			padding-left: 40rpx;
+			padding-left: 68rpx;
 		}
 		.title::before{
 			content: "||";
 			position: absolute;
-			left: 20rpx;
+			left: 52rpx;
 			font-size: 28rpx;
 			line-height: 28rpx;
 		}
@@ -164,7 +165,7 @@
 	}
 	.goods_list{
 		width: 100%;
-		padding: 0 80rpx;
+		padding: 0 25rpx;
 		// padding: 30rpx 0rpx;
 		display: flex;
 		justify-content: space-between;
@@ -173,20 +174,20 @@
 		background-color: #f8f8f8;
 	}
 	.goods{
-		width: 255rpx;
+		width: 335rpx;
 		// display: flex;
 		// flex-direction: column;
 		// justify-content: flex-start;
 		// align-items: center;
-		margin-bottom: 25rpx;
+		margin-bottom: 30rpx;
 		color: #857825;
-		// height: 365rpx;
-	    border-radius: 10rpx;
+		height: 461rpx;
+	    // border-radius: 10rpx;
 		background-color: #FFFFFF;
 		
 		.goods_img{
-			width: 255rpx;
-		    height: 255rpx;			
+			width: 335rpx;
+		    height: 335rpx;			
 		}
 		.cart{
 			width: 40rpx;
@@ -194,8 +195,9 @@
 		}
 		.goods_name{
 			margin-bottom: 30rpx;
+			width: 325rpx;
 			.title{
-				width: calc(100% - 30rpx);
+				width: 325rpx;
 				font-size: 24rpx;
 				overflow : hidden;
 				text-overflow: ellipsis;
@@ -214,6 +216,11 @@
 				display: flex;
 				align-items: center;
 				font-size: 24rpx;
+				.symbol{
+					font-size: 19rpx;
+					color: #857825;
+					margin-right: 5rpx;
+				}
 				.price{
 					color: #857825;
 					// font-weight: bold;
@@ -223,8 +230,8 @@
 				}
 			}
 			image{
-				height: 22rpx;
-				width: 24rpx;
+				height: 25rpx;
+				width: 27rpx;
 			}
 		}
 		

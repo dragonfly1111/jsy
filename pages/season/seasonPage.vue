@@ -136,9 +136,9 @@
 		margin: 0 auto 20rpx auto;
 		// padding-left: 30rpx;
 		// height: 40rpx;
-		line-height: 40rpx;
+		line-height: 50rpx;
 		font-size: 22rpx;
-		height: 40rpx;
+		height: 50rpx;
 		
 		input{
 			width: 500rpx;

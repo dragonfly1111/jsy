@@ -26,27 +26,26 @@
 		</view>
 
 		<view class="font-bar">
-			<!-- <image src="../../static/home/font-bar.png"></image> -->
-			食宜有道·不时不食
+			<text>食宜有道·不时不食</text>
 		</view>
 
-		<view class="main-contaner">
+		<view>
 			<view class="advertising">
 				<view class="ad-item left" @click="toSeason(0)">
-					<image v-if="curSeason == 0" src="../../static/home/spring-dark.png" mode="aspectFit"></image>
-					<image v-else src="../../static/home/spring-light.png" mode="aspectFit"></image>
+					<image v-if="curSeason == 0" src="../../static/home/spring-dark.png" mode="scaleToFill"></image>
+					<image v-else src="../../static/home/spring-light.png" mode="scaleToFill"></image>
 				</view>
 				<view class="ad-item right" @click="toSeason(1)">
-					<image v-if="curSeason == 1" src="../../static/home/summer-dark.png" mode="aspectFit"></image>
-					<image v-else src="../../static/home/summer-light.png" mode="aspectFit"></image>
+					<image v-if="curSeason == 1" src="../../static/home/summer-dark.png" mode="scaleToFill"></image>
+					<image v-else src="../../static/home/summer-light.png" mode="scaleToFill"></image>
 				</view>
 				<view class="ad-item left" @click="toSeason(2)">
-					<image v-if="curSeason == 2" src="../../static/home/autumn-dark.png" mode="aspectFit"></image>
-					<image v-else src="../../static/home/autumn-light.png" mode="aspectFit"></image>
+					<image v-if="curSeason == 2" src="../../static/home/autumn-dark.png" mode="scaleToFill"></image>
+					<image v-else src="../../static/home/autumn-light.png" mode="scaleToFill"></image>
 				</view>
 				<view class="ad-item right" @click="toSeason(3)">
-					<image v-if="curSeason == 3" src="../../static/home/wind-dark.png" mode="aspectFit"></image>
-					<image v-else src="../../static/home/wind-light.png" mode="aspectFit"></image>
+					<image v-if="curSeason == 3" src="../../static/home/wind-dark.png" mode="scaleToFill"></image>
+					<image v-else src="../../static/home/wind-light.png" mode="scaleToFill"></image>
 				</view>
 			</view>
 			
@@ -58,14 +57,14 @@
 		<view class="goods_list">
 			<view class="goods" v-if="index <= 8" v-for="(item,index) in goods" :key='index' @click="toDetails(item.id)">
 				<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
-				<view style="padding: 10rpx;">
+				<view style="padding: 15rpx 12rpx;">
 					<view class="goods_name">
-						<text class="title">{{item.name}}</text>
+						<view class="title">{{item.name}}</view>
 					</view>
 							
 					<view class="price_box">
 						<view class="price_left">
-							<text class="price">￥{{item.sellingprice}}</text>
+							<text class="symbol">￥</text><text class="price">{{item.sellingprice}}</text>
 							<!-- <text class="unit">/{{item.unit}}</text> -->
 						</view>
 						<image class="cart" src="../../static/home/cart.png" mode=""></image>

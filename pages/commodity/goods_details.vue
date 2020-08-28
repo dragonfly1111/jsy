@@ -3,8 +3,8 @@
 <!-- 		<view class="bact_btn" :style="{paddingTop:heightTop,height:height}" @click="back()">
 			<image src="../../static/details/back.png" mode=""></image>
 		</view> -->
-		<cu-custom style="position: absolute;" bgColor="none-bg" :isBack="true">
-			<block slot="content"></block>
+		<cu-custom bgColor="none-bg" :isBack="true">
+			<block slot="content">商品详情</block>
 		</cu-custom>
 		<view class="details_swiper">
 			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true" :autoplay="true" interval="5000"
@@ -122,7 +122,7 @@
 			</view>
 		</view>
 		<view class="details_bg">
-			<rich-text :nodes="detailsObj.particular"></rich-text>
+			<rich-text style="font-size:0;" :nodes="detailsObj.particular"></rich-text>
 		</view>
 		<goodsRecommend class="recommend"></goodsRecommend>
 		<view style="height: 140rpx;width: 100%;"></view>

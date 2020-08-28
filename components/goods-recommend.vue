@@ -4,25 +4,23 @@
 			<text class="title-text">更多精选商品</text>
 		</view>
 		
-		<view class="goods-wrapper">
-			<view class="flex flex-wrap">
-				<view class="basis-df" v-for="(item, index) in goodsList" @click="toGoods(item.id)" :class="{'text-right': index % 2 != 0}">
-					<view class="image-wrapper">
-						<image :src="imgHttp + item.cover"></image>
+		<view class="goods_list">
+			<view class="goods" v-for="(item,index) in goodsList" :key='index' @click="toDetails(item.id)">
+				<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
+				<view style="padding: 15rpx 12rpx;">
+					<view class="goods_name">
+						<view class="goods_name_title">{{item.name}}</view>
 					</view>
-					<view class="info" :class="{'move-right': index % 2 != 0}">
-						<view>
-							<view class="goods-name">
-								{{ item.name }}
-							</view>
-							<view class="goods-price">
-								¥ {{ item.sellingprice }}元/{{ item.unit }}
-							</view>
+							
+					<view class="price_box">
+						<view class="price_left">
+							<text class="symbol">￥</text><text class="price">{{item.sellingprice}}</text>
+							<!-- <text class="unit">/{{item.unit}}</text> -->
 						</view>
-						<text class="lg cuIcon-cart"></text>
-						<!-- <image class="cart" src="../static/cart.png" mode=""></image> -->
+						<image class="cart" src="../../static/home/cart.png" mode=""></image>
 					</view>
 				</view>
+				
 			</view>
 		</view>
 		
@@ -126,58 +124,78 @@
 		right: 5%;
 	}
 	
-	.goods-wrapper {
-		width: 80%;
-		margin: 0 auto;
-		.basis-df {
-			.image-wrapper{
-				width: calc(100% - 20rpx);
-				height: 240rpx;
-				// padding-bottom:100%;
-				background: #eee;
-			}
-			image {
-				width: 100%;
-				height: 100%;
-			}
-			.info {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				.goods-name {
-					font-size: 28rpx;
-					color: #81772b;
-					font-weight: bold;
-					margin-top: 20rpx;
-					text-align: left;
-				}
-				.goods-price {
-					text-align: left;
-					font-size: 26rpx;
-					color: #9f9e9f;
-					margin-bottom: 40rpx;
-				}
-				.cuIcon-cart {
-					color: #81772b;
-					margin-top: -40rpx;
-					padding-right: 20rpx;
-				}
-				.cart{
-					height: 40rpx;
-					width: 40rpx;
-				}
-			}
-			/* .basis-df:nth-child(even) {
-				text-align: right !important;
-			} */
-			.text-right {
-				text-align: right;
-			}
-			.move-right {
-				position: relative;
-				left: 20rpx;
+	.goods_list{
+		width: 100%;
+		padding: 0 25rpx;
+		// padding: 30rpx 0rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		background-color: #f8f8f8;
+	}
+	.goods{
+		width: 335rpx;
+		// display: flex;
+		// flex-direction: column;
+		// justify-content: flex-start;
+		// align-items: center;
+		margin-bottom: 30rpx;
+		color: #857825;
+		height: 461rpx;
+	    // border-radius: 10rpx;
+		background-color: #FFFFFF;
+		
+		.goods_img{
+			width: 335rpx;
+		    height: 335rpx;			
+		}
+		.cart{
+			width: 40rpx;
+			height: 40rpx;
+		}
+		.goods_name{
+			margin-bottom: 30rpx;
+			width: 325rpx;
+			.goods_name_title{
+				width: 325rpx;
+				font-size: 24rpx;
+				overflow : hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: #333333;
 			}
 		}
+	
+		.price_box{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			font-size: 26rpx;
+			.price_left{
+				display: flex;
+				align-items: center;
+				font-size: 24rpx;
+				.symbol{
+					font-size: 19rpx;
+					color: #857825;
+					margin-right: 5rpx;
+				}
+				.price{
+					color: #857825;
+					// font-weight: bold;
+				}
+				.unit{
+					color: #9E9E9E;
+				}
+			}
+			image{
+				height: 25rpx;
+				width: 27rpx;
+			}
+		}
+		
 	}
 	.go-shop{
 		width: 85%;

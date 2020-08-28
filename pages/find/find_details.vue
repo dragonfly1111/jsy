@@ -5,7 +5,7 @@
 		</cu-custom>
 		
 		<view class="head_img">
-			<image :src="imgHttp + detailsObj.pic1"></image>
+			<image :src="imgHttp + detailsObj.pic2"></image>
 			<view class="head_title">
 				{{detailsObj.title}}
 			</view>
