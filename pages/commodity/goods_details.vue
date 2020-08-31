@@ -187,9 +187,12 @@
 		</view>
 		<floatWindows :showFloat="true" :goodsObj="detailsObj"></floatWindows>
 
-		<view :class="sheetShow ? 'show-sheet' : ''" class="share-box">
-			<image src="../../static/details/quality.png" mode=""></image>
-			<view class="but" @click="sheetShow = false">我 知 道 了</view>
+		<view class="cu-modal" :class="sheetShow ? 'show' : ''">
+			<view class="cu-dialog stupid-party-a">
+				<view class="pz-title">品质保证</view>
+				<image :src="imgHttp + pzbzImg" mode="widthFix"></image>
+				<view class="but" @click="sheetShow = false">我 知 道 了</view>
+			</view>
 		</view>
 
 	</view>
@@ -224,7 +227,8 @@
 				"collectType": false,
 				"showChoose": false,
 				"sheetShow": false,
-				"itemNum": 1
+				"itemNum": 1,
+				"pzbzImg": ''
 			}
 		},
 		methods: {
@@ -446,6 +450,13 @@
 					// console.log(self.detailsObj.specification_detail)
 
 				})
+			},
+			//获取品质保证图片
+			getPZBZ() {
+				let self = this;
+				this.ask("/app/index/pzbz", "GET", {}, function(res) {
+					self.pzbzImg = res.data.data.img_url
+				})
 			}
 		},
 		onLoad(option) {
@@ -460,6 +471,7 @@
 			this.model = sysres.model;
 			this.platform = sysres.platform;
 			this.getGoodsDetails();
+			this.getPZBZ();
 			console.log('进入商品详情')
 			console.log('判断是否登录' + wx.getStorageSync('token') !== '')
 			console.log('判断是否登录1' + wx.getStorageSync('customer') !== '')

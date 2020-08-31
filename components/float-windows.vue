@@ -228,11 +228,11 @@
 							ctx.draw()
 
 							// 商品描述部分
-							ctx.font = `12px Arial`
+							ctx.font = `14px Arial`
 							ctx.fillStyle = '#000000'
 							ctx.textBaseline = 'middle'
 							// let row = that.transformContentToMultiLineText(ctx,that.goodsObj.name,210,2)
-							let row = that.transformContentToMultiLineText(ctx,that.goodsObj.name,210,1)
+							let row = that.transformContentToMultiLineText(ctx,that.goodsObj.name,210,2)
 							let contentTextY = 0; // 这段文字起始的y位置
 							let leftSpace = 0; // 这段文字起始的X位置
 							let textLineHeight = 20; // 一行文字加一行行间距
@@ -245,24 +245,24 @@
 							// ctx.fillText(that.goodsObj.name, , );
 
 							// 价格前的小符号
-							ctx.font = `9px Arial`
+							ctx.font = `10px Arial`
 							ctx.fillStyle = '#7b7634'
 							ctx.textBaseline = 'middle'
-							ctx.fillText('¥', coverX * 2, width + coverY + 55 + 15);
+							ctx.fillText('¥', coverX * 2, width + coverY + 55 + 25);
 
 
 							// 价格
-							ctx.font = `13px Arial`
+							ctx.font = `14px Arial`
 							ctx.fillStyle = '#7b7634'
 							ctx.textBaseline = 'middle'
-							ctx.fillText(that.goodsObj.sellingprice, coverX * 2 + 6, width + coverY + 55 + 15);
+							ctx.fillText(that.goodsObj.sellingprice, coverX * 2 + 6, width + coverY + 55 + 25);
 
 
 							// 原价格
-							ctx.font = `9px normal`
+							ctx.font = `10px normal`
 							ctx.fillStyle = '#999999';
 							ctx.textBaseline = 'middle'
-							ctx.fillText('原价：¥' + that.goodsObj.marketprice, coverX * 2, width + coverY + 68 + 15);
+							ctx.fillText('原价：¥' + that.goodsObj.marketprice, coverX * 2, width + coverY + 68 + 25);
 							ctx.draw(true)
 
 							// 二维码
@@ -271,9 +271,9 @@
 								success: (res) => {
 									console.log(res)
 									if (res.statusCode === 200) {
-										const x = width / 2
-										const y = width + coverY + 60
-										const height = 100
+										const x = width / 2 + 20
+										const y = width + coverY + 80
+										const height = 80
 										console.log(x, y, height)
 										ctx.drawImage(res.tempFilePath, x, y, height, height);
 										ctx.restore();
@@ -353,48 +353,40 @@
 			},
 			
 			transformContentToMultiLineText(ctx, text, contentWidth, lineNumber) {
-				var textArray = text.split(""); // 分割成字符串数组
-				console.log(textArray)
-				var temp = "";
-				var row = [];
-
-				for (var i = 0; i < textArray.length; i++) {
-					if (ctx.measureText(temp).width < contentWidth) {
-						temp += textArray[i];
-					} else {
-						i--; // 这里添加i--是为了防止字符丢失
-						row.push(temp);
-						temp = "";
-					}
-				}
-				row.push(temp);
-				console.log(row)
-				// 如果数组长度大于2，则截取前两个
-				if (row.length > lineNumber) {
-					var rowCut = row.slice(0, lineNumber);
-					console.log(rowCut)
-					
-					var rowPart = rowCut[1];
-					console.log(rowPart)
-					
-		// 			var test = "";
-		// 			var empty = [];
-		// 			if(rowPart){
-		// 				for (var a = 0; a < rowPart.length; a++) {
-		// 					if (ctx.measureText(test).width < contentWidth) {
-		// 						test += rowPart[a];
-		// 					} else {
-		// 						break;
-		// 					}
-		// 				}
-		// 			}
-		
-		// 			empty.push(test); // 处理后面加省略号
-					var group = rowCut[0] + '...'
-					rowCut.splice(lineNumber - 1, 1, group);
-					row = rowCut;
-				}
-				return row;
+				  var textArray = text.split(""); // 分割成字符串数组
+				  var temp = "";
+				  var row = [];
+				
+				  for (var i = 0; i < textArray.length; i++) {
+				    if (ctx.measureText(temp).width < contentWidth) {
+				      temp += textArray[i];
+				    } else {
+				      i--; // 这里添加i--是为了防止字符丢失
+				      row.push(temp);
+				      temp = "";
+				    }
+				  }
+				  row.push(temp);
+				
+				  // 如果数组长度大于2，则截取前两个
+				  if (row.length > lineNumber) {
+				    var rowCut = row.slice(0, lineNumber);
+				    var rowPart = rowCut[1];
+				    var test = "";
+				    var empty = [];
+				    for (var a = 0; a < rowPart.length; a++) {
+				      if (ctx.measureText(test).width < contentWidth) {
+				        test += rowPart[a];
+				      } else {
+				        break;
+				      }
+				    }
+				    empty.push(test); // 处理后面加省略号
+				    var group = empty[0] + '...'
+				    rowCut.splice(lineNumber - 1, 1, group);
+				    row = rowCut;
+				  }
+				  return row;
 			},
 
 			savePost() {
@@ -677,6 +669,7 @@
 		// width: 100rpx;
 		// height: 100rpx;
 		display: inline;
+		z-index: 10;
 	}
 
 	button::after {

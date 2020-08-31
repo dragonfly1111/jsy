@@ -44,38 +44,7 @@
 		<view class="member_equity">
 			<text class=".equity_title">会员权益</text>
 			<view class="equity_list">
-				<view class="equity_module">
-					<image src="../../static/member/btn7.png" mode=""></image>
-					<text>账号保护</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn6.png" mode=""></image>
-					<text>生日礼包</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn2.png" mode=""></image>
-					<text>独家礼券</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn5.png" mode=""></image>
-					<text>会员权益</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn8.png" mode=""></image>
-					<text>专属优惠</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn4.png" mode=""></image>
-					<text>会员奖励</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn3.png" mode=""></image>
-					<text>分享好友</text>
-				</view>
-				<view class="equity_module">
-					<image src="../../static/member/btn1.png" mode=""></image>
-					<text>爱心服务</text>
-				</view>
+				<image :src="imgHttp+memberObj[currentType].qyimgsrc" mode="widthFix"></image>
 			</view>
 			
 		</view>

@@ -4,8 +4,8 @@
 			<block slot="content">{{clssName}}</block>
 		</cu-custom>
 		<view class="swiper_head banner">
-			<swiper class="screen-swiper square-dot" :indicator-dots="true" :circular="true" :autoplay="true" interval="5000"
-			 duration="500">
+			<swiper class="screen-swiper" :class="headSwiper.length > 1 ? 'square-dot' :''" :indicator-dots="headSwiper.length > 1 ? true : false" :circular="true" :autoplay="true" interval="5000">
+	
 				<swiper-item v-for="(item,index) in headSwiper" :key='index'>
 					<view class="swiper-item" @click="toSwiper(item.type,item.imgurl)">
 						<image :src="imgHttp+item.imgsrc" mode=""></image>
@@ -31,7 +31,28 @@
 				</view>
 			</view>
 			<view class="goods-wrapper">
-				<view class="flex flex-wrap">
+				<view class="goods_list">
+					<view class="goods" @click="toGoodDetail(item.id)" v-for="(item, index) in goods[breedActive].arr" :key='index'>
+						<image class="goods_img" :src="imgHttp+item.cover" mode=""></image>
+						<view style="padding: 15rpx 12rpx;">
+							<view class="goods_name">
+								<view class="title">{{item.name}}</view>
+							</view>
+									
+							<view class="price_box">
+								<view class="price_left">
+									<text class="symbol">￥</text><text class="price">{{item.sellingprice}}</text>
+									<!-- <text class="unit">/{{item.unit}}</text> -->
+								</view>
+								<image class="cart" src="../../static/home/cart.png" mode=""></image>
+							</view>
+						</view>
+						
+					</view>
+				</view>
+				
+				
+				<!-- <view class="flex flex-wrap">
 					<view class="basis-df" @click="toGoodDetail(item.id)" v-for="(item, index) in goods[breedActive].arr" :class="{'right': index % 2 != 0}">
 						<view class="image-wrapper">
 							<image :src="imgHttp + item.cover"></image>
@@ -48,7 +69,7 @@
 							<text class="lg cuIcon-cart"></text>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<floatWindows :showFloat="true"></floatWindows>
@@ -158,6 +179,7 @@ export default{
 		return {
 			/* new */
 			imgHttp: '',
+			indicatorDots: false,
 			searchKey: '',
 			goods: [], //商品数组
 			classId: '',
@@ -183,9 +205,12 @@ export default{
 		getSwiperTop: function() {
 			let self = this;
 			this.ask("/app/index/getIndexCarousel", "GET", {
-				pid: 'productType'
+				pid: 'productType',
+				title: this.clssName
 			}, function(res) {
-				self.headSwiper = res.data.data;
+				self.headSwiper = res.data.data.filter(item=>{
+					return item.statu == 1
+				});
 		
 			})
 		},
@@ -233,6 +258,7 @@ export default{
 				try {
 					let breedList = data.filter((item) => item.id === this.classId)[0].classify
 					this.clssName = data.filter((item) => item.id === this.classId)[0].name
+					this.getSwiperTop()
 					for (let i = 0; i < breedList.length; i++) {
 						let di = breedList[i]
 						this.breedList.push(di)
@@ -275,7 +301,6 @@ export default{
 	onLoad(option) {
 		this.classId = option.type
 		this.getClassify()
-		this.getSwiperTop()
 		
 		this.imgHttp = this.comHttp
 		console.log(this.imgHttp + "/marketResources/upload/2008/20088c7d0a15d26841dabdfa3743d6386be7.png")

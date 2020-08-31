@@ -12,7 +12,8 @@
 		</view>
 		<image class="banner" :src="imgHttp + seasonObj.terms_img"></image>
 		<view class="food_ad">
-			<image src="../../static/food_ad.png"  mode="aspectFit"></image>
+			<!-- src="../../static/food_ad.png" -->
+			<image v-show="seasonObj.bz_img" :src="imgHttp + seasonObj.bz_img" mode="widthFix"></image>
 		</view>
 		<view class="iframe-view">
 			<rich-text v-html="seasonObj.desc"></rich-text>
@@ -217,7 +218,7 @@
 		padding-bottom: 40rpx;
 		image {
 			width: 100%;
-			height: 230rpx;
+			// height: 230rpx;
 		}
 	}
 	.recommend_wrapper {

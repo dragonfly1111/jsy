@@ -9,7 +9,7 @@
 		// justify-content: center;
 		align-items: center;
 		background-color: #F1F1F1;
-		width: calc(100% - 40rpx);
+		width: calc(100% - 60rpx);
 		border-radius: 40rpx;
 		margin: 0 auto 20rpx auto;
 		// padding-left: 30rpx;
@@ -48,7 +48,7 @@
 		.swiper-item{
 			width: 100%;
 			height: 100%;	
-			padding: 0 20rpx;
+			padding: 0 30rpx;
 		}
 	}
 	.head_nav{
@@ -97,18 +97,20 @@
 	}
 	
 	.advertising{
+		width: calc(100% - 60rpx);
+		margin: 0 auto;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: space-between;
 		padding-bottom: 40rpx;
 		.ad-item{
-			height: 139rpx;
-			width: 330rpx;
-			margin-bottom: 40rpx;
+			height: 140rpx;
+			width: 335rpx;
+			margin-bottom: 22rpx;
 		}
 		
 		.right{
-			margin-left: 40rpx;
+			margin-left: 20rpx;
 			// text-align: right;
 		}
 		
@@ -125,8 +127,7 @@
 		}
 	}
 	.title_type{
-		width: calc(100% - 50rpx);
-		margin: 0 auto;
+		width: calc(100% - 60rpx);
 		color: #857827;
 		display: flex;
 		justify-content: space-between;
@@ -134,19 +135,19 @@
 		background-color: #F1F1F1;
 		height: 70rpx;
 		// margin-bottom: 30rpx;
-		margin: 0 25rpx 30rpx 25rpx;
+		margin: 0 auto 30rpx auto;
 		
 		.title{
 			font-size: 28rpx;
 			line-height: 28rpx;
 			// font-weight: bold;
 			position: relative;
-			padding-left: 68rpx;
+			padding-left: 48rpx;
 		}
 		.title::before{
 			content: "||";
 			position: absolute;
-			left: 52rpx;
+			left: 30rpx;
 			font-size: 28rpx;
 			line-height: 28rpx;
 		}
@@ -164,8 +165,9 @@
 		}
 	}
 	.goods_list{
-		width: 100%;
-		padding: 0 25rpx;
+		width: calc(100% - 60rpx);
+		// padding: 0 20rpx;
+		margin: 0 auto;
 		// padding: 30rpx 0rpx;
 		display: flex;
 		justify-content: space-between;
@@ -173,6 +175,11 @@
 		flex-wrap: wrap;
 		background-color: #f8f8f8;
 	}
+	
+	.goods:nth-child(2n){
+		margin-left: 20rpx;
+	}
+	
 	.goods{
 		width: 335rpx;
 		// display: flex;
@@ -180,8 +187,9 @@
 		// justify-content: flex-start;
 		// align-items: center;
 		margin-bottom: 30rpx;
+		
 		color: #857825;
-		height: 461rpx;
+		height: 470rpx;
 	    // border-radius: 10rpx;
 		background-color: #FFFFFF;
 		position: relative;
@@ -196,10 +204,10 @@
 		}
 		.goods_name{
 			margin-bottom: 30rpx;
-			width: 325rpx;
+			width: 100%;
 			.title{
-				width: 325rpx;
-				font-size: 24rpx;
+				width: 100%;
+				font-size: 28rpx;
 				color: #333333;
 
 				display: -webkit-box;
@@ -226,15 +234,15 @@
 				font-size: 24rpx;
 				.symbol{
 					font-size: 19rpx;
-					color: #857825;
+					color: #f74845;
 					margin-right: 5rpx;
 				}
 				.price{
-					color: #857825;
+					color: #f74845;
 					// font-weight: bold;
 				}
 				.unit{
-					color: #9E9E9E;
+					color: #f74845;
 				}
 			}
 			image{

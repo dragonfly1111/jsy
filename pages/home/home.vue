@@ -380,7 +380,9 @@
 				this.ask("/app/index/getIndexCarousel", "GET", {
 					pid: 'index'
 				}, function(res) {
-					self.headSwiper = res.data.data;
+					self.headSwiper = res.data.data.filter(item=>{
+						return item.statu == 1
+					});
 
 				})
 			},

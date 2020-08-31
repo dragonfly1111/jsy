@@ -149,8 +149,8 @@
 	height: 130rpx;
 	padding: 0rpx 36rpx;
 	image{
-		width: 197rpx;
-		height: 81rpx;
+		width: 306rpx;
+		height: 72rpx;
 	}
 	.go-shop{
 		color: #7D7834;
@@ -265,7 +265,7 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 126rpx;
+	height: 106rpx;
 	background-color: #fff;
 	display: flex;
 	justify-content: space-between;
@@ -440,20 +440,15 @@
 	}
 }
 
-.share-box {
-	position: fixed;
-	bottom: -950rpx;
+.stupid-party-a{
 	background-color: #FFFFFF;
-	border-top-left-radius: 40rpx;
-	border-top-right-radius: 40rpx;
-	height: 900rpx;
-	width: 100%;
-	text-align: center;
-	z-index: 10001;
-	box-shadow: 0 5rpx 20rpx 10rpx #999999;
+	.pz-title{
+		font-size: 32rpx;
+		text-align: center;
+		margin-top: 50rpx;
+	}
 	image{
 		width: 80%;
-		height: 579rpx;
 		margin: 50rpx auto 0 auto;
 	}
 	.but{
@@ -464,24 +459,10 @@
 		line-height: 60rpx;
 		height: 60rpx;
 		text-align: center;
-		margin: 100rpx auto 0 auto;
+		margin: 50rpx auto;
 	}
 }
 
-
-.show-sheet {
-	animation: showShare 0.2s forwards;
-}
-
-@keyframes showShare {
-	0% {
-		bottom: -950rpx;
-	}
-
-	100% {
-		bottom: 0rpx;
-	}
-}
 
 .item-num{
 	display: flex;
